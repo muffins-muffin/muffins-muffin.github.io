@@ -1,7 +1,7 @@
 title: "내 블로그"
 description: "Hello, world!"
 url: "https://muffins-muffin.github.io"
-baseurl: ""  # 사용자 사이트는 빈 문자열
+baseurl: "muffins-muffin"  #
 locale: "ko-KR"
 
 remote_theme: "mmistakes/minimal-mistakes"
