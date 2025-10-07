@@ -1,3 +1,4 @@
+# <repo-root>/index.md
 ---
 layout: home
 title: 홈
