@@ -1,0 +1,7 @@
+main:
+  - title: "홈"
+    url: /
+  - title: "블로그"
+    url: /year-archive/
+  - title: "소개(팜플렛)"
+    url: /pamphlet/
