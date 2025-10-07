@@ -1,0 +1,15 @@
+title: "내 블로그"
+description: "Hello, world!"
+url: "https://username.github.io"
+baseurl: ""  # 사용자 사이트는 빈 문자열
+locale: "ko-KR"
+
+remote_theme: "mmistakes/minimal-mistakes"
+
+plugins:
+  - jekyll-feed
+  - jekyll-sitemap
+
+defaults:
+  - scope: { path: "", type: posts }
+    values: { layout: single, author_profile: true, read_time: true, share: true, related: true }
