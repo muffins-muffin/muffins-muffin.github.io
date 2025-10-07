@@ -1,15 +1,5 @@
-title: "내 블로그"
-description: "Hello, world!"
-url: "https://muffins-muffin.github.io"
-baseurl: "/muffins-muffin"  #
-locale: "ko-KR"
-
-remote_theme: "mmistakes/minimal-mistakes"
-
 plugins:
+  - jekyll-remote-theme
   - jekyll-feed
   - jekyll-sitemap
-
-defaults:
-  - scope: { path: "", type: posts }
-    values: { layout: single, author_profile: true, read_time: true, share: true, related: true }
+  - jekyll-include-cache
