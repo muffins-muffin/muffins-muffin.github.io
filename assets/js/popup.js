@@ -17,7 +17,6 @@
   function hidePopup(){
     popup.hidden = true;
     popup.setAttribute('aria-hidden','true');
-    try { localStorage.setItem('site_popup_seen','1'); } catch(e){}
   }
 
   // Expose helpers for console/testing
@@ -38,13 +37,6 @@
     if(e.key === 'Escape' && !popup.hidden){ hidePopup(); }
   });
 
-  // Show once per user (localStorage) unless ?showpopup=1 in URL
-  var params = new URLSearchParams(window.location.search);
-  var force = params.get('showpopup') === '1';
-  var seen = false;
-  try{ seen = localStorage.getItem('site_popup_seen') === '1'; }catch(e){}
-  if(force || !seen){
-    // delay a bit
-    setTimeout(showPopup, 900);
-  }
+  // Always show popup on page load (per request)
+  setTimeout(showPopup, 900);
 })();
