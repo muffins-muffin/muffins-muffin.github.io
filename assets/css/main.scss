@@ -23,3 +23,29 @@ $custom-accent-color: #e91e63 !default;
   font-size: 1.25rem;
   color: $custom-accent-color;
 }
+
+// Background image settings
+// Save the attached image as `assets/images/background-galaxy.jpg`
+$site-background-image: "/assets/images/background-galaxy.jpg" !default;
+$site-background-fallback: #0b1020 !default;
+
+body {
+  // full-page background with gentle overlay for text readability
+  background-color: $site-background-fallback;
+  background-image: linear-gradient(rgba(11,16,32,0.55), rgba(11,16,32,0.55)), url(#{$site-background-image});
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-attachment: fixed;
+  background-size: cover;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+// Reduce heavy background on small screens for performance
+@media (max-width: 640px) {
+  body {
+    background-attachment: scroll;
+    background-image: linear-gradient(rgba(11,16,32,0.7), rgba(11,16,32,0.7)), url(#{$site-background-image});
+    background-position: top center;
+  }
+}
