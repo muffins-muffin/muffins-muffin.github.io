@@ -88,6 +88,20 @@ body {
   animation: bgPulse 7s ease-in-out infinite;
 }
 
+/* Flicker effect: quick flashes */
+@keyframes bgFlicker {
+  0% { opacity: 1; }
+  10% { opacity: 0.2; }
+  20% { opacity: 1; }
+  30% { opacity: 0.4; }
+  40% { opacity: 1; }
+  100% { opacity: 1; }
+}
+
+.page__hero.bg-flicker::after {
+  animation: bgFlicker 2s linear infinite;
+}
+
 /* fallback: explicit hidden state */
 .page__hero.bg-hidden::after{ opacity: 0; }
 
