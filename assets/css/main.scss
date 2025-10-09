@@ -71,10 +71,24 @@ body {
   background-position: center center;
   background-repeat: no-repeat;
   opacity: 1;
-  transition: opacity 500ms ease;
+  transition: opacity 700ms ease-in-out;
   z-index: 0;
   pointer-events: none;
 }
+
+/* Smooth pulsing fade animation (gradient-like) */
+@keyframes bgPulse {
+  0% { opacity: 1; }
+  50% { opacity: 0.25; }
+  100% { opacity: 1; }
+}
+
+/* When animating, run a slow ease-in-out pulse */
+.page__hero.bg-animating::after {
+  animation: bgPulse 7s ease-in-out infinite;
+}
+
+/* fallback: explicit hidden state */
 .page__hero.bg-hidden::after{ opacity: 0; }
 
 .page__hero .page__title {

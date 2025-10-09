@@ -75,23 +75,14 @@
     heroEl.style.setProperty('--hero-bg-url', bg.replace(/^url\((?:\"|\')?|(?:\"|\')?\)$/g, ''));
   }
 
-  var intervalId = null;
-  var visible = false;
-
   var obs = new IntersectionObserver(function(entries){
     entries.forEach(function(entry){
       if(entry.isIntersecting){
-        visible = true;
-        // start toggling every 3.5s
-        if(!intervalId){
-          intervalId = setInterval(function(){
-            heroEl.classList.toggle('bg-hidden');
-          }, 3500);
-        }
+        // add smooth animating class
+        heroEl.classList.add('bg-animating');
       } else {
-        visible = false;
-        if(intervalId){ clearInterval(intervalId); intervalId = null; }
-        // ensure background visible when not in view
+        heroEl.classList.remove('bg-animating');
+        // ensure not hidden
         heroEl.classList.remove('bg-hidden');
       }
     });
