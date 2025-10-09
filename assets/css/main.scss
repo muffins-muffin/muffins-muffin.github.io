@@ -4,6 +4,10 @@ search: false
 ---
 
 @charset "utf-8";
+// Custom theme variables (use !default so theme/skins can override)
+// You can move these into a dedicated variables partial if preferred.
+$custom-brand-color: #1a73e8 !default;
+$custom-accent-color: #e91e63 !default;
 
 @import "minimal-mistakes/skins/{{ site.minimal_mistakes_skin | default: 'default' }}"; // skin
 @import "minimal-mistakes"; // main partials
@@ -11,11 +15,11 @@ search: false
 /* 헤더의 사이트 제목(타이틀) */
 .masthead .site-title {
   font-size: 2rem;      /* 크기 */
-  color: #1a73e8 !important;  /* 색상 */
+  color: $custom-brand-color;  /* 색상 */
 }
 
 /* 작성자 이름(사이드바/프로필 카드) */
 .author__name {
   font-size: 1.25rem;
-  color: #e91e63 !important;
+  color: $custom-accent-color;
 }
