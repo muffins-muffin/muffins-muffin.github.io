@@ -1,44 +1,52 @@
-// Simple hero scroll fade and light parallax
+// Improved hero animation: IntersectionObserver to reveal elements and lightweight parallax
 (function(){
   'use strict';
 
-  function onScroll(){
-    var hero = document.querySelector('.page__hero--overlay, .page__hero');
-    if(!hero) return;
+  var hero = document.querySelector('.page__hero--overlay, .page__hero');
+  if(!hero) return;
 
-    var rect = hero.getBoundingClientRect();
-    var windowH = window.innerHeight || document.documentElement.clientHeight;
-    var visible = Math.max(0, Math.min(rect.bottom, windowH) - Math.max(rect.top, 0));
-    var ratio = visible / Math.min(rect.height, windowH);
+  var title = hero.querySelector('.page__title');
+  var lead = hero.querySelector('.page__lead');
 
-    // Fade title and lead slightly when scrolled
-    var title = hero.querySelector('.page__title');
-    var lead = hero.querySelector('.page__lead');
-    var caption = hero.querySelector('.page__hero-caption');
+  // Parallax variables
+  var speed = 0.18;
+  var rafPending = false;
 
-    var opacity = Math.max(0, Math.min(1, ratio));
-    if(title) title.style.opacity = opacity;
-    if(lead) lead.style.opacity = opacity;
-    if(caption) caption.style.opacity = opacity;
-
-    // Parallax: move background position a little based on scroll
-    var speed = 0.25; // lower is slower
-    var offset = (window.scrollY || window.pageYOffset) * speed;
-    hero.style.backgroundPosition = 'center calc(50% + ' + (offset * 0.1) + 'px)';
+  function onParallax(){
+    var offset = window.pageYOffset || document.documentElement.scrollTop || 0;
+    // small translate for background effect
+    hero.style.backgroundPosition = 'center calc(50% + ' + Math.round(offset * speed) + 'px)';
   }
 
-  var rafPending = false;
-  function rafScroll(){
+  function onScrollRaf(){
     if(!rafPending){
       rafPending = true;
-      requestAnimationFrame(function(){ rafPending = false; onScroll(); });
+      requestAnimationFrame(function(){
+        rafPending = false;
+        onParallax();
+      });
     }
   }
 
-  document.addEventListener('scroll', rafScroll, {passive: true});
-  window.addEventListener('resize', rafScroll);
+  // IntersectionObserver to add 'in-view' class when hero top area is visible
+  var io = new IntersectionObserver(function(entries){
+    entries.forEach(function(entry){
+      if(entry.isIntersecting){
+        hero.classList.add('in-view');
+      } else {
+        hero.classList.remove('in-view');
+      }
+    });
+  }, { root: null, threshold: [0, 0.25, 0.5, 0.75, 1] });
+
+  io.observe(hero);
+
+  // listen for scroll/resize for parallax
+  document.addEventListener('scroll', onScrollRaf, {passive:true});
+  window.addEventListener('resize', onScrollRaf);
+
+  // initial
   document.addEventListener('DOMContentLoaded', function(){
-    // initial run
-    onScroll();
+    onParallax();
   });
 })();
