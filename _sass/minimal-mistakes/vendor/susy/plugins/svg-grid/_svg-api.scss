@@ -1,40 +1,38 @@
-/// Plugin: SVG Grid Image
+/// 플러그인: SVG Grid Image
 /// ======================
 /// @group plugin_svg-grid
 /// @see susy-svg-grid
 
 
 
-/// ## Overview
-/// If you want to generate svg-backgrounds
-/// for help visualizing and debugging your grids,
-/// import the SVG Grid Plugin.
+/// ## 개요
+/// 그리드를 시각화하고 디버깅하는 데 도움이 되는
+/// SVG 배경을 생성하려면
+/// SVG Grid 플러그인을 임포트하세요.
 ///
-/// The plugin adds `svg-grid-colors` setting
-/// to your global defaults,
-/// which you can override in `$susy`.
-/// It also provides you with a new function,
-/// `susy-svg-grid()`,
-/// which will return inline svg for use in
-/// backgrounds or generated content.
+/// 이 플러그인은 전역 기본값에 `svg-grid-colors` 설정을 추가하며,
+/// `$susy`에서 이를 재정의할 수 있습니다.
+/// 또한 새로운 함수 `susy-svg-grid()`를 제공하여,
+/// 배경이나 생성된 콘텐츠에서 사용할
+/// 인라인 SVG를 반환합니다.
 ///
-/// This function come with an unprefixed alias by default,
-/// using the `svg-grid` import.
-/// If you only only want prefixed versions of the API,
-/// import the `svg-grid/prefix` partial instead.
+/// 기본적으로 `svg-grid` 임포트를 사용하면
+/// 접두사 없는(unprefixed) 별칭이 함께 제공됩니다.
+/// API의 접두사 버전만 원한다면,
+/// 대신 `svg-grid/prefix` 파셜을 임포트하세요.
 ///
 /// @group plugin_svg-grid
 ///
-/// @example scss - importing the plugin
-///   // The full path to import Susy will depend on your setup…
+/// @example scss - 플러그인 임포트
+///   // Susy를 임포트하는 전체 경로는 환경에 따라 달라집니다…
 ///
-///   // unprefixed
+///   // 접두사 없음(unprefixed)
 ///   @import 'plugins/svg-grid';
 ///
-///   // prefixed
+///   // 접두사 있음(prefixed)
 ///   @import 'plugins/svg-grid/prefix';
 ///
-/// @example scss - generating background grids
+/// @example scss - 배경 그리드 생성
 ///   .grid {
 ///     background: susy-svg-grid() no-repeat scroll;
 ///   }
@@ -43,22 +41,22 @@
 
 // SVG Grid
 // --------
-/// Return inline svg-data in  to display the grid.
+/// 그리드를 표시하기 위한 인라인 SVG 데이터를 반환합니다.
 ///
 /// @group plugin_svg-grid
 ///
 /// @param {Map | List} $grid [$susy] -
-///   Map or shorthand defining the current grid
+///   현재 그리드를 정의하는 맵 또는 단축(shorthand)
 /// @param {Color | List | null} $colors [null] -
-///   Column color, or list of colors for column-gradient,
-///   used to override the global `svg-grid-colors` setting
+///   컬럼 색상 또는 컬럼 그라디언트를 위한 색상 리스트.
+///   전역 `svg-grid-colors` 설정을 덮어쓰는 데 사용됩니다.
 /// @param {Length | null} $offset [null] -
-///   Manually override the default grid-image offset,
-///   to account for grid edges
+///   그리드 가장자리를 고려하여
+///   기본 그리드 이미지 오프셋을 수동으로 재정의합니다.
 ///
 /// @return {String} -
-///   CSS inline-data SVG string, in `url(<svg>)` format,
-///   for use in image or content properties
+///   이미지나 콘텐츠 속성에서 사용할
+///   `url(<svg>)` 형식의 CSS 인라인 데이터 SVG 문자열
 /// @example scss
 ///   .grid {
 ///     background: susy-svg-grid() no-repeat scroll;
@@ -68,10 +66,10 @@
   $colors: null,
   $offset: null
 ) {
-  // Grid parsing & normalizing
+  // 그리드 파싱 및 정규화
   $grid: susy-compile($grid, $context-only: true);
 
-  // Color and gradient handling
+  // 색상 및 그라디언트 처리
   $gradient: '';
 
   @if (not $colors) {
@@ -85,7 +83,7 @@
     $colors: _susy-svg-color($colors);
   }
 
-  // Get a default image-width
+  // 기본 이미지 너비 계산
   $span: (
     'span': map-get($grid, 'columns'),
     'spread': map-get($grid, 'container-spread'),
@@ -94,7 +92,7 @@
   $image-width: su-call('su-span', $span);
   $image-width: if((type-of($image-width) == 'number'), $image-width, 100%);
 
-  // SVG construction
+  // SVG 구성
   $columns: map-get($grid, 'columns');
   $offset: $offset or _susy-svg-offset($grid);
 

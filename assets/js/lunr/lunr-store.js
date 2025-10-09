@@ -2,6 +2,17 @@
 layout: none
 ---
 
+/**
+ * 검색용 데이터 스토어 생성
+ * Jekyll이 빌드할 때 모든 콜렉션과 페이지의 내용을 JSON 형태로 변환합니다.
+ * 각 문서는 다음 필드를 포함합니다:
+ * - title: 문서 제목
+ * - excerpt: 내용 발췌 (search_full_content=true면 전체 내용)
+ * - categories: 카테고리 목록
+ * - tags: 태그 목록
+ * - url: 문서 URL
+ * - teaser: 미리보기 이미지 (있는 경우)
+ */
 var store = [
   {%- for c in site.collections -%}
     {%- if forloop.last -%}

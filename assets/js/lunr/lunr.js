@@ -1,5 +1,14 @@
 /**
- * lunr - http://lunrjs.com - A bit like Solr, but much smaller and not as bright - 2.3.9
+ * lunr - http://lunrjs.com
+ * Solr와 비슷하지만 더 작고 가벼운 검색 엔진 - 버전 2.3.9
+ * 
+ * 주요 기능:
+ * - 전문 검색 (Full-text search)
+ * - 검색어 가중치 부여 (Boosting)
+ * - 검색어 변형 처리 (Stemming)
+ * - 불용어 제거 (Stop words)
+ * - 인덱스 생성과 검색 파이프라인
+ * 
  * Copyright (C) 2020 Oliver Nightingale
  * @license MIT
  */
@@ -7,17 +16,17 @@
 ;(function(){
 
 /**
- * A convenience function for configuring and constructing
- * a new lunr Index.
- *
- * A lunr.Builder instance is created and the pipeline setup
- * with a trimmer, stop word filter and stemmer.
- *
- * This builder object is yielded to the configuration function
- * that is passed as a parameter, allowing the list of fields
- * and other builder parameters to be customised.
- *
- * All documents _must_ be added within the passed config function.
+ * 새로운 lunr 인덱스를 구성하고 생성하기 위한 편의 함수입니다.
+ * 
+ * lunr.Builder 인스턴스가 생성되며, 검색 파이프라인이 다음과 함께 설정됩니다:
+ * - trimmer (공백/특수문자 제거)
+ * - stop word filter (불용어 제거)
+ * - stemmer (어간 추출)
+ * 
+ * 이 빌더 객체는 설정 함수에 전달되어, 검색할 필드 목록과
+ * 다른 빌더 매개변수를 사용자 정의할 수 있게 합니다.
+ * 
+ * 모든 문서는 반드시 전달된 설정 함수 내에서 추가되어야 합니다.
  *
  * @example
  * var idx = lunr(function () {
@@ -61,15 +70,17 @@ lunr.version = "2.3.9"
  */
 
 /**
- * A namespace containing utils for the rest of the lunr library
+ * lunr 라이브러리의 나머지 부분에서 사용하는 유틸리티 함수들을 포함하는 네임스페이스입니다.
+ * 여기에는 경고 메시지 출력, 객체를 문자열로 변환하는 등의 헬퍼 함수들이 포함됩니다.
  * @namespace lunr.utils
  */
 lunr.utils = {}
 
 /**
- * Print a warning message to the console.
+ * 콘솔에 경고 메시지를 출력합니다.
+ * 개발 중 문제점을 발견했을 때 사용자에게 알리는 용도로 사용됩니다.
  *
- * @param {String} message The message to be printed.
+ * @param {String} message 출력할 경고 메시지
  * @memberOf lunr.utils
  * @function
  */
@@ -84,14 +95,14 @@ lunr.utils.warn = (function (global) {
 })(this)
 
 /**
- * Convert an object to a string.
+ * 객체를 문자열로 변환합니다.
+ * 
+ * `null`이나 `undefined`의 경우 빈 문자열("")을 반환하고,
+ * 그 외의 모든 경우에는 전달된 객체의 `toString` 메서드를
+ * 호출한 결과를 반환합니다.
  *
- * In the case of `null` and `undefined` the function returns
- * the empty string, in all other cases the result of calling
- * `toString` on the passed object is returned.
- *
- * @param {Any} obj The object to convert to a string.
- * @return {String} string representation of the passed object.
+ * @param {Any} obj 문자열로 변환할 객체
+ * @return {String} 객체의 문자열 표현
  * @memberOf lunr.utils
  */
 lunr.utils.asString = function (obj) {
@@ -103,20 +114,18 @@ lunr.utils.asString = function (obj) {
 }
 
 /**
- * Clones an object.
+ * 객체를 얕게(clone) 복사합니다.
  *
- * Will create a copy of an existing object such that any mutations
- * on the copy cannot affect the original.
+ * 복사본에 대한 변경은 원본에 영향을 주지 않습니다.
+ * 단, 이 함수는 얕은 복사만 지원하며 중첩된 객체를 포함하면
+ * TypeError가 발생합니다.
  *
- * Only shallow objects are supported, passing a nested object to this
- * function will cause a TypeError.
+ * 원시값과 원시값의 배열은 복사 대상에 적합합니다.
  *
- * Objects with primitives, and arrays of primitives are supported.
- *
- * @param {Object} obj The object to clone.
- * @return {Object} a clone of the passed object.
- * @throws {TypeError} when a nested object is passed.
- * @memberOf Utils
+ * @param {Object} obj 복사할 객체
+ * @return {Object} 전달된 객체의 얕은 복사본
+ * @throws {TypeError} 중첩 객체를 전달한 경우
+ * @memberOf lunr.utils
  */
 lunr.utils.clone = function (obj) {
   if (obj === null || obj === undefined) {
@@ -147,14 +156,25 @@ lunr.utils.clone = function (obj) {
 
   return clone
 }
+/**
+ * 문서 필드 참조를 나타내는 객체입니다.
+ * docRef: 문서 식별자
+ * fieldName: 해당 문서 내의 필드 이름
+ * stringValue: 직렬화된 문자열 표현(필요 시 캐시)
+ */
 lunr.FieldRef = function (docRef, fieldName, stringValue) {
   this.docRef = docRef
   this.fieldName = fieldName
   this._stringValue = stringValue
 }
 
+// FieldRef를 직렬화할 때 사용할 구분자
 lunr.FieldRef.joiner = "/"
 
+/**
+ * 문자열에서 FieldRef 객체를 복원합니다.
+ * 형식은 "fieldName/docRef" 입니다.
+ */
 lunr.FieldRef.fromString = function (s) {
   var n = s.indexOf(lunr.FieldRef.joiner)
 
@@ -168,6 +188,9 @@ lunr.FieldRef.fromString = function (s) {
   return new lunr.FieldRef (docRef, fieldRef, s)
 }
 
+/**
+ * FieldRef의 문자열 표현을 반환합니다. 내부 캐시된 값이 없으면 생성합니다.
+ */
 lunr.FieldRef.prototype.toString = function () {
   if (this._stringValue == undefined) {
     this._stringValue = this.fieldName + lunr.FieldRef.joiner + this.docRef
@@ -181,7 +204,8 @@ lunr.FieldRef.prototype.toString = function () {
  */
 
 /**
- * A lunr set.
+ * lunr의 집합(set) 구현입니다.
+ * 내부적으로 해시맵 형태로 요소 존재 여부를 저장합니다.
  *
  * @constructor
  */
@@ -242,21 +266,20 @@ lunr.Set.empty = {
 }
 
 /**
- * Returns true if this set contains the specified object.
+ * 이 Set이 지정된 객체를 포함하고 있는지 여부를 반환합니다.
  *
- * @param {object} object - Object whose presence in this set is to be tested.
- * @returns {boolean} - True if this set contains the specified object.
+ * @param {object} object - 포함 여부를 검사할 객체
+ * @returns {boolean} - 포함하고 있으면 true
  */
 lunr.Set.prototype.contains = function (object) {
   return !!this.elements[object]
 }
 
 /**
- * Returns a new set containing only the elements that are present in both
- * this set and the specified set.
+ * 이 Set과 지정된 Set의 교집합을 계산하여 새로운 Set을 반환합니다.
  *
- * @param {lunr.Set} other - set to intersect with this set.
- * @returns {lunr.Set} a new set that is the intersection of this and the specified set.
+ * @param {lunr.Set} other - 교집합을 계산할 대상 Set
+ * @returns {lunr.Set} 두 집합의 교집합을 담은 새로운 Set
  */
 
 lunr.Set.prototype.intersect = function (other) {
@@ -291,10 +314,10 @@ lunr.Set.prototype.intersect = function (other) {
 }
 
 /**
- * Returns a new set combining the elements of this and the specified set.
+ * 이 Set과 지정된 Set의 합집합을 계산하여 새로운 Set을 반환합니다.
  *
- * @param {lunr.Set} other - set to union with this set.
- * @return {lunr.Set} a new set that is the union of this and the specified set.
+ * @param {lunr.Set} other - 합집합을 계산할 대상 Set
+ * @return {lunr.Set} 두 집합의 합집합을 담은 새로운 Set
  */
 
 lunr.Set.prototype.union = function (other) {
@@ -309,12 +332,12 @@ lunr.Set.prototype.union = function (other) {
   return new lunr.Set(Object.keys(this.elements).concat(Object.keys(other.elements)))
 }
 /**
- * A function to calculate the inverse document frequency for
- * a posting. This is shared between the builder and the index
+ * 주어진 포스팅(posting)에 대해 역문서빈도(inverse document frequency, IDF)를 계산합니다.
+ * 이 함수는 빌더와 인덱스에서 공통으로 사용됩니다.
  *
  * @private
- * @param {object} posting - The posting for a given term
- * @param {number} documentCount - The total number of documents.
+ * @param {object} posting - 특정 용어에 대한 포스팅 객체
+ * @param {number} documentCount - 전체 문서 수
  */
 lunr.idf = function (posting, documentCount) {
   var documentsWithTerm = 0
@@ -330,12 +353,12 @@ lunr.idf = function (posting, documentCount) {
 }
 
 /**
- * A token wraps a string representation of a token
- * as it is passed through the text processing pipeline.
+ * Token은 텍스트 처리 파이프라인을 통과하는 토큰의 문자열 표현과
+ * 해당 토큰에 연관된 메타데이터를 감싸는 객체입니다.
  *
  * @constructor
- * @param {string} [str=''] - The string token being wrapped.
- * @param {object} [metadata={}] - Metadata associated with this token.
+ * @param {string} [str=''] - 토큰 문자열
+ * @param {object} [metadata={}] - 토큰에 연결된 메타데이터
  */
 lunr.Token = function (str, metadata) {
   this.str = str || ""
@@ -343,7 +366,7 @@ lunr.Token = function (str, metadata) {
 }
 
 /**
- * Returns the token string that is being wrapped by this object.
+ * 토큰 객체가 감싸고 있는 문자열을 반환합니다.
  *
  * @returns {string}
  */
@@ -352,23 +375,22 @@ lunr.Token.prototype.toString = function () {
 }
 
 /**
- * A token update function is used when updating or optionally
- * when cloning a token.
+ * 토큰을 갱신할 때 또는 복사할 때 사용되는 업데이트 함수의 형식 정의입니다.
  *
  * @callback lunr.Token~updateFunction
- * @param {string} str - The string representation of the token.
- * @param {Object} metadata - All metadata associated with this token.
+ * @param {string} str - 토큰의 문자열 표현
+ * @param {Object} metadata - 토큰에 연관된 모든 메타데이터
  */
 
 /**
- * Applies the given function to the wrapped string token.
+ * 전달된 함수를 토큰 문자열에 적용합니다.
  *
  * @example
  * token.update(function (str, metadata) {
  *   return str.toUpperCase()
  * })
  *
- * @param {lunr.Token~updateFunction} fn - A function to apply to the token string.
+ * @param {lunr.Token~updateFunction} fn - 토큰 문자열에 적용할 함수
  * @returns {lunr.Token}
  */
 lunr.Token.prototype.update = function (fn) {
@@ -377,10 +399,9 @@ lunr.Token.prototype.update = function (fn) {
 }
 
 /**
- * Creates a clone of this token. Optionally a function can be
- * applied to the cloned token.
+ * 이 토큰의 복사본을 생성합니다. 복사본에 대해 선택적으로 함수를 적용할 수 있습니다.
  *
- * @param {lunr.Token~updateFunction} [fn] - An optional function to apply to the cloned token.
+ * @param {lunr.Token~updateFunction} [fn] - 복사본에 적용할 선택적 함수
  * @returns {lunr.Token}
  */
 lunr.Token.prototype.clone = function (fn) {
@@ -393,20 +414,18 @@ lunr.Token.prototype.clone = function (fn) {
  */
 
 /**
- * A function for splitting a string into tokens ready to be inserted into
- * the search index. Uses `lunr.tokenizer.separator` to split strings, change
- * the value of this property to change how strings are split into tokens.
+ * 문자열을 토큰으로 분할하여 색인에 넣을 준비를 하는 함수입니다.
+ * 토큰 분리는 `lunr.tokenizer.separator` 정규식을 사용합니다.
+ * 이 값을 변경하면 토큰화 규칙을 바꿀 수 있습니다.
  *
- * This tokenizer will convert its parameter to a string by calling `toString` and
- * then will split this string on the character in `lunr.tokenizer.separator`.
- * Arrays will have their elements converted to strings and wrapped in a lunr.Token.
+ * 이 토크나이저는 입력값을 문자열로 변환한 뒤 분리 규칙에 따라 토큰을 생성합니다.
+ * 배열이 전달되면 각 원소를 문자열로 변환하여 토큰으로 감쌉니다.
  *
- * Optional metadata can be passed to the tokenizer, this metadata will be cloned and
- * added as metadata to every token that is created from the object to be tokenized.
+ * 선택적 메타데이터를 전달하면 이 메타데이터는 복사되어 생성된 모든 토큰에 붙습니다.
  *
  * @static
- * @param {?(string|object|object[])} obj - The object to convert into tokens
- * @param {?object} metadata - Optional metadata to associate with every token
+ * @param {?(string|object|object[])} obj - 토큰으로 변환할 대상
+ * @param {?object} metadata - 각 토큰과 연관시킬 선택적 메타데이터
  * @returns {lunr.Token[]}
  * @see {@link lunr.Pipeline}
  */
@@ -456,8 +475,9 @@ lunr.tokenizer = function (obj, metadata) {
 }
 
 /**
- * The separator used to split a string into tokens. Override this property to change the behaviour of
- * `lunr.tokenizer` behaviour when tokenizing strings. By default this splits on whitespace and hyphens.
+ * 문자열을 토큰으로 분리할 때 사용하는 구분자 정규식입니다.
+ * 기본값은 공백과 하이픈을 기준으로 분리합니다.
+ * 이 속성을 변경하면 토크나이저의 동작을 바꿀 수 있습니다.
  *
  * @static
  * @see lunr.tokenizer
@@ -469,31 +489,27 @@ lunr.tokenizer.separator = /[\s\-]+/
  */
 
 /**
- * lunr.Pipelines maintain an ordered list of functions to be applied to all
- * tokens in documents entering the search index and queries being ran against
- * the index.
+ * lunr.Pipeline은 검색 색인에 들어가거나 색인에 대해 실행되는 쿼리의
+ * 모든 토큰에 적용할 순서화된 함수 목록을 관리합니다.
  *
- * An instance of lunr.Index created with the lunr shortcut will contain a
- * pipeline with a stop word filter and an English language stemmer. Extra
- * functions can be added before or after either of these functions or these
- * default functions can be removed.
+ * lunr의 바로가기 함수로 생성된 인덱스 인스턴스는 불용어 필터와
+ * 영어 어간 추출기가 포함된 기본 파이프라인을 가집니다. 추가적인
+ * 함수를 앞뒤로 삽입하거나 기본 함수를 제거할 수 있습니다.
  *
- * When run the pipeline will call each function in turn, passing a token, the
- * index of that token in the original list of all tokens and finally a list of
- * all the original tokens.
+ * 파이프라인이 실행되면 각 함수가 차례대로 호출되며, 토큰과 그 토큰의
+ * 원래 토큰 목록에서의 인덱스, 그리고 전체 원래 토큰 목록이 전달됩니다.
  *
- * The output of functions in the pipeline will be passed to the next function
- * in the pipeline. To exclude a token from entering the index the function
- * should return undefined, the rest of the pipeline will not be called with
- * this token.
+ * 파이프라인 함수의 출력은 다음 함수에 전달됩니다. 토큰을 색인에 포함시키지
+ * 않으려면 함수가 undefined를 반환하면 되고, 그 토큰에 대해서는 이후의
+ * 파이프라인 함수들이 호출되지 않습니다.
  *
- * For serialisation of pipelines to work, all functions used in an instance of
- * a pipeline should be registered with lunr.Pipeline. Registered functions can
- * then be loaded. If trying to load a serialised pipeline that uses functions
- * that are not registered an error will be thrown.
+ * 파이프라인을 직렬화(serialize)하려면 파이프라인에서 사용하는 모든 함수들을
+ * `lunr.Pipeline`에 등록해야 합니다. 등록된 함수는 직렬화된 파이프라인을
+ * 다시 로드할 때 복원될 수 있습니다. 등록되지 않은 함수를 사용하는
+ * 직렬화된 파이프라인을 로드하려 하면 에러가 발생합니다.
  *
- * If not planning on serialising the pipeline then registering pipeline functions
- * is not necessary.
+ * 파이프라인을 직렬화할 계획이 없다면 함수 등록은 필수가 아닙니다.
+ */
  *
  * @constructor
  */
@@ -934,12 +950,12 @@ lunr.Vector.prototype.toJSON = function () {
  */
 
 /**
- * lunr.stemmer is an english language stemmer, this is a JavaScript
- * implementation of the PorterStemmer taken from http://tartarus.org/~martin
+ * lunr.stemmer는 영어용 어간 추출기(stemmer)입니다. 이 구현은
+ * PorterStemmer의 자바스크립트 버전을 사용합니다 (원본: http://tartarus.org/~martin).
  *
  * @static
  * @implements {lunr.PipelineFunction}
- * @param {lunr.Token} token - The string to stem
+ * @param {lunr.Token} token - 어간 추출 대상 토큰
  * @returns {lunr.Token}
  * @see {@link lunr.Pipeline}
  * @function
@@ -1942,28 +1958,27 @@ lunr.Index.prototype.search = function (queryString) {
  */
 
 /**
- * Performs a query against the index using the yielded lunr.Query object.
+ * 인덱스에 대해 lunr.Query 객체를 사용하여 쿼리를 수행합니다.
  *
- * If performing programmatic queries against the index, this method is preferred
- * over lunr.Index#search so as to avoid the additional query parsing overhead.
+ * 프로그램적으로 쿼리를 생성하는 경우에는 쿼리 파싱 오버헤드를 피하기
+ * 위해 이 메서드를 `lunr.Index#search` 대신 사용하는 것이 권장됩니다.
  *
- * A query object is yielded to the supplied function which should be used to
- * express the query to be run against the index.
+ * 제공된 함수는 쿼리 객체를 전달받아 실행되어야 하며, 이 쿼리 객체에 대해
+ * 조건을 구성하면 해당 쿼리가 인덱스에 대해 실행됩니다.
  *
- * Note that although this function takes a callback parameter it is _not_ an
- * asynchronous operation, the callback is just yielded a query object to be
- * customized.
+ * 이 함수는 콜백을 인자로 받지만 비동기 작업이 아닙니다. 단순히 쿼리 객체를
+ * 사용자 정의하기 위해 콜백에 전달되는 동기 방식입니다.
  *
- * @param {lunr.Index~queryBuilder} fn - A function that is used to build the query.
+ * @param {lunr.Index~queryBuilder} fn - 쿼리를 구성하는 데 사용되는 함수.
  * @returns {lunr.Index~Result[]}
  */
 lunr.Index.prototype.query = function (fn) {
-  // for each query clause
-  // * process terms
-  // * expand terms from token set
-  // * find matching documents and metadata
-  // * get document vectors
-  // * score documents
+  // 각 쿼리 절(clause)에 대해
+  // * 용어(term) 처리
+  // * 토큰셋에서 용어 확장
+  // * 일치 문서와 메타데이터 검색
+  // * 문서 벡터 가져오기
+  // * 문서 점수 계산
 
   var query = new lunr.Query(this.fields),
       matchingFields = Object.create(null),
@@ -1973,9 +1988,8 @@ lunr.Index.prototype.query = function (fn) {
       prohibitedMatches = Object.create(null)
 
   /*
-   * To support field level boosts a query vector is created per
-   * field. An empty vector is eagerly created to support negated
-   * queries.
+   * 필드별 부스트(boost)를 지원하기 위해 각 필드마다 쿼리 벡터를 생성합니다.
+   * 부정(negated) 쿼리를 지원하기 위해 빈 벡터를 미리 생성합니다.
    */
   for (var i = 0; i < this.fields.length; i++) {
     queryVectors[this.fields[i]] = new lunr.Vector
@@ -1984,14 +1998,12 @@ lunr.Index.prototype.query = function (fn) {
   fn.call(query, query)
 
   for (var i = 0; i < query.clauses.length; i++) {
-    /*
-     * Unless the pipeline has been disabled for this term, which is
-     * the case for terms with wildcards, we need to pass the clause
-     * term through the search pipeline. A pipeline returns an array
-     * of processed terms. Pipeline functions may expand the passed
-     * term, which means we may end up performing multiple index lookups
-     * for a single query term.
-     */
+  /*
+   * 와일드카드와 같이 파이프라인이 비활성화된 경우를 제외하고는
+   * 절(clause)의 용어를 검색 파이프라인에 통과시켜야 합니다. 파이프라인은
+   * 처리된 용어들의 배열을 반환합니다. 파이프라인 함수는 용어를 확장할 수
+   * 있으므로 단일 쿼리 용어에 대해 여러 색인 조회가 발생할 수 있습니다.
+   */
     var clause = query.clauses[i],
         terms = null,
         clauseMatches = lunr.Set.empty
@@ -2007,28 +2019,25 @@ lunr.Index.prototype.query = function (fn) {
     for (var m = 0; m < terms.length; m++) {
       var term = terms[m]
 
-      /*
-       * Each term returned from the pipeline needs to use the same query
-       * clause object, e.g. the same boost and or edit distance. The
-       * simplest way to do this is to re-use the clause object but mutate
-       * its term property.
-       */
+  /*
+   * 파이프라인에서 반환된 각 용어는 동일한 쿼리 절 객체를 사용해야 합니다.
+   * (예: 동일한 boost나 edit distance). 가장 간단한 방법은 절 객체를 재사용하고
+   * term 속성만 변경하는 것입니다.
+   */
       clause.term = term
 
-      /*
-       * From the term in the clause we create a token set which will then
-       * be used to intersect the indexes token set to get a list of terms
-       * to lookup in the inverted index
-       */
+  /*
+   * 절의 용어로부터 토큰셋을 생성하고, 이를 인덱스의 토큰셋과 교차시켜
+   * 역인덱스에서 조회할 용어 목록을 얻습니다.
+   */
       var termTokenSet = lunr.TokenSet.fromClause(clause),
           expandedTerms = this.tokenSet.intersect(termTokenSet).toArray()
 
-      /*
-       * If a term marked as required does not exist in the tokenSet it is
-       * impossible for the search to return any matches. We set all the field
-       * scoped required matches set to empty and stop examining any further
-       * clauses.
-       */
+  /*
+   * 필수(required)로 표시된 용어가 토큰셋에 존재하지 않으면 검색 결과가
+   * 존재할 수 없습니다. 이 경우 필드 범위의 required 매치들을 빈 집합으로
+   * 설정하고 더 이상 절을 검사하지 않습니다.
+   */
       if (expandedTerms.length === 0 && clause.presence === lunr.Query.presence.REQUIRED) {
         for (var k = 0; k < clause.fields.length; k++) {
           var field = clause.fields[k]
@@ -2039,22 +2048,20 @@ lunr.Index.prototype.query = function (fn) {
       }
 
       for (var j = 0; j < expandedTerms.length; j++) {
-        /*
-         * For each term get the posting and termIndex, this is required for
-         * building the query vector.
-         */
+  /*
+   * 각 용어에 대해 posting과 termIndex를 가져옵니다. 이는 쿼리 벡터를
+   * 구성하는 데 필요합니다.
+   */
         var expandedTerm = expandedTerms[j],
             posting = this.invertedIndex[expandedTerm],
             termIndex = posting._index
 
         for (var k = 0; k < clause.fields.length; k++) {
           /*
-           * For each field that this query term is scoped by (by default
-           * all fields are in scope) we need to get all the document refs
-           * that have this term in that field.
+           * 이 쿼리 용어가 적용되는 각 필드(기본적으로 모든 필드)에 대해,
+           * 해당 필드에 이 용어를 갖는 모든 문서 참조(ref)를 구해야 합니다.
            *
-           * The posting is the entry in the invertedIndex for the matching
-           * term from above.
+           * posting은 위에서 찾은 해당 용어의 역인덱스 항목입니다.
            */
           var field = clause.fields[k],
               fieldPosting = posting[field],
@@ -2063,9 +2070,8 @@ lunr.Index.prototype.query = function (fn) {
               matchingDocumentsSet = new lunr.Set(matchingDocumentRefs)
 
           /*
-           * if the presence of this term is required ensure that the matching
-           * documents are added to the set of required matches for this clause.
-           *
+           * 이 용어의 출현이 required인 경우, 일치하는 문서들을 이 절의
+           * required 매치 집합에 추가해야 합니다.
            */
           if (clause.presence == lunr.Query.presence.REQUIRED) {
             clauseMatches = clauseMatches.union(matchingDocumentsSet)
@@ -2076,9 +2082,8 @@ lunr.Index.prototype.query = function (fn) {
           }
 
           /*
-           * if the presence of this term is prohibited ensure that the matching
-           * documents are added to the set of prohibited matches for this field,
-           * creating that set if it does not yet exist.
+           * 이 용어의 출현이 금지(PROHIBITED)된 경우, 일치하는 문서들을 해당
+           * 필드의 prohibited 매치 집합에 추가합니다. 해당 집합이 없으면 생성합니다.
            */
           if (clause.presence == lunr.Query.presence.PROHIBITED) {
             if (prohibitedMatches[field] === undefined) {
@@ -2088,25 +2093,22 @@ lunr.Index.prototype.query = function (fn) {
             prohibitedMatches[field] = prohibitedMatches[field].union(matchingDocumentsSet)
 
             /*
-             * Prohibited matches should not be part of the query vector used for
-             * similarity scoring and no metadata should be extracted so we continue
-             * to the next field
+             * 금지된 매치는 유사도 점수 계산에 사용되는 쿼리 벡터에 포함되어서는
+             * 안되며 메타데이터도 추출하지 않으므로 다음 필드로 진행합니다.
              */
             continue
           }
 
           /*
-           * The query field vector is populated using the termIndex found for
-           * the term and a unit value with the appropriate boost applied.
-           * Using upsert because there could already be an entry in the vector
-           * for the term we are working with. In that case we just add the scores
-           * together.
+           * 쿼리 필드 벡터는 용어의 termIndex와 단위 값(unit value)에 적절한
+           * boost를 적용하여 채워집니다. 이미 벡터에 항목이 있을 수 있으므로
+           * upsert를 사용하며 이 경우 점수를 합산합니다.
            */
           queryVectors[field].upsert(termIndex, clause.boost, function (a, b) { return a + b })
 
           /**
-           * If we've already seen this term, field combo then we've already collected
-           * the matching documents and metadata, no need to go through all that again
+           * 이미 동일한 용어-필드 조합을 처리한 적이 있으면 해당 문서와 메타데이터를
+           * 이미 수집했으므로 다시 처리할 필요가 없습니다.
            */
           if (termFieldCache[termField]) {
             continue
@@ -2114,10 +2116,9 @@ lunr.Index.prototype.query = function (fn) {
 
           for (var l = 0; l < matchingDocumentRefs.length; l++) {
             /*
-             * All metadata for this term/field/document triple
-             * are then extracted and collected into an instance
-             * of lunr.MatchData ready to be returned in the query
-             * results
+             * 용어/필드/문서 트리플에 대한 모든 메타데이터를 추출하여
+             * lunr.MatchData 인스턴스에 수집합니다. 이 MatchData는 쿼리 결과로
+             * 반환될 준비가 됩니다.
              */
             var matchingDocumentRef = matchingDocumentRefs[l],
                 matchingFieldRef = new lunr.FieldRef (matchingDocumentRef, field),
@@ -2137,12 +2138,11 @@ lunr.Index.prototype.query = function (fn) {
       }
     }
 
-    /**
-     * If the presence was required we need to update the requiredMatches field sets.
-     * We do this after all fields for the term have collected their matches because
-     * the clause terms presence is required in _any_ of the fields not _all_ of the
-     * fields.
-     */
+  /**
+   * 만약 presence가 required이면 requiredMatches 필드 집합을 갱신해야 합니다.
+   * 이는 용어의 모든 필드에서 매치를 수집한 후에 수행합니다. 왜냐하면 절의
+   * 용어가 요구되는 것은 모든 필드가 아니라 "어떤" 필드에 존재해야 하기 때문입니다.
+   */
     if (clause.presence === lunr.Query.presence.REQUIRED) {
       for (var k = 0; k < clause.fields.length; k++) {
         var field = clause.fields[k]
@@ -2152,9 +2152,8 @@ lunr.Index.prototype.query = function (fn) {
   }
 
   /**
-   * Need to combine the field scoped required and prohibited
-   * matching documents into a global set of required and prohibited
-   * matches
+   * 필드 범위로 계산된 required 및 prohibited 매치들을 전역의 required/prohibited
+   * 집합으로 결합해야 합니다.
    */
   var allRequiredMatches = lunr.Set.complete,
       allProhibitedMatches = lunr.Set.empty
@@ -2176,14 +2175,11 @@ lunr.Index.prototype.query = function (fn) {
       matches = Object.create(null)
 
   /*
-   * If the query is negated (contains only prohibited terms)
-   * we need to get _all_ fieldRefs currently existing in the
-   * index. This is only done when we know that the query is
-   * entirely prohibited terms to avoid any cost of getting all
-   * fieldRefs unnecessarily.
+   * 쿼리가 완전히 부정(오직 금지된 용어만 포함)된 경우에는 인덱스에
+   * 존재하는 모든 fieldRef를 가져와야 합니다. 모든 fieldRef를 가져오는 비용을
+   * 피하기 위해 쿼리가 전적으로 금지 용어일 때만 수행합니다.
    *
-   * Additionally, blank MatchData must be created to correctly
-   * populate the results.
+   * 또한 올바른 결과 생성을 위해 빈 MatchData도 생성해야 합니다.
    */
   if (query.isNegated()) {
     matchingFieldRefs = Object.keys(this.fieldVectors)
@@ -2196,14 +2192,14 @@ lunr.Index.prototype.query = function (fn) {
   }
 
   for (var i = 0; i < matchingFieldRefs.length; i++) {
-    /*
-     * Currently we have document fields that match the query, but we
-     * need to return documents. The matchData and scores are combined
-     * from multiple fields belonging to the same document.
-     *
-     * Scores are calculated by field, using the query vectors created
-     * above, and combined into a final document score using addition.
-     */
+  /*
+   * 현재 쿼리와 일치하는 문서의 필드들이 존재하지만 실제로는 문서를
+   * 반환해야 합니다. matchData와 점수는 동일한 문서에 속한 여러 필드로부터
+   * 결합됩니다.
+   *
+   * 점수는 위에서 생성된 쿼리 벡터를 사용해 필드별로 계산되고, 더하기 연산으로
+   * 최종 문서 점수로 합쳐집니다.
+   */
     var fieldRef = lunr.FieldRef.fromString(matchingFieldRefs[i]),
         docRef = fieldRef.docRef
 
@@ -2234,7 +2230,7 @@ lunr.Index.prototype.query = function (fn) {
   }
 
   /*
-   * Sort the results objects by score, highest first.
+   * 결과 객체들을 점수 내림차순(높은 점수 우선)으로 정렬합니다.
    */
   return results.sort(function (a, b) {
     return b.score - a.score
@@ -2609,12 +2605,10 @@ lunr.Builder.prototype.createFieldVectors = function () {
       score *= fieldBoost
       score *= docBoost
       scoreWithPrecision = Math.round(score * 1000) / 1000
-      // Converts 1.23456789 to 1.234.
-      // Reducing the precision so that the vectors take up less
-      // space when serialised. Doing it now so that they behave
-      // the same before and after serialisation. Also, this is
-      // the fastest approach to reducing a number's precision in
-      // JavaScript.
+  // 1.23456789를 1.234로 변환합니다.
+  // 벡터를 직렬화할 때 차지하는 공간을 줄이기 위해 소수점 자릿수를
+  // 낮춥니다. 직렬화 전후 동작을 동일하게 유지하기 위해 이 시점에
+  // 처리합니다. 또한 자바스크립트에서 수의 정밀도를 줄이는 가장 빠른 방법입니다.
 
       fieldVector.insert(termIndex, scoreWithPrecision)
     }
@@ -2626,7 +2620,7 @@ lunr.Builder.prototype.createFieldVectors = function () {
 }
 
 /**
- * Creates a token set of all tokens in the index using lunr.TokenSet
+ * 인덱스에 있는 모든 토큰으로부터 lunr.TokenSet을 생성합니다.
  *
  * @private
  */
@@ -2637,10 +2631,10 @@ lunr.Builder.prototype.createTokenSet = function () {
 }
 
 /**
- * Builds the index, creating an instance of lunr.Index.
+ * 인덱스를 빌드하여 lunr.Index 인스턴스를 생성합니다.
  *
- * This completes the indexing process and should only be called
- * once all documents have been added to the index.
+ * 이 호출은 인덱싱 과정을 완료하며 모든 문서가 인덱스에 추가된 이후에만
+ * 호출되어야 합니다.
  *
  * @returns {lunr.Index}
  */
@@ -2659,18 +2653,16 @@ lunr.Builder.prototype.build = function () {
 }
 
 /**
- * Applies a plugin to the index builder.
+ * 인덱스 빌더에 플러그인을 적용합니다.
  *
- * A plugin is a function that is called with the index builder as its context.
- * Plugins can be used to customise or extend the behaviour of the index
- * in some way. A plugin is just a function, that encapsulated the custom
- * behaviour that should be applied when building the index.
+ * 플러그인은 인덱스 빌더를 컨텍스트로 하여 호출되는 함수입니다. 플러그인을
+ * 통해 인덱스 동작을 사용자화하거나 확장할 수 있습니다. 플러그인은 인덱스
+ * 빌더에 적용할 커스텀 동작을 캡슐화한 함수입니다.
  *
- * The plugin function will be called with the index builder as its argument, additional
- * arguments can also be passed when calling use. The function will be called
- * with the index builder as its context.
+ * use를 호출할 때 추가 인수를 전달할 수 있으며, 플러그인 함수는 인덱스
+ * 빌더를 인자로 받습니다.
  *
- * @param {Function} plugin The plugin to apply.
+ * @param {Function} plugin 적용할 플러그인 함수.
  */
 lunr.Builder.prototype.use = function (fn) {
   var args = Array.prototype.slice.call(arguments, 1)
@@ -2678,26 +2670,23 @@ lunr.Builder.prototype.use = function (fn) {
   fn.apply(this, args)
 }
 /**
- * Contains and collects metadata about a matching document.
- * A single instance of lunr.MatchData is returned as part of every
- * lunr.Index~Result.
+ * 문서 일치에 대한 메타데이터를 포함하고 수집합니다.
+ * lunr.Index~Result의 일부로 lunr.MatchData의 인스턴스가 반환됩니다.
  *
  * @constructor
- * @param {string} term - The term this match data is associated with
- * @param {string} field - The field in which the term was found
- * @param {object} metadata - The metadata recorded about this term in this field
- * @property {object} metadata - A cloned collection of metadata associated with this document.
+ * @param {string} term - 이 MatchData와 연관된 용어
+ * @param {string} field - 용어가 발견된 필드
+ * @param {object} metadata - 해당 필드에서 이 용어에 대해 기록된 메타데이터
+ * @property {object} metadata - 이 문서와 연관된 메타데이터의 복제본
  * @see {@link lunr.Index~Result}
  */
 lunr.MatchData = function (term, field, metadata) {
   var clonedMetadata = Object.create(null),
       metadataKeys = Object.keys(metadata || {})
 
-  // Cloning the metadata to prevent the original
-  // being mutated during match data combination.
-  // Metadata is kept in an array within the inverted
-  // index so cloning the data can be done with
-  // Array#slice
+  // MatchData를 결합하는 동안 원본 메타데이터가 변경되는 것을 방지하기 위해
+  // 메타데이터를 복제합니다. 메타데이터는 역인덱스 내에서 배열로 보관되므로
+  // 복제는 Array#slice로 수행할 수 있습니다.
   for (var i = 0; i < metadataKeys.length; i++) {
     var key = metadataKeys[i]
     clonedMetadata[key] = metadata[key].slice()
@@ -2712,12 +2701,11 @@ lunr.MatchData = function (term, field, metadata) {
 }
 
 /**
- * An instance of lunr.MatchData will be created for every term that matches a
- * document. However only one instance is required in a lunr.Index~Result. This
- * method combines metadata from another instance of lunr.MatchData with this
- * objects metadata.
+ * 문서와 일치하는 각 용어에 대해 lunr.MatchData 인스턴스가 생성됩니다. 하지만
+ * lunr.Index~Result에는 하나의 인스턴스만 필요합니다. 이 메서드는 다른 lunr.MatchData
+ * 인스턴스의 메타데이터를 현재 객체의 메타데이터와 병합합니다.
  *
- * @param {lunr.MatchData} otherMatchData - Another instance of match data to merge with this one.
+ * @param {lunr.MatchData} otherMatchData - 병합할 다른 MatchData 인스턴스
  * @see {@link lunr.Index~Result}
  */
 lunr.MatchData.prototype.combine = function (otherMatchData) {
@@ -2754,11 +2742,11 @@ lunr.MatchData.prototype.combine = function (otherMatchData) {
 }
 
 /**
- * Add metadata for a term/field pair to this instance of match data.
+ * 이 MatchData 인스턴스에 용어/필드 쌍에 대한 메타데이터를 추가합니다.
  *
- * @param {string} term - The term this match data is associated with
- * @param {string} field - The field in which the term was found
- * @param {object} metadata - The metadata recorded about this term in this field
+ * @param {string} term - 이 MatchData와 연관된 용어
+ * @param {string} field - 용어가 발견된 필드
+ * @param {object} metadata - 해당 필드에서 이 용어에 대해 기록된 메타데이터
  */
 lunr.MatchData.prototype.add = function (term, field, metadata) {
   if (!(term in this.metadata)) {
@@ -3446,30 +3434,28 @@ lunr.QueryParser.parseBoost = function (parser) {
 }
 
   /**
-   * export the module via AMD, CommonJS or as a browser global
-   * Export code from https://github.com/umdjs/umd/blob/master/returnExports.js
+   * AMD, CommonJS 또는 브라우저 전역으로 모듈을 내보냅니다.
+   * Export 코드 출처: https://github.com/umdjs/umd/blob/master/returnExports.js
    */
   ;(function (root, factory) {
     if (typeof define === 'function' && define.amd) {
-      // AMD. Register as an anonymous module.
+      // AMD: 익명 모듈로 등록합니다.
       define(factory)
     } else if (typeof exports === 'object') {
       /**
-       * Node. Does not work with strict CommonJS, but
-       * only CommonJS-like enviroments that support module.exports,
-       * like Node.
+       * Node 환경. strict CommonJS와는 동작하지 않지만 module.exports를 지원하는
+       * CommonJS 유사 환경(예: Node)에서 동작합니다.
        */
       module.exports = factory()
     } else {
-      // Browser globals (root is window)
+      // 브라우저 전역 (root는 window)
       root.lunr = factory()
     }
   }(this, function () {
-    /**
-     * Just return a value to define the module export.
-     * This example returns an object, but the module
-     * can return a function as the exported value.
-     */
+  /**
+   * 모듈 내보내기를 정의하기 위해 값을 반환합니다.
+   * 이 예시는 객체를 반환하지만 모듈은 함수 등 다른 값도 반환할 수 있습니다.
+   */
     return lunr
   }))
 })();
