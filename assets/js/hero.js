@@ -50,3 +50,52 @@
     onParallax();
   });
 })();
+
+// Background flicker/show-hide effect: toggle .bg-hidden while hero is in view
+(function(){
+  var heroEl = document.querySelector('.page__hero--overlay, .page__hero');
+  if(!heroEl) return;
+
+  // Try to extract background-image url from inline style or computed style
+  function extractBgUrl(el){
+    var inline = el.style.backgroundImage;
+    if(inline && inline.indexOf('url(') !== -1){
+      return inline;
+    }
+    var cs = window.getComputedStyle(el);
+    if(cs && cs.backgroundImage && cs.backgroundImage.indexOf('url(') !== -1){
+      return cs.backgroundImage;
+    }
+    return null;
+  }
+
+  var bg = extractBgUrl(heroEl);
+  if(bg){
+    // set CSS variable for ::after
+    heroEl.style.setProperty('--hero-bg-url', bg.replace(/^url\((?:\"|\')?|(?:\"|\')?\)$/g, ''));
+  }
+
+  var intervalId = null;
+  var visible = false;
+
+  var obs = new IntersectionObserver(function(entries){
+    entries.forEach(function(entry){
+      if(entry.isIntersecting){
+        visible = true;
+        // start toggling every 3.5s
+        if(!intervalId){
+          intervalId = setInterval(function(){
+            heroEl.classList.toggle('bg-hidden');
+          }, 3500);
+        }
+      } else {
+        visible = false;
+        if(intervalId){ clearInterval(intervalId); intervalId = null; }
+        // ensure background visible when not in view
+        heroEl.classList.remove('bg-hidden');
+      }
+    });
+  }, { threshold: 0.5 });
+
+  obs.observe(heroEl);
+})();
