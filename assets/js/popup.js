@@ -20,6 +20,16 @@
     try { localStorage.setItem('site_popup_seen','1'); } catch(e){}
   }
 
+  // Expose helpers for console/testing
+  window.showSitePopup = function(){
+    try{ localStorage.removeItem('site_popup_seen'); }catch(e){}
+    showPopup();
+  };
+  window.resetSitePopupSeen = function(){
+    try{ localStorage.removeItem('site_popup_seen'); }catch(e){}
+    if(window.alert) console.log('site_popup_seen removed from localStorage');
+  };
+
   closeBtn.addEventListener('click', hidePopup);
   actionBtn.addEventListener('click', hidePopup);
   backdrop.addEventListener('click', hidePopup);
