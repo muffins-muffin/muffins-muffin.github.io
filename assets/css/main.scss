@@ -52,3 +52,58 @@ body {
     background-position: top center;
   }
 }
+
+/* Hero and masthead customizations */
+.page__hero--overlay, .page__hero {
+  padding: 4rem 0;
+  display: flex;
+  align-items: center;
+}
+
+.page__hero .wrapper {
+  width: 100%;
+  max-width: 980px;
+  margin: 0 auto;
+  text-align: center;
+  color: #fff; // hero text color
+}
+
+.page__hero .page__title {
+  font-size: 3rem;
+  line-height: 1.05;
+  margin: 0 0 0.5rem;
+  transition: opacity 250ms ease, transform 300ms ease;
+  transform: translateY(0);
+}
+
+.page__hero .page__lead {
+  font-size: 1.125rem;
+  margin-bottom: 1rem;
+  opacity: 0.95;
+  transition: opacity 250ms ease;
+}
+
+.page__hero .btn {
+  margin-top: 1rem;
+  display: inline-block;
+  padding: 0.75rem 1.25rem;
+  border-radius: 6px;
+  border: 1px solid rgba(255,255,255,0.85);
+  color: #fff;
+  background: rgba(255,255,255,0.05);
+  transition: background 150ms ease, transform 120ms ease;
+}
+.page__hero .btn:hover{ background: rgba(255,255,255,0.12); transform: translateY(-2px); }
+
+/* Masthead overrides for a cleaner look */
+.masthead {
+  background: rgba(255,255,255,0.02);
+  border-bottom: 1px solid rgba(255,255,255,0.03);
+}
+.masthead .site-title{ font-weight:700; color: #fff; }
+.masthead__menu a{ color: rgba(255,255,255,0.9); }
+
+@media (max-width: 640px){
+  .page__hero .page__title{ font-size: 2rem; }
+  .page__hero{ padding: 3rem 0; }
+}
