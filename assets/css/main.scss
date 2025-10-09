@@ -102,6 +102,14 @@ body {
   animation: bgFlicker 2s linear infinite;
 }
 
+/* Popup styles */
+.site-popup { position: fixed; inset: 0; display: flex; align-items: center; justify-content: center; z-index: 9999; }
+.site-popup[hidden]{ display:none; }
+.site-popup__backdrop { position: absolute; inset: 0; background: rgba(0,0,0,0.6); }
+.site-popup__panel { position: relative; background: #fff; color: #111; padding: 1.5rem; border-radius: 8px; width: 95%; max-width: 520px; box-shadow: 0 8px 30px rgba(0,0,0,0.3); z-index: 2; }
+.site-popup__close { position: absolute; top: 8px; right: 8px; background: transparent; border: none; font-size: 1.4rem; cursor: pointer; }
+.site-popup__action { margin-top: 0.5rem; }
+
 /* fallback: explicit hidden state */
 .page__hero.bg-hidden::after{ opacity: 0; }
 

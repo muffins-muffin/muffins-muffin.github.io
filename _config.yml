@@ -242,15 +242,7 @@ pagination:
 # 추가 스크립트(빌드 후 footer에 삽입될 스크립트 경로)
 after_footer_scripts:
   - /assets/js/hero.js
-  limit: 0
-  sort_field: 'date'
-  sort_reverse: true
-  category: 'posts'
-  tag: ''
-  locale: ''
-  trail:
-    before: 2
-    after: 2
+  - /assets/js/popup.js
 
 # 플러그인 목록
 plugins:

@@ -80,10 +80,12 @@
       if(entry.isIntersecting){
         // add smooth animating class
         heroEl.classList.add('bg-animating');
+        heroEl.classList.add('bg-flicker');
       } else {
         heroEl.classList.remove('bg-animating');
         // ensure not hidden
         heroEl.classList.remove('bg-hidden');
+        heroEl.classList.remove('bg-flicker');
       }
     });
   }, { threshold: 0.5 });
