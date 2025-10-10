@@ -1,292 +1,43 @@
-minimal_mistakes_skin    : "default" # 스킨 선택: "air", "aqua", "contrast", "dark", "dirt", "neon", "mint", "plum", "sunrise"
+# Welcome to Jekyll!
+#
+# This config file is meant for settings that affect your whole blog, values
+# which you are expected to set up once and rarely edit after that. If you find
+# yourself editing this file very often, consider using Jekyll's data files
+# feature for the data you need to update frequently.
+#
+# For technical reasons, this file is *NOT* reloaded automatically when you use
+# 'bundle exec jekyll serve'. If you change this file, please restart the server process.
 
-# 사이트 기본 설정
-locale                   : "en-US"
-rtl                      : # true면 RTL(오른쪽→왼쪽) 언어 방향을 사용, 기본은 false
-title                    : "Bread"
-title_separator          : "-"       # 제목과 부제(혹은 포스트 제목) 사이의 구분자
-subtitle                 : # 사이트 타이틀 아래에 보이는 태그라인
-name                     : "cookie"
-description              : "An amazing website."
-url                      : # 사이트의 기본 호스트 이름과 프로토콜 (예: "https://mmistakes.github.io")
-baseurl                  : # 사이트의 서브경로(프로젝트 페이지일 때 사용, 예: "/blog")
-repository               : # 깃허브 사용자/리포 이름 (예: "mmistakes/minimal-mistakes")
-teaser                   : # 기본 티저 이미지 경로 (예: "/assets/images/500x300.png")
-logo                     : # 마스트헤드에 표시할 로고 경로 (예: "/assets/images/88x88.png")
-masthead_title           : # 마스트헤드에 표시되는 사이트 제목을 재정의(공백 " " 입력 시 제목 숨김)
-breadcrumbs              : # true면 브레드크럼 표시, 기본은 false
-words_per_minute         : 200        # 읽는 속도(분당 단어 수) 추정값
-enable_copy_code_button  : # 코드블록에 복사 버튼 표시 여부 (true/false)
-copyright                : # 저작권 표기(기본은 site.title)
-copyright_url            : # 저작권 링크(기본은 site.url)
-comments:
-  provider               : # 댓글 제공자: false(기본), "disqus", "discourse", "facebook", "staticman", "staticman_v2", "utterances", "giscus", "custom"
-  disqus:
-    shortname            : # https://help.disqus.com/customer/portal/articles/466208-what-s-a-shortname-
-  discourse:
-    server               : # 임베드용 Discourse 서버 (예: meta.discourse.org)
-  facebook:
-    # https://developers.facebook.com/docs/plugins/comments
-    appid                :
-    num_posts            : # 기본 5
-    colorscheme          : # "light"(기본), "dark"
-  utterances:
-    theme                : # "github-light"(기본), "github-dark"
-    issue_term           : # 이슈 매핑: "pathname"(기본) 등
-  giscus:
-    repo_id              : # https://giscus.app 설정 시 표시됨
-    category_name        : # 카테고리의 전체 이름
-    category_id          : # https://giscus.app 설정 시 표시됨
-    discussion_term      : # "pathname"(기본), "url", "title", "og:title"
-    reactions_enabled    : # 반응 사용: '1' 사용(기본), '0' 비활성화
-    theme                : # "light"(기본), "dark", "dark_dimmed", "transparent_dark", "preferred_color_scheme"
-    strict               : # 엄격 모드: 1 사용, 0 비활성화(기본)
-    input_position       : # 입력 위치: "top" 또는 "bottom"
-    emit_metadata        : # 메타데이터 전송: 1 사용, 0 비활성화(기본)
-    lang                 : # 언어 코드 (기본 "en")
-    lazy                 : # true면 댓글 컨테이너 근처까지 스크롤 시 로드
-  staticman:
-    branch               : # 예: "master"
-    endpoint             : # 예: "https://{당신의 Staticman v3 API}/v3/entry/github/"
-reCaptcha:
-  siteKey                :
-  secret                 :
-atom_feed:
-  path                   : # 비우면 기본 feed.xml 사용
-  hide                   : # true면 피드 숨김, 기본은 false
-search                   : # 사이트 검색 사용 여부 (true/false)
-search_full_content      : # 전체 본문 검색 여부 (true/false)
-search_provider          : # 검색 제공자: lunr(기본), algolia, google
-lunr:
-  search_within_pages    : # 페이지 내부 검색 허용 (true/false)
-algolia:
-  application_id         : # ALGOLIA APP ID
-  index_name             : # 인덱스 이름
-  search_only_api_key    : # Search-Only API 키
-  powered_by             : # "powered by Algolia" 표기: true(기본)/false
-google:
-  search_engine_id       : # 커스텀 검색 엔진 ID
-  instant_search         : # 인스턴트 검색: true/false(기본 false)
-# SEO 관련
-google_site_verification :
-bing_site_verification   :
-naver_site_verification  :
-yandex_site_verification :
-baidu_site_verification  :
+# Site settings
+# These are used to personalize your new site. If you look in the HTML files,
+# you will see them accessed via {{ site.title }}, {{ site.email }}, and so on.
+# You can create any custom variable you would like, and they will be accessible
+# in the templates via {{ site.myvariable }}.
+title: Alain's Tech Blog
+name: Alain's Tech Blog
+description: 
+  This is a blog of someone passionate about technology who wants to share some of the things he knows
+  about Application Development, Integration, Cloud, Big Data and Digital Transformation
+baseurl: "" # the subpath of your site, e.g. /blog
+github_username:  alainpham
 
-# 소셜 공유
-twitter:
-  username               :
-facebook:
-  username               :
-  app_id                 :
-  publisher              :
-og_image                 : # Open Graph/Twitter 기본 사이트 이미지
-# 소셜 프로필 지정
-# 참고: https://developers.google.com/structured-data/customize/social-profiles
-social:
-  type                   : # Person 또는 Organization (기본은 Person)
-  name                   : # 사이트 이름과 다른 사용자/조직 이름
-  links: # 소셜 미디어 프로필 링크 배열
+# jekyll-paginate configuration
+paginate: 10
 
-# 분석(Analytics)
-analytics:
-  provider               : # false(기본), "google", "google-universal", "google-gtag", "custom"
-  google:
-    tracking_id          :
-    anonymize_ip         : # IP 익명화: true/false(기본 false)
-
-# 사이트 작성자 정보
-author:
-  name             : "Your Name"
-  avatar           : # 아바타 이미지 경로 (예: "/assets/images/bio-photo.jpg")
-  bio              : "I am an **amazing** person."
-  location         : "Somewhere"
-  email            :
-  links:
-    - label: "Email"
-      icon: "fas fa-fw fa-envelope-square"
-      # url: "mailto:your.name@email.com"
-    - label: "Website"
-      icon: "fas fa-fw fa-link"
-      # url: "https://your-website.com"
-    - label: "Twitter"
-      icon: "fab fa-fw fa-twitter-square"
-      # url: "https://twitter.com/"
-    - label: "Facebook"
-      icon: "fab fa-fw fa-facebook-square"
-      # url: "https://facebook.com/"
-    - label: "GitHub"
-      icon: "fab fa-fw fa-github"
-      # url: "https://github.com/"
-    - label: "Instagram"
-      icon: "fab fa-fw fa-instagram"
-      # url: "https://instagram.com/"
-
-# 사이트 푸터
-footer:
-  links:
-    - label: "Twitter"
-      icon: "fab fa-fw fa-twitter-square"
-      # url:
-    - label: "Facebook"
-      icon: "fab fa-fw fa-facebook-square"
-      # url:
-    - label: "GitHub"
-      icon: "fab fa-fw fa-github"
-      # url:
-    - label: "GitLab"
-      icon: "fab fa-fw fa-gitlab"
-      # url:
-    - label: "Bitbucket"
-      icon: "fab fa-fw fa-bitbucket"
-      # url:
-    - label: "Instagram"
-      icon: "fab fa-fw fa-instagram"
-      # url:
-  since: "2013"
-
-# 읽기 관련
-include:
-  - .htaccess
-  - _pages
-exclude:
-  - "*.sublime-project"
-  - "*.sublime-workspace"
-  - vendor
-  - .asset-cache
-  - .bundle
-  - .jekyll-assets-cache
-  - .sass-cache
-  - assets/js/plugins
-  - assets/js/_main.js
-  - assets/js/vendor
-  - Capfile
-  - CHANGELOG
-  - config
-  - Gemfile
-  - Gruntfile.js
-  - gulpfile.js
-  - LICENSE
-  - log
-  - minimal-mistakes-jekyll.gemspec
-  - node_modules
-  - package.json
-  - package-lock.json
-  - Rakefile
-  - README
-  - tmp
-  - /docs # Minimal Mistakes의 /docs 디렉터리는 무시
-  - /test # Minimal Mistakes의 /test 디렉터리는 무시
-keep_files:
-  - .git
-  - .svn
-encoding: "utf-8"
-markdown_ext: "markdown,mkdown,mkdn,mkd,md"
-
-# 변환(빌드) 설정
+# Build settings
 markdown: kramdown
-highlighter: rouge
-lsi: false
-excerpt_separator: "\n\n"
-incremental: false
-
-# 마크다운 처리
-kramdown:
-  input: GFM
-  hard_wrap: false
-  auto_ids: true
-  footnote_nr: 1
-  entity_output: as_char
-  toc_levels: 1..6
-  smart_quotes: lsquo,rsquo,ldquo,rdquo
-  enable_coderay: false
-
-# Sass/SCSS 설정
-sass:
-  sass_dir: _sass
-  style: compressed # 출력 스타일(압축)
-
-# 출력 경로/링크
-permalink: /:categories/:title/
-timezone: # 타임존(https://en.wikipedia.org/wiki/List_of_tz_database_time_zones)
-
-# jekyll-paginate를 이용한 페이지네이션
-paginate: 5 # 한 페이지에 보여줄 포스트 수
-paginate_path: /page:num/
-
-# jekyll-paginate-v2 사용 시 설정(필요 시 주석 해제)
-# 문서: https://github.com/sverrirs/jekyll-paginate-v2/blob/master/README-GENERATOR.md#site-configuration
-pagination:
-  # enabled: true   # v2 사용 시 true로 설정
-  debug: false
-  collection: 'posts'
-  per_page: 10
-  permalink: '/page/:num/'
-  title: ':title - page :num'
-
-# 추가 스크립트(빌드 후 footer에 삽입될 스크립트 경로)
-after_footer_scripts:
-  - /assets/js/hero.js
-  - /assets/js/popup.js
-
-# 플러그인 목록
+#theme: minima
 plugins:
-  - jekyll-paginate
-  - jekyll-sitemap
-  - jekyll-gist
   - jekyll-feed
-  - jekyll-include-cache
-
-# --safe 모드에서 GitHub Pages와 유사하게 허용할 플러그인 화이트리스트
-whitelist:
-  - jekyll-paginate
   - jekyll-sitemap
-  - jekyll-gist
-  - jekyll-feed
-  - jekyll-include-cache
+  - jekyll-paginate
+exclude:
+  - Gemfile
+  - Gemfile.lock
+include: ["_pages"]
+permalink: /posts/:title/
+excerpt_separator: <!--more-->
+author: http://www.linkedin.com/in/alainpham
 
-# 아카이브(카테고리/태그) 페이지 설정
-# type: "liquid"(기본, 깃허브 페이지 호환) 또는 "jekyll-archives"(플러그인 필요)
-# path 예시:
-# - 태그 아카이브: <base_path>/tags/my-awesome-tag/index.html → path: /tags/
-# - 카테고리 아카이브: <base_path>/categories/my-awesome-category/index.html → path: /categories/
-# - 루트 아카이브: <base_path>/my-awesome-category/index.html → path: /
-category_archive:
-  type: liquid
-  path: /categories/
-tag_archive:
-  type: liquid
-  path: /tags/
-# jekyll-archives 플러그인 사용 시 예시(필요하면 주석 해제 후 사용)
-# jekyll-archives:
-#   enabled:
-#     - categories
-#     - tags
-#   layouts:
-#     category: archive-taxonomy
-#     tag: archive-taxonomy
-#   permalinks:
-#     category: /categories/:name/
-#     tag: /tags/:name/
+host: 0.0.0.0
 
-# HTML 압축
-# 참고: https://jch.penibelst.de/
-compress_html:
-  clippings: all
-  ignore:
-    envs: development
-
-# 기본값(Front Matter 기본 설정)
-defaults:
-  # _posts 폴더에 대한 기본 Front Matter
-  - scope:
-      path: ""
-      type: posts
-    values:
-      layout: single
-      author_profile: true
-      read_time: true
-      comments: # true로 설정하면 댓글 활성화
-      share: true
-      related: true  # 관련 글 표시

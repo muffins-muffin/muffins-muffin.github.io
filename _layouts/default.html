@@ -1,37 +1,56 @@
----
----
-
 <!doctype html>
-{% include copyright.html %}
-<html lang="{{ site.locale | replace: "_", "-" | default: "en" }}" class="no-js">
-  <head>
-    {% include head.html %}
-    {% include head/custom.html %}
-  </head>
+<html lang="en">
+{% include head.html %}
+<body>
+	{% include header.html %}
+	<div class="container">
 
-  <body class="layout--{{ page.layout | default: layout.layout }}{% if page.classes or layout.classes %}{{ page.classes | default: layout.classes | join: ' ' | prepend: ' ' }}{% endif %}" dir="{% if site.rtl %}rtl{% else %}ltr{% endif %}">
-    {% include_cached skip-links.html %}
-    {% include_cached masthead.html %}
+	{% if page.id %}
+	<p>
+		<strong>{{ page.published | date: '%B %d, %Y' }}</strong> ( last updated : {{ page.date | date: '%B %d, %Y' }} )
+		<br>
+		{% for tag in page.tags %}
+			<a class="label label-default" href="/tags/#{{ tag | slugify }}">{{ tag }}</a>
+		{% endfor %}
+    </p>
+	{%if page.github %}
+	<p>
+    	<a href="{{ page.github }}" class="btn btn-default">
+		    <i class="fa fa-github fa-2x"></i>  {{ page.github }}
+			</a>
+	</p>
+	{% endif %}
+	<hr>
+	<h1>Abstract</h1>
+	{% endif %}
 
-    <div class="initial-content">
-      {{ content }}
-      {% include after-content.html %}
-    </div>
+	{{ content }}
 
-    {% if site.search == true %}
-      <div class="search-content">
-        {% include_cached search/search_form.html %}
-      </div>
-    {% endif %}
 
-    <div id="footer" class="page__footer">
-      <footer>
-        {% include footer/custom.html %}
-        {% include_cached footer.html %}
-      </footer>
-    </div>
+	{% if page.id %}
+	<p>Originally published {{ page.published | date: '%B %d, %Y' }}
+    <br> Latest update {{ page.date | date: '%B %d, %Y' }}</p>
 
-    {% include popup.html %}
-    {% include scripts.html %}
-  </body>
+    <p><strong>Related posts :</strong></p>
+        <ul>
+	    {% for allpost in site.posts %}
+			  {% for tag in page.tags %}
+			  {% if allpost.tags contains tag and allpost.id != page.id %}
+			  <li>
+			      <a href="{{ allpost.url }}">
+			        {{ allpost.title }}
+			      </a>
+			  </li>
+			  {% break %}
+			  {% endif %}
+			  {% endfor %}
+		{% endfor %}
+		</ul>
+	{% endif %}
+
+	{% include disqus.html %}
+	</div>
+	{% include footer.html %}
+	{% include analytics.html %}
+</body>
 </html>
