@@ -45,6 +45,31 @@ h3:before {
 	letter-spacing: 0.2em;
 }
 
+/* Moving title animation: continuously slide left */
+.moving-title {
+	display: inline-block;
+	white-space: nowrap;
+	padding-left: 100%; /* start off to the right */
+}
+
+@keyframes slide-left {
+	0% { transform: translateX(0); }
+	100% { transform: translateX(-100%); }
+}
+
+/* Apply animation to the title; respects prefers-reduced-motion */
+@media (prefers-reduced-motion: no-preference) {
+	.moving-title {
+ 		animation: slide-left 8s linear infinite;
+ 	}
+}
+
+@media (prefers-reduced-motion: reduce) {
+ 	.moving-title {
+ 		animation: none;
+ 	}
+}
+
 .footer {
 	position: absolute;
 	padding-right: 1em;
