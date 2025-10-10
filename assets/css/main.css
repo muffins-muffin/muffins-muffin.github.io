@@ -70,6 +70,12 @@ h3:before {
  	}
 }
 
+/* Accent color for highlighted text (used in posts) */
+.accent-red {
+    color: #e74c3c;
+    font-weight: 700;
+}
+
 .footer {
 	position: absolute;
 	padding-right: 1em;
