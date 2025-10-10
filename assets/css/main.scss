@@ -1,5 +1,4 @@
 ---
-# 메인 Sass 파일만 프론트 매터가 필요합니다(대시만 있어도 충분)
 search: false
 ---
 
@@ -31,7 +30,8 @@ $site-background-image-mobile: "" !default;
 $site-background-fallback: #0b1020 !default;
 
 body {
-  // 간단한 폴백 배경색만 유지(이미지 없음)
+  // 배경 이미지를 완전히 비활성화: 폴백 배경색만 사용
+  background-image: none !important;
   background-color: $site-background-fallback;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -66,7 +66,8 @@ body {
   content: '';
   position: absolute;
   inset: 0;
-  background-image: var(--hero-bg-url, none);
+  /* 히어로 배경 이미지를 비활성화(강제) */
+  background-image: none !important;
   background-size: cover;
   background-position: center center;
   background-repeat: no-repeat;

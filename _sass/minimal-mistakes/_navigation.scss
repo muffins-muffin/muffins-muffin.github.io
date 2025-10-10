@@ -258,6 +258,27 @@
     }
   }
 
+  /* Center the masthead brand (logo + title) when present */
+  .masthead__brand {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    margin: 0 auto;
+
+    a.site-logo img {
+      height: 2.5rem;
+      width: auto;
+      display: inline-block;
+    }
+
+    a.site-title {
+      display: inline-block;
+      text-align: center;
+      font-weight: bold;
+    }
+  }
+
   .hidden-links {
     position: absolute;
     top: 100%;
