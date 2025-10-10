@@ -69,7 +69,7 @@ h3:before {
 	display: inline-block;
 }
 
-/* Navbar: change from black to bright yellow */
+/* 네비게이션바 */
 .navbar-default {
 	background-color: #ffcc00; /* bright/yellow "angry" color */
 	border-color: #e6b800;

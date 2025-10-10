@@ -7,17 +7,17 @@ disqus:
 google-ID: 'UA-91332049-1'
 
 menu: 
-  - name: Featured Projects
+  - name: cracker
     submenu:
-      - name: MicroBam
+      - name: lemon
         link: /projects/microbam
-      - name: OurLegacy
+      - name: lemon2
         link: /projects/ourlegacy
-  - name: Posts
+  - name: cookies
     link: /
-  - name: Tags
+  - name: cupcakes
     link: /tags
-  - name: About
+  - name: browines
     link: /about
   - name: Follow me
     submenu:
