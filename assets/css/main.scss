@@ -23,11 +23,6 @@ $custom-accent-color: #e91e63 !default;
   color: $custom-accent-color;
 }
 
-// 배경 이미지 설정
-// 첨부 이미지를 `assets/images/background-galaxy.jpg`로 저장하세요
-$site-background-image: "" !default;
-$site-background-image-mobile: "" !default;
-$site-background-fallback: #0b1020 !default;
 
 body {
   // 배경 이미지를 완전히 비활성화: 폴백 배경색만 사용
@@ -139,7 +134,6 @@ body {
   border: 1px solid rgba(255,255,255,0.85);
   color: #fff;
   background: rgba(255,255,255,0.05);
-  transition: background 150ms ease, transform 120ms ease;
 }
 .page__hero .btn:hover{ background: rgba(255,255,255,0.12); transform: translateY(-2px); }
 
