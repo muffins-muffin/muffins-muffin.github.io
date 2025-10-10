@@ -17,39 +17,14 @@ github: "https://github.com/alainpham/quarkus-kafka-camel-servlet"
 
 <h2>촉촉한 마을</h2>
 
-<p>In a previous article I showed how to create a hello world using Camel and Quarkus. Here We will try to do something
-    more advanced. Lets start by setting up the project</p>
+<p>칙촉쿠키
 
 {% highlight shell %}
 
-mkdir quarkus-kafka-camel-servlet
-
-cd quarkus-kafka-camel-servlet
-
-mvn io.quarkus:quarkus-maven-plugin:0.18.0:create \
--DprojectGroupId=agilabs \
--DprojectArtifactId=quarkus-kafka-camel-servlet \
--DclassName="agilabs.GreetingResource" \
--Dpath="/hello"
+초코칩 마을
 {% endhighlight %}
 
-<p>
-    Add the following dependencies to the pom.xml file.
-</p>
-{% highlight xml %}
-<dependency>
-    <groupId>io.quarkus</groupId>
-    <artifactId>quarkus-smallrye-reactive-messaging-kafka</artifactId>
-</dependency>
-<dependency>
-    <groupId>io.quarkus</groupId>
-    <artifactId>quarkus-camel-core</artifactId>
-</dependency>
-<dependency>
-    <groupId>io.quarkus</groupId>
-    <artifactId>quarkus-camel-servlet</artifactId>
-</dependency>
-{% endhighlight %}
+
 
 <h2>Configure Camel</h2>
 
