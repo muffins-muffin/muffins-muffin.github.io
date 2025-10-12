@@ -15,8 +15,6 @@ menu:
         link: /projects/microbam
       - name: lemon2
         link: /projects/ourlegacy
-  - name: cookies
-    link: /
   - name: cupcakes
     link: /tags
   - name: browines
