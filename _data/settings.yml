@@ -7,8 +7,6 @@ disqus:
 google-ID: 'UA-91332049-1'
 
 menu: 
-  - name: cooki
-    link: /
   - name: cracker
     submenu:
       - name: lemon
