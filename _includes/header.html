@@ -2,32 +2,9 @@
 	<nav class="navbar navbar-default navbar-fixed-top">
 		<div class="container-fluid">
 			<div class="navbar-header">
-				<button class="navbar-toggle collapsed" type="button"
-					data-toggle="collapse" data-target="#navbar-collapse-menu">
-					<span class="sr-only">Toggle navigation</span> <span
-						class="icon-bar"></span> <span class="icon-bar"></span> <span
-						class="icon-bar"></span>
-				</button>
 				<a class="navbar-brand" href="/" aria-label="Home">cooki</a>
-			</div>
-			<div id="navbar-collapse-menu" class="collapse navbar-collapse">
-				<!-- navbar menu intentionally removed; only brand link remains -->
-				<ul class="nav navbar-nav">
-					<!-- kept intentionally blank -->
-				</ul>
 			</div>
 		</div>
 	</nav>
-		{% if page.noimage %}
-		{% else %}
-			<img
-				alt="{{ page.title }}"
-				src="/assets/images/{{page.id}}/top.jpg" class="img-responsive hero-image">
-		{% endif %}
-
-	<div class="jumbotron  clearfix">
-
-		<h1 class="text-center"><span class="moving-title">{{ page.title }}</span></h1>
-
-	</div>
+	<!-- site-wide hero image and jumbotron title removed per user request -->
 </div>
