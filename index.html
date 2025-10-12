@@ -31,5 +31,13 @@ comments: false
 <!-- Main page posts and images removed per user request -->
 <div class="main-blank">
 	<!-- homepage intentionally left empty of posts/images/comments -->
+	<!-- Added hero image (chocochipcookie.jpg). If the JPG isn't present, an inline SVG fallback will appear. -->
+	<div class="homepage-hero" style="text-align:center; margin: 1.5rem 0;">
+	  <picture>
+	    <source srcset="/assets/images/chocochipcookie.jpg" type="image/jpeg">
+	    <!-- Inline SVG fallback cookie graphic -->
+	    <img src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='600' height='200' viewBox='0 0 600 200'><rect width='100%' height='100%' fill='%23fff8e6'/><g transform='translate(150,20)'><circle cx='100' cy='60' r='60' fill='%23d2a06f' stroke='%236b452b' stroke-width='4'/><circle cx='70' cy='40' r='6' fill='%234b2b18'/><circle cx='125' cy='70' r='8' fill='%234b2b18'/><circle cx='95' cy='95' r='7' fill='%234b2b18'/><text x='220' y='120' font-family='Arial' font-size='24' fill='%236b452b'>빵 — Choco Chip Cookie</text></g></svg>" alt="Choco Chip Cookie" class="hero-image" style="max-width:90%; height:auto;" />
+	  </picture>
+	</div>
 </div>
 	  

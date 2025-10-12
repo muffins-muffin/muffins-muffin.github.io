@@ -28,8 +28,9 @@
   <meta name="twitter:url" content="{{site.url}}{{page.url}}">
 
   <meta property="og:site_name" content="{{site.name}}" />
-  <meta property="og:image" content="{{site.url}}/assets/images/{{page.id}}/top.jpg" />
-  <meta name="twitter:image" content="{{site.url}}/assets/images/{{page.id}}/top.jpg">
+  {%- comment -%} Use a neutral site image for social previews when post content is removed {%- endcomment -%}
+  <meta property="og:image" content="{{site.url}}/icon.png" />
+  <meta name="twitter:image" content="{{site.url}}/icon.png">
 
   {% if page.id %} <!-- if it's an article -->
   <meta property="og:type" content="article" />
