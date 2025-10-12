@@ -32,13 +32,28 @@ comments: false
 <div class="main-blank">
 	<!-- homepage intentionally left empty of posts/images/comments -->
 	<!-- Added hero image (chocochipcookie.jpg). If the JPG isn't present, an inline SVG fallback will appear. -->
-	<div class="homepage-hero" style="text-align:center; margin: 1.5rem 0;">
-	  <picture>
-	    <source srcset="/assets/images/chocochipcookie.jpg" type="image/jpeg">
-	    <!-- Inline SVG fallback cookie graphic -->
-		<img src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='600' height='200' viewBox='0 0 600 200'><rect width='100%' height='100%' fill='%23fff8e6'/><g transform='translate(150,20)'><circle cx='100' cy='60' r='60' fill='%23d2a06f' stroke='%236b452b' stroke-width='4'/><circle cx='70' cy='40' r='6' fill='%234b2b18'/><circle cx='125' cy='70' r='8' fill='%234b2b18'/><circle cx='95' cy='95' r='7' fill='%234b2b18'/><text x='220' y='120' font-family='Arial' font-size='24' fill='%236b452b'>빵 — Choco Chip Cookie</text></g></svg>" alt="Choco Chip Cookie" class="hero-image" />
-	  </picture>
-	</div>
+		<div class="carousel" aria-roledescription="carousel" aria-label="Homepage images" style="margin:0;">
+			<div class="slides">
+				<div class="slide" data-title="Choco Cookie">
+					<img src="/assets/images/chocochipcookie.jpg" alt="Choco Chip Cookie" loading="lazy">
+				</div>
+				<div class="slide" data-title="Roadside">
+					<img src="/assets/images/pizza.jpg" alt="Pizza" loading="lazy">
+				</div>
+				<div class="slide" data-title="Hat Portrait">
+					<img src="/assets/images/pizza2.jpg" alt="Pizza 2" loading="lazy">
+				</div>
+			</div>
+
+			<button class="arrow left" aria-label="Previous slide">‹</button>
+			<button class="arrow right" aria-label="Next slide">›</button>
+
+			<div class="dots" role="tablist" aria-label="Slide dots">
+				<button data-index="0" class="active" aria-label="Go to slide 1"></button>
+				<button data-index="1" aria-label="Go to slide 2"></button>
+				<button data-index="2" aria-label="Go to slide 3"></button>
+			</div>
+		</div>
 
 	<!-- Small homepage post block: 촉촉나라 -->
 	<section class="home-post" style="max-width:900px; margin: 1rem auto; text-align:left;">
@@ -54,32 +69,32 @@ comments: false
 		<h3 style="margin-bottom:0.6rem;">사진 갤러리</h3>
 		<div class="photo-grid" aria-label="사진 갤러리">
 			<article class="photo-item card">
-				<div class="card-img"><img src="/assets/images/pizza.jpg" alt="pizza"/></div>
+				<div class="card-img"><a href="/gallery/pizza/" aria-label="Open Pizza preview"><img src="/assets/images/pizza.jpg" alt="pizza"/></a></div>
 				<div class="card-body">
-					<h4 class="card-title"><a href="#" class="card-link">Pizza</a></h4>
+					<h4 class="card-title"><a href="/gallery/pizza/" class="card-link">Pizza</a></h4>
 					<p class="card-meta">Published Sep 1, 2025</p>
 					<p class="card-excerpt">따끈한 피자입니다. 토핑이 풍부하고 치즈가 가득해요.</p>
-					<p class="card-cta"><a href="#" class="btn btn-small">더보기</a></p>
+					<p class="card-cta"><a href="/gallery/pizza/" class="btn btn-small">더보기</a></p>
 				</div>
 			</article>
 
 			<article class="photo-item card">
-				<div class="card-img"><img src="/assets/images/pizza2.jpg" alt="pizza"/></div>
+				<div class="card-img"><a href="/gallery/pizza2/" aria-label="Open Pizza preview"><img src="/assets/images/pizza2.jpg" alt="pizza"/></a></div>
 				<div class="card-body">
-					<h4 class="card-title"><a href="#" class="card-link">Pizza</a></h4>
+					<h4 class="card-title"><a href="/gallery/pizza2/" class="card-link">Pizza (Style 2)</a></h4>
 					<p class="card-meta">Published Sep 1, 2025</p>
 					<p class="card-excerpt">다른 스타일의 피자입니다 — 바삭한 도우와 진한 소스.</p>
-					<p class="card-cta"><a href="#" class="btn btn-small">더보기</a></p>
+					<p class="card-cta"><a href="/gallery/pizza2/" class="btn btn-small">더보기</a></p>
 				</div>
 			</article>
 
 			<article class="photo-item card">
-				<div class="card-img"><img src="/assets/images/pizza3.png" alt="pizza"/></div>
+				<div class="card-img"><a href="/gallery/pizza3/" aria-label="Open Pizza preview"><img src="/assets/images/pizza3.png" alt="pizza"/></a></div>
 				<div class="card-body">
-					<h4 class="card-title"><a href="#" class="card-link">Pizza</a></h4>
+					<h4 class="card-title"><a href="/gallery/pizza3/" class="card-link">Pizza (Style 3)</a></h4>
 					<p class="card-meta">Published Sep 1, 2025</p>
 					<p class="card-excerpt">싱그러운 토핑과 고소한 치즈가 어우러진 피자입니다.</p>
-					<p class="card-cta"><a href="#" class="btn btn-small">더보기</a></p>
+					<p class="card-cta"><a href="/gallery/pizza3/" class="btn btn-small">더보기</a></p>
 				</div>
 			</article>
 		</div>

@@ -342,6 +342,81 @@ h3:before {
   box-sizing: border-box;
 }
 
+/* Full-width carousel (hero slider) */
+.carousel {
+	position: relative;
+	width: 100%;
+	overflow: hidden;
+	background: #000;
+	height: 66vh; /* default hero height; will scale by viewport */
+	min-height: 280px;
+	display: block;
+}
+.carousel .slides {
+	display: flex;
+	width: 100%;
+	height: 100%;
+	transition: transform 0.55s ease;
+}
+.carousel .slide {
+	min-width: 100%;
+	height: 100%;
+	position: relative;
+	flex-shrink: 0;
+}
+.carousel .slide img {
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+	display: block;
+}
+
+/* Arrows */
+.carousel .arrow {
+	position: absolute;
+	top: 50%;
+	transform: translateY(-50%);
+	width: 48px;
+	height: 48px;
+	border-radius: 50%;
+	background: rgba(0,0,0,0.35);
+	color: white;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	cursor: pointer;
+	z-index: 20;
+}
+.carousel .arrow.left { left: 12px; }
+.carousel .arrow.right { right: 12px; }
+.carousel .arrow:hover { background: rgba(0,0,0,0.55); }
+
+/* Dots / pagination */
+.carousel .dots {
+	position: absolute;
+	left: 50%;
+	transform: translateX(-50%);
+	bottom: 18px;
+	display: flex;
+	gap: 8px;
+	z-index: 20;
+}
+.carousel .dots button {
+	width: 10px;
+	height: 10px;
+	border-radius: 50%;
+	border: none;
+	background: rgba(255,255,255,0.5);
+	padding: 0;
+	cursor: pointer;
+}
+.carousel .dots button.active { background: #fff; }
+
+/* Make hero slightly shorter on small screens */
+@media (max-width: 767px) {
+	.carousel { height: 44vh; }
+}
+
 /* Ensure in-page anchors and targeted elements are scrolled into view below the fixed navbar */
 html {
 	/* When using fragment navigation, browsers will honor this padding to avoid hiding targets */
@@ -419,6 +494,26 @@ h1, h2, h3, section, article, .photo-grid-section {
 	overflow: hidden;
 }
 .photo-grid .card .card-img img { position:absolute; top:0; left:0; width:100%; height:100%; object-fit:cover; }
+.photo-grid .card .card-img img {
+	transition: opacity 0.28s ease, transform 0.28s ease;
+}
+
+/* Make the entire image area a clickable link by absolutely-positioning an anchor inside .card-img */
+.photo-grid .card .card-img a {
+	position: absolute;
+	top: 0; left: 0; right: 0; bottom: 0;
+	display: block;
+	text-decoration: none;
+	z-index: 2;
+}
+
+/* Hover effect: slightly translucent + subtle scale for interactive feedback */
+.photo-grid .card .card-img a:hover img,
+.photo-grid .card:hover .card-img img {
+	opacity: 0.6;
+	transform: scale(1.02);
+	cursor: pointer;
+}
 .photo-grid .card .card-body {
 	padding: 0.9rem 1rem;
 }
