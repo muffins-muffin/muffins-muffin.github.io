@@ -628,3 +628,23 @@ h1, h2, h3, section, article, .photo-grid-section {
 @media (max-width: 767px) {
 	.photo-grid { grid-template-columns: repeat(2, 1fr); }
 }
+
+/* Full-width colored feature post under the gallery */
+.full-width-post {
+	width: 100%;
+	background: linear-gradient(90deg, #ffefba 0%, #ffd59a 100%); /* warm pizza-ish gradient */
+	padding: 2rem 0;
+	margin-top: 1rem;
+}
+.full-width-post .container {
+	max-width: 1100px;
+	margin: 0 auto;
+	padding: 0 1rem;
+}
+.full-width-post h2 { margin: 0 0 0.5rem 0; font-size: 1.6rem; }
+.full-width-post .feature-excerpt { font-size: 1.15rem; color: #3b2f2f; margin: 0; }
+
+@media (max-width: 767px) {
+	.full-width-post { padding: 1.2rem 0; }
+	.full-width-post h2 { font-size: 1.25rem; }
+}
