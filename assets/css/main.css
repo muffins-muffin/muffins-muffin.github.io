@@ -354,9 +354,10 @@ h3:before {
 }
 .carousel .slides {
 	display: flex;
-	width: 100%;
-	height: 100%;
-	transition: transform 0.55s ease;
+ 	width: 100%;
+ 	height: 100%;
+ 	/* slowed by 1/3 (duration x1.5) */
+ 	transition: transform 0.825s ease;
 }
 .carousel .slide {
 	min-width: 100%;
@@ -426,8 +427,8 @@ h3:before {
 	from { transform: translateX(18%); opacity: 0; }
 	to   { transform: translateX(0); opacity: 1; }
 }
-.carousel .slide img.enter-from-left { animation: slide-in-left 700ms cubic-bezier(.22,.9,.32,1) forwards; }
-.carousel .slide img.enter-from-right { animation: slide-in-right 700ms cubic-bezier(.22,.9,.32,1) forwards; }
+.carousel .slide img.enter-from-left { animation: slide-in-left 1050ms cubic-bezier(.22,.9,.32,1) forwards; }
+.carousel .slide img.enter-from-right { animation: slide-in-right 1050ms cubic-bezier(.22,.9,.32,1) forwards; }
 
 /* Photo-grid reveal: alternate left/right offset then animate into place when .in-view is added */
 .photo-grid .card {
@@ -451,23 +452,25 @@ h3:before {
 
 .photo-grid .card.in-view {
 	/* apply a short slide animation when the card becomes visible */
-	animation-duration: 520ms;
+	/* slowed by 1/3 -> duration x1.5 */
+	animation-duration: 780ms;
 	animation-fill-mode: both;
 	animation-timing-function: cubic-bezier(.22,.9,.32,1);
 }
 .photo-grid .card.in-view:nth-child(odd) {
 	animation-name: card-slide-in-left;
-	animation-delay: 0.02s;
+	/* delay x1.5 */
+	animation-delay: 0.03s;
 }
 .photo-grid .card.in-view:nth-child(even) {
 	animation-name: card-slide-in-right;
-	animation-delay: 0.06s;
+	animation-delay: 0.09s;
 }
-/* Stagger later cards a bit more for nicer sequencing */
-.photo-grid .card.in-view:nth-child(3) { animation-delay: 0.10s; }
-.photo-grid .card.in-view:nth-child(4) { animation-delay: 0.14s; }
-.photo-grid .card.in-view:nth-child(5) { animation-delay: 0.18s; }
-.photo-grid .card.in-view:nth-child(6) { animation-delay: 0.22s; }
+/* Stagger later cards a bit more for nicer sequencing (delays x1.5) */
+.photo-grid .card.in-view:nth-child(3) { animation-delay: 0.15s; }
+.photo-grid .card.in-view:nth-child(4) { animation-delay: 0.21s; }
+.photo-grid .card.in-view:nth-child(5) { animation-delay: 0.27s; }
+.photo-grid .card.in-view:nth-child(6) { animation-delay: 0.33s; }
 
 /* Respect users who prefer reduced motion */
 @media (prefers-reduced-motion: reduce) {

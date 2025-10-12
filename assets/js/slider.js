@@ -65,10 +65,10 @@
         imgs.forEach(img => img.classList.add('no-motion'));
       } else {
         imgs.forEach((img, i) => {
-          // small timeout to stagger
+          // small timeout to stagger (slowed by 1/3 -> x1.5)
           setTimeout(()=>{
             img.classList.add(i % 2 === 0 ? 'enter-from-left' : 'enter-from-right');
-          }, 120 * i);
+          }, Math.round(120 * 1.5 * i));
         });
       }
     });
