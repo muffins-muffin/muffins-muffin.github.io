@@ -263,3 +263,18 @@ h3:before {
 		margin-right: 1.2rem; /* adjust this value to change spacing */
 	}
 }
+
+/* Hero image: center and scale while preserving aspect ratio */
+.hero-image {
+	display: block;
+	margin: 0 auto; /* center */
+	width: 100%; /* responsive width */
+	max-width: 1200px; /* cap the width on large screens */
+	height: auto; /* preserve aspect ratio */
+	max-height: 50vh; /* limit height to half viewport on large screens */
+	object-fit: contain; /* scale the image inside the box without cropping */
+}
+
+@media (min-width: 1200px) {
+	.hero-image { max-height: 40vh; }
+}
