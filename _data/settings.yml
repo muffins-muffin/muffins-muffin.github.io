@@ -7,14 +7,14 @@ disqus:
 google-ID: 'UA-91332049-1'
 
 menu: 
+  - name: cooki
+    link: /cooki
   - name: cracker
     submenu:
       - name: lemon
         link: /projects/microbam
       - name: lemon2
         link: /projects/ourlegacy
-  - name: cooki
-    link: /cooki
   - name: cookies
     link: /
   - name: cupcakes
