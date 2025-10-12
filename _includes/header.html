@@ -11,33 +11,9 @@
 				<a class="navbar-brand" href="/" aria-label="Home">cooki</a>
 			</div>
 			<div id="navbar-collapse-menu" class="collapse navbar-collapse">
+				<!-- navbar menu intentionally removed; only brand link remains -->
 				<ul class="nav navbar-nav">
-
-					{% for item in site.data.settings.menu %}
-						<!-- If has submenues -->
-						{% if item.submenu %}
-						<li class="dropdown">
-							<a class="dropdown-toggle"	data-toggle="dropdown" href="#">
-								{{item.name}}
-								<span class="caret"></span>
-							</a>
-							<ul class="dropdown-menu">
-								{% for subitem in item.submenu %}
-									<li>
-										<a href="{{subitem.link}}">
-											{% if subitem.icon %}
-											<i class="fa fa-inverse fa-{{subitem.icon}} fa-2x"></i>
-											{% endif %}
-											{{subitem.name}}
-										</a>
-									</li>
-								{% endfor %}
-								</ul>
-							</li>
-						{% else %}
-							<li><a href="{{item.link}}">{{item.name}}</a></li>
-						{% endif %}
-					{% endfor %}
+					<!-- kept intentionally blank -->
 				</ul>
 			</div>
 		</div>
