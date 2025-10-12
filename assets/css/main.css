@@ -94,7 +94,8 @@ h3:before {
 	width: 100%;
 	/* Set the fixed height of the footer here */
 	height: 8em;
-	background-color: black;
+	background-color: #ffcc00; /* changed footer from black to bright yellow */
+	color: #111111; /* dark text for contrast */
 	bottom: 0;
 }
 
@@ -108,6 +109,14 @@ h3:before {
 .footer-links>li {
 	padding-right: 1em;
 	display: inline-block;
+}
+
+/* Footer link colors to ensure readable contrast on yellow background */
+.footer a {
+    color: #111111;
+}
+.footer a:hover {
+    color: #000000;
 }
 
 /* 네비게이션바 */
