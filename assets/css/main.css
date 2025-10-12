@@ -300,10 +300,14 @@ h3:before {
 }
 
 /* Homepage hero image animation: slide from right to left */
-@keyframes hero-slide-rtl {
-	0%   { transform: translateX(30%); }
-	50%  { transform: translateX(-10%); }
-	100% { transform: translateX(-30%); }
+
+/* Homepage hero image animation: subtle vertical bob with gentle scale */
+@keyframes hero-bob-scale {
+	0%   { transform: translateY(0) scale(1); }
+	25%  { transform: translateY(-6px) scale(1.02); }
+	50%  { transform: translateY(0) scale(1); }
+	75%  { transform: translateY(6px) scale(0.98); }
+ 100%  { transform: translateY(0) scale(1); }
 }
 
 /* Apply the animation only on the homepage hero wrapper to avoid affecting other images */
@@ -314,7 +318,7 @@ h3:before {
 
 @media (prefers-reduced-motion: no-preference) {
 	.homepage-hero .hero-image {
-		animation: hero-slide-rtl 12s linear infinite;
+		animation: hero-bob-scale 6s ease-in-out infinite;
 	}
 }
 
@@ -332,6 +336,20 @@ h3:before {
 
 @media (max-width: 767px) {
   .homepage-hero { padding-top: 3.6rem; }
+}
+
+/* Reduce cookie hero image size specifically */
+.homepage-hero .hero-image {
+	max-width: 600px; /* default desktop cap */
+	width: 80%; /* scale down on smaller screens */
+	height: auto;
+}
+
+@media (max-width: 767px) {
+	.homepage-hero .hero-image {
+		max-width: 320px;
+		width: 90%;
+	}
 }
 
 @media (min-width: 1600px) {
