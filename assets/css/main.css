@@ -134,7 +134,7 @@ h3:before {
 	background-color: #ffd94d;
 }
 
-/* Center the navbar items while keeping brand left on larger screens */
+/* 상단 글자 중간 정렬 */
 @media (min-width: 768px) {
 	.navbar-default .container-fluid {
 		display: flex;
@@ -254,5 +254,12 @@ h3:before {
 		.navbar-default .navbar-nav .open .dropdown-menu>.active>a:focus {
 		color: #000000;
 		background-color: #ffd94d;
+	}
+}
+
+/* Cooki cracker 간격 수정*/
+@media (min-width: 768px) {
+	.navbar-default .navbar-nav > li:first-child {
+		margin-right: 1.2rem; /* adjust this value to change spacing */
 	}
 }
