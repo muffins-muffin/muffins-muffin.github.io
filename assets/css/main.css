@@ -125,6 +125,7 @@ h3:before {
 	border-color: #e6b800;
 	text-transform: uppercase;
 	font-size: 1.3em;
+	z-index: 1030; /* ensure navbar sits above hero image */
 }
 .navbar-default .navbar-brand { color: #111111; }
 .navbar-default .navbar-brand:hover, .navbar-default .navbar-brand:focus { color: #000000; }
@@ -321,6 +322,16 @@ h3:before {
 	.homepage-hero .hero-image {
 		animation: none;
 	}
+}
+
+/* Prevent hero from overlapping fixed navbar */
+.homepage-hero {
+  padding-top: 4.2rem; /* leave space equal-ish to navbar height */
+  box-sizing: border-box;
+}
+
+@media (max-width: 767px) {
+  .homepage-hero { padding-top: 3.6rem; }
 }
 
 @media (min-width: 1600px) {
