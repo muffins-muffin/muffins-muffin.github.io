@@ -55,19 +55,29 @@
 
   // Entrance animation for slides on initial load: apply alternating left/right classes
   document.addEventListener('DOMContentLoaded', function(){
+    // Respect user's reduced-motion preference
+    const prefersReduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
     carousels.forEach((carousel)=>{
       const imgs = Array.from(carousel.querySelectorAll('.slide img'));
-      imgs.forEach((img, i) => {
-        // small timeout to stagger
-        setTimeout(()=>{
-          img.classList.add(i % 2 === 0 ? 'enter-from-left' : 'enter-from-right');
-        }, 120 * i);
-      });
+      if(prefersReduced){
+        // don't animate; ensure images are visible
+        imgs.forEach(img => img.classList.add('no-motion'));
+      } else {
+        imgs.forEach((img, i) => {
+          // small timeout to stagger
+          setTimeout(()=>{
+            img.classList.add(i % 2 === 0 ? 'enter-from-left' : 'enter-from-right');
+          }, 120 * i);
+        });
+      }
     });
 
     // Reveal photo-grid cards as they scroll into view
     const cards = document.querySelectorAll('.photo-grid .card');
-    if('IntersectionObserver' in window && cards.length){
+    if(prefersReduced){
+      cards.forEach(c => c.classList.add('in-view'));
+    } else if('IntersectionObserver' in window && cards.length){
       const obs = new IntersectionObserver((entries, observer) => {
         entries.forEach(entry => {
           if(entry.isIntersecting){

@@ -433,11 +433,51 @@ h3:before {
 .photo-grid .card {
 	opacity: 0;
 	transform: translateY(12px) translateX(0);
-	transition: transform 520ms cubic-bezier(.22,.9,.32,1), opacity 520ms ease;
+	/* animations applied when .in-view is added */
+	will-change: transform, opacity;
 }
 .photo-grid .card:nth-child(odd) { transform: translateY(12px) translateX(-6%); }
 .photo-grid .card:nth-child(even) { transform: translateY(12px) translateX(6%); }
-.photo-grid .card.in-view { transform: translateY(0) translateX(0); opacity: 1; }
+
+/* Keyframes to slide the card from the side into place */
+@keyframes card-slide-in-left {
+	from { transform: translateY(12px) translateX(-18%); opacity: 0; }
+	to   { transform: translateY(0) translateX(0); opacity: 1; }
+}
+@keyframes card-slide-in-right {
+	from { transform: translateY(12px) translateX(18%); opacity: 0; }
+	to   { transform: translateY(0) translateX(0); opacity: 1; }
+}
+
+.photo-grid .card.in-view {
+	/* apply a short slide animation when the card becomes visible */
+	animation-duration: 520ms;
+	animation-fill-mode: both;
+	animation-timing-function: cubic-bezier(.22,.9,.32,1);
+}
+.photo-grid .card.in-view:nth-child(odd) {
+	animation-name: card-slide-in-left;
+	animation-delay: 0.02s;
+}
+.photo-grid .card.in-view:nth-child(even) {
+	animation-name: card-slide-in-right;
+	animation-delay: 0.06s;
+}
+/* Stagger later cards a bit more for nicer sequencing */
+.photo-grid .card.in-view:nth-child(3) { animation-delay: 0.10s; }
+.photo-grid .card.in-view:nth-child(4) { animation-delay: 0.14s; }
+.photo-grid .card.in-view:nth-child(5) { animation-delay: 0.18s; }
+.photo-grid .card.in-view:nth-child(6) { animation-delay: 0.22s; }
+
+/* Respect users who prefer reduced motion */
+@media (prefers-reduced-motion: reduce) {
+	.photo-grid .card, .carousel .slide img {
+		animation: none !important;
+		transition: none !important;
+		transform: none !important;
+		opacity: 1 !important;
+	}
+}
 
 /* Page hero for gallery/post preview pages */
 .page-hero { margin: 0 -1rem 1.4rem; }
