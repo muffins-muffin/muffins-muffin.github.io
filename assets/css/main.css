@@ -33,16 +33,26 @@ h3:before {
 }
 
 .jumbotron {
-	background: #719d7d;
+	background: #8B5E3C; /* changed from green to brown */
+	padding: 0.6rem 0; /* make the bar thinner */
+	display: flex;
+	align-items: center; /* vertically center the title */
+	justify-content: center;
 }
 
 .jumbotron h1 {
 	color: white;
-	letter-spacing: 0.2em;
-	font-size: 3em;
+	letter-spacing: 0.12em;
+	font-size: 1.6rem; /* reduce font size to match thinner bar */
 	text-align: center;
 	text-transform: uppercase;
-	letter-spacing: 0.2em;
+	line-height: 1;
+	margin: 0; /* remove default margins */
+	padding: 0.2rem 0; /* small vertical padding */
+}
+
+@media (min-width: 768px) {
+	.jumbotron h1 { font-size: 2.2rem; }
 }
 
 /* Moving title animation: continuously slide left */
