@@ -417,6 +417,28 @@ h3:before {
 	.carousel { height: 44vh; }
 }
 
+/* Entrance animations for carousel slides */
+@keyframes slide-in-left {
+	from { transform: translateX(-18%); opacity: 0; }
+	to   { transform: translateX(0); opacity: 1; }
+}
+@keyframes slide-in-right {
+	from { transform: translateX(18%); opacity: 0; }
+	to   { transform: translateX(0); opacity: 1; }
+}
+.carousel .slide img.enter-from-left { animation: slide-in-left 700ms cubic-bezier(.22,.9,.32,1) forwards; }
+.carousel .slide img.enter-from-right { animation: slide-in-right 700ms cubic-bezier(.22,.9,.32,1) forwards; }
+
+/* Photo-grid reveal: alternate left/right offset then animate into place when .in-view is added */
+.photo-grid .card {
+	opacity: 0;
+	transform: translateY(12px) translateX(0);
+	transition: transform 520ms cubic-bezier(.22,.9,.32,1), opacity 520ms ease;
+}
+.photo-grid .card:nth-child(odd) { transform: translateY(12px) translateX(-6%); }
+.photo-grid .card:nth-child(even) { transform: translateY(12px) translateX(6%); }
+.photo-grid .card.in-view { transform: translateY(0) translateX(0); opacity: 1; }
+
 /* Ensure in-page anchors and targeted elements are scrolled into view below the fixed navbar */
 html {
 	/* When using fragment navigation, browsers will honor this padding to avoid hiding targets */

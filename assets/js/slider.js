@@ -1,7 +1,7 @@
 (function(){
   // Simple slider: expects .carousel > .slides > .slide
   const carousels = document.querySelectorAll('.carousel');
-  if(!carousels.length) return;
+  // We continue even if no carousel found because we also add observers for photo-grid cards
 
   carousels.forEach(carousel => {
     const slidesEl = carousel.querySelector('.slides');
@@ -51,5 +51,35 @@
     carousel.setAttribute('tabindex','0'); // make it focusable for keyboard
     update();
     if(autoplay) startTimer();
+  });
+
+  // Entrance animation for slides on initial load: apply alternating left/right classes
+  document.addEventListener('DOMContentLoaded', function(){
+    carousels.forEach((carousel)=>{
+      const imgs = Array.from(carousel.querySelectorAll('.slide img'));
+      imgs.forEach((img, i) => {
+        // small timeout to stagger
+        setTimeout(()=>{
+          img.classList.add(i % 2 === 0 ? 'enter-from-left' : 'enter-from-right');
+        }, 120 * i);
+      });
+    });
+
+    // Reveal photo-grid cards as they scroll into view
+    const cards = document.querySelectorAll('.photo-grid .card');
+    if('IntersectionObserver' in window && cards.length){
+      const obs = new IntersectionObserver((entries, observer) => {
+        entries.forEach(entry => {
+          if(entry.isIntersecting){
+            entry.target.classList.add('in-view');
+            observer.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.15 });
+      cards.forEach(c => obs.observe(c));
+    } else {
+      // fallback: add in-view immediately
+      cards.forEach(c => c.classList.add('in-view'));
+    }
   });
 })();
