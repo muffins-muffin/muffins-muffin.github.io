@@ -439,6 +439,10 @@ h3:before {
 .photo-grid .card:nth-child(even) { transform: translateY(12px) translateX(6%); }
 .photo-grid .card.in-view { transform: translateY(0) translateX(0); opacity: 1; }
 
+/* Page hero for gallery/post preview pages */
+.page-hero { margin: 0 -1rem 1.4rem; }
+.page-hero img { width: 100%; display:block; height: auto; max-height: 60vh; object-fit: cover; }
+
 /* Ensure in-page anchors and targeted elements are scrolled into view below the fixed navbar */
 html {
 	/* When using fragment navigation, browsers will honor this padding to avoid hiding targets */

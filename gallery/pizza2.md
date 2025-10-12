@@ -2,6 +2,7 @@
 layout: default
 title: Pizza (Style 2)
 permalink: /gallery/pizza2/
+hero_image: /assets/images/pizza2.jpg
 ---
 
 ## Pizza (Style 2)

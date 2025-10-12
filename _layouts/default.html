@@ -6,6 +6,12 @@
   {% include header.html %}
   <div class="container">
 
+  {%- if page.hero_image -%}
+    <div class="page-hero" style="margin-bottom: 1rem;">
+      <img src="{{ page.hero_image }}" alt="{{ page.title }}" style="width:100%; height:auto; display:block; max-height:60vh; object-fit:cover;" />
+    </div>
+  {%- endif -%}
+
   {%- if page.id -%}
     <!-- Post content removed by site admin: full post pages are disabled (전체제거) -->
     <h1>{{ page.title }}</h1>
