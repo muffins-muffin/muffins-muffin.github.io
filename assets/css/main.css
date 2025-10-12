@@ -231,6 +231,16 @@ h3:before {
 	color: #000000;
 }
 
+/* Brand text on the left (small label 'cooki') */
+.brand-text {
+	display: inline-block;
+	font-size: 1.1em;
+	line-height: 1.5em;
+	margin-right: 1.2rem; /* space between brand and centered menu */
+	font-weight: 700;
+	color: #111111;
+}
+
 @media ( max-width : 767px) {
 	.navbar-default .navbar-nav .open .dropdown-menu>li>a {
 		color: #111111;
