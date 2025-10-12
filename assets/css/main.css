@@ -301,24 +301,22 @@ h3:before {
 
 /* Homepage hero image animation: slide from right to left */
 
-/* Homepage hero image animation: subtle vertical bob with gentle scale */
-@keyframes hero-bob-scale {
-	0%   { transform: translateY(0) scale(1); }
-	25%  { transform: translateY(-6px) scale(1.02); }
-	50%  { transform: translateY(0) scale(1); }
-	75%  { transform: translateY(6px) scale(0.98); }
- 100%  { transform: translateY(0) scale(1); }
+/* Homepage hero image animation: subtle zoom pulse (scale 1 -> 1.06) */
+@keyframes hero-zoom-pulse {
+	0%, 100% { transform: scale(1); }
+	50%      { transform: scale(1.06); }
 }
 
-/* Apply the animation only on the homepage hero wrapper to avoid affecting other images */
+/* Apply the zoom-pulse only on the homepage hero wrapper to avoid affecting other images */
 .homepage-hero .hero-image {
 	will-change: transform;
 	/* the animation shifts the rendered image within its bounding box */
+	animation-play-state: running;
 }
 
 @media (prefers-reduced-motion: no-preference) {
 	.homepage-hero .hero-image {
-		animation: hero-bob-scale 6s ease-in-out infinite;
+		animation: hero-zoom-pulse 5s ease-in-out infinite;
 	}
 }
 
@@ -326,6 +324,11 @@ h3:before {
 	.homepage-hero .hero-image {
 		animation: none;
 	}
+}
+
+/* Pause animation on hover (desktop) to reduce motion while interacting */
+.homepage-hero .hero-image:hover {
+	animation-play-state: paused;
 }
 
 /* Prevent hero from overlapping fixed navbar */
@@ -340,18 +343,50 @@ h3:before {
 
 /* Reduce cookie hero image size specifically */
 .homepage-hero .hero-image {
-	max-width: 600px; /* default desktop cap */
-	width: 80%; /* scale down on smaller screens */
+	max-width: 420px; /* desktop cap (reduced from 600px) */
+	width: 70%; /* narrower default width */
 	height: auto;
 }
 
 @media (max-width: 767px) {
 	.homepage-hero .hero-image {
-		max-width: 320px;
-		width: 90%;
+		max-width: 220px; /* mobile cap (reduced from 320px) */
+		width: 85%;
 	}
 }
 
 @media (min-width: 1600px) {
 	.hero-image { max-height: 70vh; }
+}
+
+/* Photo grid (3x3) under hero */
+.photo-grid {
+	display: grid;
+	grid-template-columns: repeat(3, 1fr);
+	gap: 0.8rem;
+}
+.photo-grid .photo-item {
+	position: relative;
+	width: 100%;
+	padding-top: 100%; /* square ratio */
+	overflow: hidden;
+	background: #fff;
+	border-radius: 6px;
+	box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+}
+.photo-grid .photo-item img {
+	position: absolute;
+	top: 0; left: 0; width: 100%; height: 100%; object-fit: cover;
+}
+.photo-grid .photo-item.placeholder {
+	border: 2px dashed #e6e6e6;
+	display: flex; align-items: center; justify-content: center;
+	color: #999; font-size: 0.95rem;
+}
+.photo-grid .photo-item.placeholder::after {
+	content: attr(data-hint);
+}
+
+@media (max-width: 767px) {
+	.photo-grid { grid-template-columns: repeat(2, 1fr); }
 }
