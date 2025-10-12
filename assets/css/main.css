@@ -3,6 +3,11 @@ html {
 	min-height: 100%;
 }
 
+:root {
+  /* Approximate navbar height; keep in sync with .homepage-hero padding-top */
+  --navbar-height: 4.2rem;
+}
+
 body {
 	/* Margin bottom by footer height */
 	margin-bottom: 8em;
@@ -337,6 +342,17 @@ h3:before {
   box-sizing: border-box;
 }
 
+/* Ensure in-page anchors and targeted elements are scrolled into view below the fixed navbar */
+html {
+	/* When using fragment navigation, browsers will honor this padding to avoid hiding targets */
+	scroll-padding-top: var(--navbar-height);
+}
+
+/* For elements that may be linked-to, add a scroll-margin to create breathing room */
+h1, h2, h3, section, article, .photo-grid-section {
+	scroll-margin-top: calc(var(--navbar-height) + 0.6rem);
+}
+
 @media (max-width: 767px) {
   .homepage-hero { padding-top: 3.6rem; }
 }
@@ -386,6 +402,29 @@ h3:before {
 .photo-grid .photo-item.placeholder::after {
 	content: attr(data-hint);
 }
+
+/* Card styles for photo items */
+.photo-grid .card {
+	display: flex;
+	flex-direction: column;
+	background: #fff;
+	border-radius: 6px;
+	overflow: hidden;
+	box-shadow: 0 2px 6px rgba(0,0,0,0.06);
+}
+.photo-grid .card .card-img {
+	position: relative;
+	width: 100%;
+	padding-top: 56.25%; /* 16:9 aspect for card image */
+	overflow: hidden;
+}
+.photo-grid .card .card-img img { position:absolute; top:0; left:0; width:100%; height:100%; object-fit:cover; }
+.photo-grid .card .card-body {
+	padding: 0.9rem 1rem;
+}
+.photo-grid .card .card-title { margin: 0 0 0.25rem 0; font-size: 1.05rem; }
+.photo-grid .card .card-meta { color:#777; font-size:0.85rem; margin-bottom:0.45rem; }
+.photo-grid .card .card-excerpt { margin: 0; color:#333; font-size:0.95rem; line-height:1.3; }
 
 @media (max-width: 767px) {
 	.photo-grid { grid-template-columns: repeat(2, 1fr); }
