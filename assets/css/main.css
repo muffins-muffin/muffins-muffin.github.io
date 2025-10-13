@@ -736,6 +736,21 @@ h1, h2, h3, section, article, .photo-grid-section {
 	margin: 0 auto;
 	padding: 0 1rem;
 }
+
+/* Full-width image bar (fixed physical height ~5cm) */
+.full-width-image-bar {
+	width: 100%;
+	/* responsive height: min 60px, prefer 8vh, max 120px */
+	height: clamp(60px, 8vh, 120px);
+	overflow: hidden;
+	display: block;
+}
+.full-width-image-bar img {
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+	display: block;
+}
 .full-width-post h2 { margin: 0 0 0.5rem 0; font-size: 1.6rem; }
 .full-width-post .feature-excerpt { font-size: 1.15rem; color: #3b2f2f; margin: 0; }
 
