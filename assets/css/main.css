@@ -645,24 +645,20 @@ h1, h2, h3, section, article, .photo-grid-section {
 
 /* Small button in card */
 .btn-small {
-	display: inline-block;
-	padding: 0; /* remove button padding for text-like appearance */
+	display: inline; /* inline so only text area is clickable/visible */
+	padding: 0;
 	background: transparent;
 	border: none;
-	color: #1a73e8; /* Google-blue like link color */
+	color: #1a73e8;
 	text-decoration: none;
 	font-size: 0.95rem;
 	font-weight: 600;
 }
-.btn-small:hover,
-.btn-small:focus {
-	text-decoration: underline;
-	outline: none;
-}
-.btn-small:focus {
-	outline: 3px solid rgba(26,115,232,0.18);
-	outline-offset: 2px;
-}
+
+/* Hover shows underline; keep focus-visible for keyboard users but avoid rectangular box */
+.btn-small:hover { text-decoration: underline; }
+.btn-small:focus { outline: none; }
+.btn-small:focus-visible { text-decoration: underline; }
 
 @media (max-width: 767px) {
 	.photo-grid { grid-template-columns: repeat(2, 1fr); }
