@@ -628,6 +628,14 @@ h1, h2, h3, section, article, .photo-grid-section {
 	.photo-grid .card.card--center-title .card-title { font-size: 1.25rem; }
 }
 
+/* Apply Schoolbell font to Pizza section heading and pizza card titles */
+.photo-grid-section h3,
+.photo-grid .card.card--center-title .card-title,
+.photo-grid .card.card--center-title .card-title .card-link {
+    font-family: 'Schoolbell', cursive;
+    letter-spacing: 0.02em;
+}
+
 /* Clamp excerpt to 3 lines with ellipsis */
 .photo-grid .card .card-excerpt {
 	display: -webkit-box;
@@ -646,19 +654,55 @@ h1, h2, h3, section, article, .photo-grid-section {
 /* Small button in card */
 .btn-small {
 	display: inline; /* inline so only text area is clickable/visible */
-	padding: 0;
-	background: transparent;
-	border: none;
-	color: #1a73e8;
-	text-decoration: none;
+	padding: 0; /* keep no extra padding */
+	background: transparent; /* remove background */
+	border: none; /* remove border/box */
+	color: #1a73e8; /* blue inline link color */
+	text-decoration: none; /* no underline by default */
 	font-size: 0.95rem;
 	font-weight: 600;
+	line-height: 1; /* avoid extra box height */
+	vertical-align: baseline;
 }
 
 /* Hover shows underline; keep focus-visible for keyboard users but avoid rectangular box */
 .btn-small:hover { text-decoration: underline; }
 .btn-small:focus { outline: none; }
 .btn-small:focus-visible { text-decoration: underline; }
+
+/* Remove any residual focus ring boxes while preserving accessibility for keyboard users
+   by using text-decoration on :focus-visible instead of an outline box. */
+.btn-small:focus:not(:focus-visible) { outline: none; }
+
+/* Make the Pizza titles much larger (5x current base size). We scale the existing
+   computed sizes rather than hardcoding an absolute huge value, but 5x of 1.25rem -> 6.25rem */
+.photo-grid-section h3 {
+	font-size: 6.25rem; /* ~5x of the 1.25rem used for centered card titles at desktop */
+	line-height: 1; 
+	margin-bottom: 0.6rem;
+}
+.photo-grid .card.card--center-title .card-title {
+	font-size: 6.25rem; /* match section heading scale */
+	margin-bottom: 0.25rem;
+}
+.photo-grid .card.card--center-title .card-title .card-link {
+	display: inline-block;
+	width: 100%;
+}
+
+@media (max-width: 1024px) {
+	/* scale down on smaller viewports to avoid overflow */
+	.photo-grid-section h3,
+	.photo-grid .card.card--center-title .card-title {
+		font-size: 3.2rem;
+	}
+}
+@media (max-width: 600px) {
+	.photo-grid-section h3,
+	.photo-grid .card.card--center-title .card-title {
+		font-size: 2rem;
+	}
+}
 
 @media (max-width: 767px) {
 	.photo-grid { grid-template-columns: repeat(2, 1fr); }
