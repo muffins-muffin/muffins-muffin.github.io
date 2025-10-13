@@ -609,6 +609,19 @@ h1, h2, h3, section, article, .photo-grid-section {
 	text-decoration: underline;
 }
 
+/* Modifier: center and enlarge specific card titles */
+.photo-grid .card.card--center-title .card-title {
+	text-align: center;
+	font-size: 1.15rem; /* slightly bigger by default */
+}
+.photo-grid .card.card--center-title .card-title .card-link {
+	display: inline-block;
+	width: 100%;
+}
+@media (min-width: 768px) {
+	.photo-grid .card.card--center-title .card-title { font-size: 1.25rem; }
+}
+
 /* Clamp excerpt to 3 lines with ellipsis */
 .photo-grid .card .card-excerpt {
 	display: -webkit-box;
