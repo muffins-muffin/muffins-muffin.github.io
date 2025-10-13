@@ -34,6 +34,13 @@ h2:before {
     display: none !important;
 }
 
+/* Make sure the gallery section and grids don't introduce unexpected gaps or backgrounds */
+.photo-grid-section, .photo-grid, .photo-item {
+	background: transparent !important;
+	margin: 0 !important;
+	padding: 0 !important;
+}
+
 h3:before {
 	content: counter(h2counter) "." counter(h3counter) ".\0000a0\0000a0";
 	counter-increment: h3counter;
