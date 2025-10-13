@@ -28,6 +28,12 @@ h2:before {
 	counter-increment: h2counter;
 }
 
+/* Hide automatic numbering for the photo gallery heading specifically */
+.photo-grid-section h3::before {
+    content: "" !important;
+    display: none !important;
+}
+
 h3:before {
 	content: counter(h2counter) "." counter(h3counter) ".\0000a0\0000a0";
 	counter-increment: h3counter;
