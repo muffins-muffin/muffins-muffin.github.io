@@ -776,6 +776,62 @@ h1, h2, h3, section, article, .photo-grid-section {
 .full-width-post h2 { margin: 0 0 0.5rem 0; font-size: 1.6rem; }
 .full-width-post .feature-excerpt { font-size: 1.15rem; color: #3b2f2f; margin: 0; }
 
+/* Make WHAT WE HAVE section full-bleed on desktop and tile-based */
+.full-width-post.what-we-have {
+	padding: 3.2rem 0;
+	background: #f4e6d9; /* fallback light warm background */
+}
+.full-width-post.what-we-have .container {
+	max-width: 1200px;
+	margin: 0 auto;
+}
+
+/* Image-only tiles: make each .photo-item a square tile and show title below the image */
+.full-width-post .photo-grid {
+	display: grid;
+	grid-template-columns: repeat(3, 1fr);
+	gap: 1rem;
+	align-items: start;
+}
+.full-width-post .photo-grid .photo-item {
+	padding-top: 0; /* don't force outer square since we set aspect on inner */
+	background: transparent;
+	box-shadow: none;
+}
+.full-width-post .photo-grid .card-img {
+	position: relative;
+	width: 100%;
+	padding-top: 100%; /* 1:1 square */
+	overflow: hidden;
+	border-radius: 6px;
+}
+.full-width-post .photo-grid .card-img img {
+	position: absolute;
+	top: 0; left: 0; width: 100%; height: 100%; object-fit: cover;
+}
+.full-width-post .tile-title {
+	text-align: center;
+	margin: 0.6rem 0 0 0;
+	font-size: 1rem;
+	font-weight: 700;
+}
+
+@media (min-width: 1200px) {
+	/* make section at least fill viewport height on desktop */
+	.full-width-post.what-we-have {
+		min-height: 100vh;
+		display: flex;
+		align-items: center;
+	}
+	.full-width-post.what-we-have .container {
+		padding-top: 2rem; padding-bottom: 2rem;
+	}
+}
+
+@media (max-width: 767px) {
+	.full-width-post .photo-grid { grid-template-columns: repeat(2, 1fr); }
+}
+
 @media (max-width: 767px) {
 	.full-width-post { padding: 1.2rem 0; }
 	.full-width-post h2 { font-size: 1.25rem; }
