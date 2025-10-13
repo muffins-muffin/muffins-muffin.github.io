@@ -640,15 +640,23 @@ h1, h2, h3, section, article, .photo-grid-section {
 /* Small button in card */
 .btn-small {
 	display: inline-block;
-	padding: 0.35rem 0.6rem;
-	background: #fff;
-	border: 1px solid #ddd;
-	color: #111;
-	border-radius: 4px;
+	padding: 0; /* remove button padding for text-like appearance */
+	background: transparent;
+	border: none;
+	color: #1a73e8; /* Google-blue like link color */
 	text-decoration: none;
-	font-size: 0.9rem;
+	font-size: 0.95rem;
+	font-weight: 600;
 }
-.btn-small:hover { background:#f8f8f8; }
+.btn-small:hover,
+.btn-small:focus {
+	text-decoration: underline;
+	outline: none;
+}
+.btn-small:focus {
+	outline: 3px solid rgba(26,115,232,0.18);
+	outline-offset: 2px;
+}
 
 @media (max-width: 767px) {
 	.photo-grid { grid-template-columns: repeat(2, 1fr); }
