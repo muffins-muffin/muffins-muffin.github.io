@@ -433,10 +433,10 @@ h3:before {
 	width: 100%;
 	max-width: 980px; /* align with content column */
 	height: clamp(60px, 8vh, 120px);
-	top: 38%; /* adjust to position vertically inside the carousel */
+	top: 32%; /* moved up to better match the red rectangle */
 	z-index: 30;
 	overflow: hidden;
-	border: 2px solid transparent; /* placeholder if you want to debug */
+	border: 2px solid rgba(255,0,0,0.9); /* debug border to match the red rectangle */
 	pointer-events: none; /* make overlay non-interactive by default */
 }
 .carousel .image-bar-overlay img {
