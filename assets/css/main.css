@@ -674,15 +674,14 @@ h1, h2, h3, section, article, .photo-grid-section {
    by using text-decoration on :focus-visible instead of an outline box. */
 .btn-small:focus:not(:focus-visible) { outline: none; }
 
-/* Make the Pizza titles much larger (5x current base size). We scale the existing
-   computed sizes rather than hardcoding an absolute huge value, but 5x of 1.25rem -> 6.25rem */
+/* Pizza title sizing: reduced to half of the previously very large sizes to avoid layout breakage */
 .photo-grid-section h3 {
-	font-size: 6.25rem; /* ~5x of the 1.25rem used for centered card titles at desktop */
-	line-height: 1; 
-	margin-bottom: 0.6rem;
+	font-size: 3.125rem; /* halved from 6.25rem */
+	line-height: 1;
+	margin-bottom: 0.5rem;
 }
 .photo-grid .card.card--center-title .card-title {
-	font-size: 6.25rem; /* match section heading scale */
+	font-size: 3.125rem; /* match section heading */
 	margin-bottom: 0.25rem;
 }
 .photo-grid .card.card--center-title .card-title .card-link {
@@ -691,17 +690,34 @@ h1, h2, h3, section, article, .photo-grid-section {
 }
 
 @media (max-width: 1024px) {
-	/* scale down on smaller viewports to avoid overflow */
+	/* responsive: roughly half the previous tablet size */
 	.photo-grid-section h3,
 	.photo-grid .card.card--center-title .card-title {
-		font-size: 3.2rem;
+		font-size: 1.6rem;
 	}
 }
 @media (max-width: 600px) {
+	/* mobile friendly */
 	.photo-grid-section h3,
 	.photo-grid .card.card--center-title .card-title {
-		font-size: 2rem;
+		font-size: 1rem;
 	}
+}
+
+/* Ensure "더보기" is pure text: remove shadow, background, border, padding and any box around it */
+.btn-small, .btn-small * {
+	box-shadow: none !important;
+	text-shadow: none !important;
+	background: transparent !important;
+	border: none !important;
+	padding: 0 !important;
+	margin: 0 !important;
+}
+.photo-grid .card .card-cta {
+	box-shadow: none !important;
+	background: transparent !important;
+	padding: 0 !important;
+	margin: 0.4rem 0 0 0 !important;
 }
 
 @media (max-width: 767px) {
