@@ -41,6 +41,18 @@ h2:before {
 	padding: 0 !important;
 }
 
+/* Remove underline on pizza card title links on hover while preserving focus outline */
+.card-link {
+	text-decoration: none;
+}
+.card-link:hover {
+	text-decoration: none; /* remove underline on hover */
+}
+.card-link:focus {
+	outline: 3px solid rgba(50,115,220,0.18); /* preserve visible focus for keyboard users */
+	text-decoration: none;
+}
+
 h3:before {
 	content: counter(h2counter) "." counter(h3counter) ".\0000a0\0000a0";
 	counter-increment: h3counter;
