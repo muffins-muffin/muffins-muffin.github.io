@@ -623,7 +623,7 @@ h1, h2, h3, section, article, .photo-grid-section {
 .photo-grid {
 	display: grid;
 	grid-template-columns: repeat(3, 1fr);
-	gap: 0.8rem;
+	gap: 1.2rem; /* slightly larger gap to match screenshot */
 }
 .photo-grid .photo-item {
 	position: relative;
@@ -655,23 +655,35 @@ h1, h2, h3, section, article, .photo-grid-section {
 	content: attr(data-hint);
 }
 
-/* Card styles for photo items */
+/* Card styles for photo items (dark, centered icon layout) */
 .photo-grid .card {
 	display: flex;
 	flex-direction: column;
-	background: #fff;
+	background: #032726; /* deep teal/near-black */
 	border-radius: 6px;
 	overflow: hidden;
-	box-shadow: 0 2px 6px rgba(0,0,0,0.06);
+	box-shadow: 0 6px 18px rgba(0,0,0,0.12);
+	min-height: 300px; /* unify card heights */
+	color: #e6f7f2;
 }
 .photo-grid .card .card-img {
 	position: relative;
 	width: 100%;
-	padding-top: 56.25%; /* 16:9 aspect for card image */
+	padding-top: 36%; /* shorter area for icon */
+	display: flex;
+	align-items: flex-start;
+	justify-content: center;
+	background: rgba(0,0,0,0.06);
 	overflow: hidden;
 }
-.photo-grid .card .card-img a img { display:block; width:100%; height:100%; object-fit:cover; }
-.photo-grid .card .card-img img { position:absolute; top:0; left:0; width:100%; height:100%; object-fit:cover; }
+.photo-grid .card .card-img img {
+	position: static;
+	width: 72px;
+	height: 72px;
+	object-fit: contain;
+	margin-top: 20px;
+	filter: saturate(1.05) brightness(1.05);
+}
 .photo-grid .card .card-img img {
 	transition: opacity 0.28s ease, transform 0.28s ease;
 }
@@ -685,15 +697,20 @@ h1, h2, h3, section, article, .photo-grid-section {
 	z-index: 2;
 }
 
-/* Hover effect: slightly translucent + subtle scale for interactive feedback */
+/* Hover effect: keep icon visible and interactive (no translucent shrink) */
 .photo-grid .card .card-img a:hover img,
 .photo-grid .card:hover .card-img img {
-	opacity: 0.6;
-	transform: scale(1.02);
+	opacity: 1;
+	transform: none;
 	cursor: pointer;
 }
 .photo-grid .card .card-body {
-	padding: 0.9rem 1rem;
+	padding: 1.1rem 1.2rem 1.4rem 1.2rem;
+	text-align: center;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	gap: 0.45rem;
 }
 
 .photo-grid-section { padding-bottom: 1.6rem; }
@@ -701,32 +718,36 @@ h1, h2, h3, section, article, .photo-grid-section {
 	position: absolute;
 	left: 10px;
 	top: 10px;
-	background: rgba(255,255,255,0.92);
-	color: #333;
+	background: rgba(255,255,255,0.06);
+	color: rgba(230,247,242,0.95);
 	font-weight: 700;
 	padding: 0.22rem 0.5rem;
 	border-radius: 999px;
 	font-size: 0.75rem;
-	box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+	box-shadow: none;
 	z-index: 5;
 }
 .photo-grid .card .card-meta {
-	color: #7a6b60;
+	color: rgba(230,247,242,0.85);
 	font-size: 0.9rem;
 	margin: 0.2rem 0 0.35rem 0;
 }
 .photo-grid .card .card-excerpt {
-	color: #4a3f37;
+	color: rgba(230,247,242,0.85);
 	font-size: 0.95rem;
 	margin-bottom: 0.6rem;
 }
 .photo-grid .card .btn-small {
-	color: #b45b2a; /* warm accent for CTA */
+	color: #1a73e8; /* blue inline link color */
 	font-weight: 700;
 }
-.photo-grid .card .card-title { margin: 0 0 0.25rem 0; font-size: 1.05rem; }
-.photo-grid .card .card-meta { color:#777; font-size:0.85rem; margin-bottom:0.45rem; }
-.photo-grid .card .card-excerpt { margin: 0; color:#333; font-size:0.95rem; line-height:1.3; }
+.photo-grid .card .card-title { margin: 0 0 0.25rem 0; font-size: 1.05rem; color: #fff; }
+.photo-grid .card .card-meta { color:rgba(230,247,242,0.85); font-size:0.85rem; margin-bottom:0.45rem; }
+.photo-grid .card .card-excerpt { margin: 0; color:rgba(230,247,242,0.85); font-size:0.95rem; line-height:1.45; }
+
+/* Title links should appear white and underline on hover */
+.photo-grid .card .card-title .card-link { color: #ffffff; text-decoration: none; }
+.photo-grid .card .card-title .card-link:hover { text-decoration: underline; }
 
 /* Card title link + hover underline */
 .photo-grid .card .card-title .card-link {
