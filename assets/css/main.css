@@ -537,6 +537,12 @@ h3:before {
 	.gtv-carousel .gtv-item img { height:130px; }
 }
 
+/* Prevent horizontal scrolling on desktop: ensure no accidental overflow from negative margins or wide tracks */
+html, body { overflow-x: hidden; }
+.gtv-track-wrapper { overflow: hidden; }
+/* ensure hero negative top margin doesn't extend page width */
+.carousel.full-bleed img { display:block; max-width:100%; }
+
 @media (max-width: 900px){
 	.rect-slideshow .rect-item { flex: 0 0 260px; height:160px; }
 }
