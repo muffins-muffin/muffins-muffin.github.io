@@ -378,6 +378,20 @@ h3:before {
 	min-height: 280px;
 	display: block;
 }
+
+/* Full-bleed carousel: allow the carousel to escape the centered container and fill viewport width */
+.carousel.full-bleed {
+	position: relative;
+	left: 50%;
+	right: 50%;
+	margin-left: -50vw;
+	margin-right: -50vw;
+	width: 100vw;
+	box-sizing: border-box;
+	padding-left: 0; padding-right: 0;
+}
+.carousel.full-bleed .slides { align-items: center; }
+.carousel.full-bleed .slide img { object-position: center center; }
 .carousel .slides {
 	display: flex;
  	width: 100%;
@@ -417,6 +431,33 @@ h3:before {
 .carousel .arrow.left { left: 12px; }
 .carousel .arrow.right { right: 12px; }
 .carousel .arrow:hover { background: rgba(0,0,0,0.55); }
+
+/* When carousel is full-bleed, pin arrows to the viewport edges */
+.carousel.full-bleed .arrow {
+	position: fixed; /* pin to viewport */
+	height: 56px;
+	width: 56px;
+	line-height: 56px;
+	background: rgba(0,0,0,0.45);
+	box-shadow: 0 2px 8px rgba(0,0,0,0.25);
+	top: 50%;
+	transform: translateY(-50%);
+	z-index: 60; /* above the slides */
+}
+.carousel.full-bleed .arrow.left { left: 12px; }
+.carousel.full-bleed .arrow.right { right: 12px; }
+
+@media (max-width: 480px) {
+	.carousel.full-bleed .arrow {
+		position: absolute; /* keep inside carousel on small screens */
+		height: 44px;
+		width: 44px;
+		line-height: 44px;
+		background: rgba(0,0,0,0.35);
+	}
+	.carousel.full-bleed .arrow.left { left: 8px; }
+	.carousel.full-bleed .arrow.right { right: 8px; }
+}
 
 /* Dots / pagination */
 .carousel .dots {
