@@ -770,6 +770,18 @@ h1, h2, h3, section, article, .photo-grid-section {
 	overflow: hidden;
 }
 
+/* Captions for the 3x3 gallery section */
+.gallery-caption {
+	margin: 0.5rem 0 0 0;
+	font-size: 0.95rem;
+	color: #111;
+	text-align: center;
+	font-weight: 600;
+}
+@media (max-width: 767px) {
+	.gallery-caption { font-size: 0.92rem; }
+}
+
 /* Keyboard focus for card links */
 .photo-grid .card .card-title .card-link:focus {
   outline: 3px solid #ffd94d;
