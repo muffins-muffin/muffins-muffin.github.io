@@ -398,6 +398,54 @@ h3:before {
 	padding-top: var(--navbar-height); /* create internal top padding so slides start below navbar */
 	z-index: 5; /* keep it behind navbar which should have higher z-index */
 }
+
+/* Gallery caption spacing tweak */
+.gallery-caption { margin-bottom: 0.25rem; }
+.gallery-desc { margin-top: 0.6rem; line-height:1.3; }
+
+/* Color bar with waffle image (full-width) */
+.color-bar-with-waffle {
+	position: relative;
+	width: 100%;
+	background: #fdebd9; /* soft peach */
+	padding: 3.5rem 0 2rem 0; /* taller to allow waffle overlap */
+	box-sizing: border-box;
+}
+.color-bar-with-waffle .color-bar-inner {
+	max-width: 1100px;
+	margin: 0 auto;
+	position: relative;
+	padding-left: 2.5rem; /* leave space for the waffle image */
+}
+.waffle-image {
+	position: absolute;
+	left: 12px; /* near left edge */
+	top: -80px; /* pop upwards so it overlaps the section above */
+	width: 220px;
+	max-width: 28%;
+	z-index: 30;
+	border-radius: 12px;
+		box-shadow: 0 12px 30px rgba(0,0,0,0.18);
+	object-fit: cover;
+		object-position: left bottom; /* show bottom-left (finger) */
+}
+
+/* Slight responsive adjustments for waffle */
+@media (max-width: 768px){
+	.waffle-image { width:140px; top: -60px; left: 8px; }
+	.color-bar-with-waffle { padding: 2.5rem 0 1.2rem 0; }
+}
+
+/* Slideshow section (reuses .carousel behavior) */
+.slideshow-section { margin-top: 1.2rem; }
+.slideshow-section .carousel { height: 320px; min-height: 200px; }
+.slideshow-section .slides { display:flex; transition: transform 0.5s ease; }
+.slideshow-section .slide { min-width: 100%; box-sizing: border-box; }
+.slideshow-section .slide img { width:100%; height:100%; object-fit:cover; display:block; }
+
+/* Ensure arrows remain visible over slideshow */
+.slideshow-section .arrow { z-index: 40; }
+
 .carousel.full-bleed .slides { align-items: center; }
 .carousel.full-bleed .slides { display: flex; align-items: center; justify-content: center; }
 .carousel.full-bleed .slide { display:flex; align-items:center; justify-content:center; }

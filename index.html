@@ -111,5 +111,30 @@ comments: false
   
 
 
-	<!-- WHAT WE HAVE section removed per user request -->
+	<!-- Decorative color bar with waffle image and slideshow (added per user request) -->
+	<section class="color-bar-with-waffle" aria-hidden="false">
+	  <div class="color-bar-inner">
+	    <!-- waffle image positioned to the left and overlapping upward -->
+		<img class="waffle-image" src="/assets/images/chocochipcookie.jpg" alt="waffle" />
+	    <!-- optional short text area if you want later (kept empty) -->
+	  </div>
+	</section>
+
+	<!-- Slideshow gallery below the color bar -->
+	<section class="slideshow-section">
+	  <div class="carousel" aria-roledescription="carousel" aria-label="Gallery slideshow">
+	    <div class="slides">
+	      <div class="slide"><img src="/assets/images/pizza.jpg" alt="slide 1" loading="lazy"></div>
+	      <div class="slide"><img src="/assets/images/pizza2.jpg" alt="slide 2" loading="lazy"></div>
+	      <div class="slide"><img src="/assets/images/pizza3.png" alt="slide 3" loading="lazy"></div>
+	    </div>
+	    <button class="arrow left" aria-label="Previous slide">‹</button>
+	    <button class="arrow right" aria-label="Next slide">›</button>
+	    <div class="dots" role="tablist" aria-label="Slide dots">
+	      <button data-index="0" class="active" aria-label="Go to slide 1"></button>
+	      <button data-index="1" aria-label="Go to slide 2"></button>
+	      <button data-index="2" aria-label="Go to slide 3"></button>
+	    </div>
+	  </div>
+	</section>
 
