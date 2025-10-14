@@ -408,7 +408,7 @@ h3:before {
 	position: relative;
 	width: 100%;
 	background: #fdebd9; /* soft peach */
-	padding: 7rem 0 4rem 0; /* doubled height per request */
+	padding: 14rem 0 8rem 0; /* doubled again per request -> taller bar */
 	box-sizing: border-box;
 }
 .color-bar-with-waffle .color-bar-inner {
@@ -422,7 +422,7 @@ h3:before {
 .waffle-image {
 	position: absolute;
 	left: 12px; /* near left edge */
-	top: -48px; /* smaller overlap for more natural look */
+	top: 12px; /* place inside the bar so the full image is visible */
 	width: 160px; /* smaller, matches second image */
 	max-width: 22%;
 	z-index: 30;
@@ -430,7 +430,7 @@ h3:before {
 	box-shadow: none !important; /* keep no shadow */
 	background: transparent !important;
 	border: none !important;
-	object-fit: cover;
+	object-fit: contain; /* show full image without cropping */
 	object-position: left bottom; /* show bottom-left (finger) */
 }
 
