@@ -120,14 +120,26 @@ comments: false
 	<!-- 색갈바 슬라이드 -->
 	<section class="slideshow-section">
 		<div id="rect-slideshow" class="rect-slideshow" aria-roledescription="carousel" aria-label="Gallery slideshow">
-			<div class="rect-track">
-				<div class="rect-item active"><img src="/assets/images/pizza.jpg" alt="slide 1" loading="lazy"></div>
-				<div class="rect-item"><img src="/assets/images/pizza2.jpg" alt="slide 2" loading="lazy"></div>
-				<div class="rect-item"><img src="/assets/images/pizza3.png" alt="slide 3" loading="lazy"></div>
-				<div class="rect-item"><img src="/assets/images/chocochipcookie.jpg" alt="slide 4" loading="lazy"></div>
-				<div class="rect-item"><img src="/assets/images/bun.jpg" alt="slide 5" loading="lazy"></div>
-				<div class="rect-item"><img src="/assets/images/meet.jpg" alt="slide 6" loading="lazy"></div>
+			<!-- Left side: static/rotating text for current slide -->
+			<div class="rect-side" aria-hidden="false">
+				<div class="rect-text">
+					<h3 class="rect-title">Gallery</h3>
+					<p class="rect-desc">Featured items — 스와이프처럼 오른쪽에서 왼쪽으로 자연스럽게 이동합니다.</p>
+				</div>
 			</div>
+
+			<!-- Right side viewport: track slides from right to left under the left text -->
+			<div class="rect-viewport">
+				<div class="rect-track">
+					<div class="rect-item active" data-title="Classic Pizza" data-desc="Cheesy, crispy, and irresistible."><img src="/assets/images/pizza.jpg" alt="slide 1" loading="lazy"></div>
+					<div class="rect-item" data-title="Salami Pizza" data-desc="Spicy salami with roasted peppers."><img src="/assets/images/pizza2.jpg" alt="slide 2" loading="lazy"></div>
+					<div class="rect-item" data-title="Wood-fired Pizza" data-desc="Smoky flavor and house-made dough."><img src="/assets/images/pizza3.png" alt="slide 3" loading="lazy"></div>
+					<div class="rect-item" data-title="Choco Cookie" data-desc="Handmade cookie with rich chocolate chips."><img src="/assets/images/chocochipcookie.jpg" alt="slide 4" loading="lazy"></div>
+					<div class="rect-item" data-title="Soft Bun" data-desc="Freshly baked soft bun, perfect for breakfast."><img src="/assets/images/bun.jpg" alt="slide 5" loading="lazy"></div>
+					<div class="rect-item" data-title="Savory Meet" data-desc="Savory meat dish, seasoned and grilled to perfection."><img src="/assets/images/meet.jpg" alt="slide 6" loading="lazy"></div>
+				</div>
+			</div>
+
 			<button class="rect-arrow left" aria-label="Previous slide">‹</button>
 			<button class="rect-arrow right" aria-label="Next slide">›</button>
 		</div>

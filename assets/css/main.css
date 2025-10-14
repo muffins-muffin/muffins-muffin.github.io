@@ -458,7 +458,7 @@ h3:before {
 /* Rectangular slideshow (custom) */
 .rect-slideshow { max-width: 1100px; margin: 0 auto; position: relative; overflow: hidden; }
 .rect-slideshow { padding-bottom: 12rem; }
-.rect-slideshow .rect-track { display:flex; gap: 18px; align-items: center; transition: transform 0.6s ease; }
+.rect-slideshow .rect-track { display:flex; gap: 18px; align-items: center; transition: transform 0.7s cubic-bezier(.22,.9,.32,1); }
 .rect-slideshow .rect-item {
 	flex: 0 0 360px;
 	height: 200px;
@@ -480,6 +480,21 @@ h3:before {
 .rect-slideshow .rect-arrow { position: absolute; top: 50%; transform: translateY(-50%); z-index: 40; background: rgba(0,0,0,0.45); color: #fff; border-radius: 50%; width:44px; height:44px; display:flex; align-items:center; justify-content:center; cursor:pointer; }
 .rect-slideshow .rect-arrow.left { left: 8px; }
 .rect-slideshow .rect-arrow.right { right: 8px; }
+
+/* New layout: left text column + right viewport for sliding images */
+.rect-slideshow { display: flex; align-items: stretch; }
+.rect-side { flex: 0 0 320px; padding: 2rem; background: transparent; z-index: 50; }
+.rect-side .rect-title { margin: 0 0 0.5rem 0; font-size: 1.5rem; }
+.rect-side .rect-desc { margin: 0; color: #555; }
+.rect-viewport { flex: 1 1 auto; overflow: hidden; position: relative; }
+.rect-viewport .rect-track { will-change: transform; }
+.rect-viewport .rect-item { opacity: 0.0; transition: opacity 600ms ease; }
+.rect-viewport .rect-item.active { opacity: 1.0; }
+
+/* hide items that slide under the left column by clipping the viewport
+	The left text column sits above with higher z-index so images appear to pass behind it */
+.rect-side { position: relative; }
+.rect-viewport { margin-left: 0; }
 
 @media (max-width: 900px){
 	.rect-slideshow .rect-item { flex: 0 0 260px; height:160px; }

@@ -16,18 +16,30 @@
   function update(){
     // set active class
     items.forEach((it, i) => it.classList.toggle('active', i === index));
-    // center the active item by translating the track
+    // compute translation so the active item sits slightly right of center and then moves left
     const itemWidth = items[0].getBoundingClientRect().width + parseFloat(getComputedStyle(track).gap || 18);
-    const visibleWidth = root.getBoundingClientRect().width;
-    // compute offset so active item is centered if possible
-    const centerOffset = (visibleWidth - itemWidth) / 2;
-    let translateX = -(index * itemWidth) + centerOffset;
-    // limit translateX so track doesn't leave empty space
-    const maxTranslate = 0;
+    const viewport = root.querySelector('.rect-viewport');
+    const visibleWidth = viewport ? viewport.getBoundingClientRect().width : root.getBoundingClientRect().width;
+
+    // desired position: active item offset from left edge of viewport (start mid-right)
+    const offsetFromLeft = Math.round(visibleWidth * 0.5); // place active approx at 50% of viewport
+    let translateX = -(index * itemWidth) + offsetFromLeft;
+
+    // clamp so we don't show empty space at the ends
+    const maxTranslate = 0 + (viewport ? 0 : 0);
     const minTranslate = Math.min(0, visibleWidth - (items.length * itemWidth));
     if(translateX > maxTranslate) translateX = maxTranslate;
     if(translateX < minTranslate) translateX = minTranslate;
     track.style.transform = `translateX(${translateX}px)`;
+
+    // update left-side text if data attributes exist on the active item
+    const active = items[index];
+    if(active){
+      const titleEl = root.querySelector('.rect-side .rect-title');
+      const descEl = root.querySelector('.rect-side .rect-desc');
+      if(titleEl && active.dataset.title) titleEl.textContent = active.dataset.title;
+      if(descEl && active.dataset.desc) descEl.textContent = active.dataset.desc;
+    }
   }
 
   function next(){ index = (index + 1) % items.length; update(); }
