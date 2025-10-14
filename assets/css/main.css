@@ -481,6 +481,30 @@ h3:before {
 .rect-slideshow .rect-arrow.left { left: 8px; }
 .rect-slideshow .rect-arrow.right { right: 8px; }
 
+/* Photo row carousel (top feature row) */
+.photo-row-carousel { position: relative; margin-bottom: 1.25rem; }
+.photo-row-carousel .photo-row-track { display:flex; gap: 14px; overflow: hidden; scroll-behavior: smooth; }
+.photo-row-carousel .photo-row-item { flex: 0 0 220px; height: 140px; border-radius: 10px; overflow: hidden; background: #fff; box-shadow: 0 6px 18px rgba(0,0,0,0.08); }
+.photo-row-carousel .photo-row-item img { width:100%; height:100%; object-fit: cover; display:block; }
+.photo-row-carousel .photo-row-prev, .photo-row-carousel .photo-row-next { position:absolute; top:50%; transform: translateY(-50%); background: rgba(0,0,0,0.35); color:#fff; width:40px; height:40px; border-radius:50%; display:flex; align-items:center; justify-content:center; z-index:40; }
+.photo-row-carousel .photo-row-prev { left: -8px; }
+.photo-row-carousel .photo-row-next { right: -8px; }
+
+/* Mosaic grid below the row */
+.mosaic-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; align-items: stretch; }
+.mosaic-item { position: relative; overflow: hidden; border-radius: 10px; }
+.mosaic-item img { width:100%; height:100%; object-fit: cover; display:block; }
+.mosaic-item.span-2-2 { grid-column: span 2; grid-row: span 2; height: 420px; }
+.mosaic-item.span-1-2 { grid-column: span 1; grid-row: span 2; height: 420px; }
+.mosaic-item.span-2-1 { grid-column: span 2; grid-row: span 1; height: 200px; }
+.mosaic-item.span-1-1 { grid-column: span 1; grid-row: span 1; height: 200px; }
+
+@media (max-width: 900px){
+	.photo-row-carousel .photo-row-item { flex: 0 0 160px; height: 110px; }
+	.mosaic-grid { grid-template-columns: repeat(2, 1fr); }
+	.mosaic-item.span-2-2, .mosaic-item.span-1-2 { grid-column: span 2; height: 260px; }
+}
+
 /* New layout: left text column + right viewport for sliding images */
 .rect-slideshow { display: flex; align-items: stretch; }
 .rect-side { flex: 0 0 320px; padding: 2rem; background: transparent; z-index: 50; }

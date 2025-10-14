@@ -56,50 +56,29 @@ comments: false
 	<!-- Top photo-grid removed per user request -->
 
 
-<!-- 3x3 White Gallery Grid -->
-<section class="gallery-3x3" style="background:#fff;padding:6rem 0;border-top:1px solid #eee;">
+<!-- Feature photos layout: top small carousel row + mosaic grid below -->
+<section class="photo-feature" style="background:#fff;padding:4rem 0;border-top:1px solid #eee;">
 	<div style="max-width:1100px;margin:0 auto;padding:0 1rem;">
-		<!-- gallery title removed as requested -->
-	<div class="gallery-grid" style="display:grid;grid-template-columns:repeat(3,1fr);gap:1.25rem;">
-	    <!-- 1 -->
-	    <div class="gallery-cell">
-		    <img src="/assets/images/monkey.jpg" alt="monkey" style="width:100%;height:240px;object-fit:cover;border-radius:8px;background:#fff;" />
-		    <h4 class="gallery-caption" style="margin:0.5rem 0 0 0;font-size:1.08rem;color:#111;text-align:center;font-weight:700;">Monkey</h4>
-		    <p class="gallery-desc" style="margin:0.2rem 0 0.5rem 0;font-size:0.97rem;color:#444;text-align:center;">A playful monkey photo — cute and curious.</p>
-	    </div>
-	    <!-- 2 -->
-	    <div class="gallery-cell">
-		    <img src="/assets/images/marshmellow.jpg" alt="marshmellow" style="width:100%;height:240px;object-fit:cover;border-radius:8px;background:#fff;" />
-		    <h4 class="gallery-caption" style="margin:0.5rem 0 0 0;font-size:1.08rem;color:#111;text-align:center;font-weight:700;">Marshmellow</h4>
-		    <p class="gallery-desc" style="margin:0.2rem 0 0.5rem 0;font-size:0.97rem;color:#444;text-align:center;">Soft marshmallow treat — sweet and fluffy.</p>
-	    </div>
-			<!-- 3 -->
-			<div class="gallery-cell">
-					<img src="/assets/images/pizza.jpg" alt="pizza" style="width:100%;height:240px;object-fit:cover;border-radius:8px;background:#fff;" />
-					<h4 class="gallery-caption" style="margin:0.5rem 0 0 0;font-size:1.08rem;color:#111;text-align:center;font-weight:700;">Pizza</h4>
-					<p class="gallery-desc" style="margin:0.2rem 0 0.5rem 0;font-size:0.97rem;color:#444;text-align:center;">Classic cheese pizza with a crispy crust and rich tomato sauce.</p>
+		<!-- top photo row: sliding carousel of cards -->
+		<div id="photo-row-carousel" class="photo-row-carousel" aria-roledescription="carousel">
+			<div class="photo-row-track">
+				<div class="photo-row-item"><img src="/assets/images/pizza.jpg" alt="feature 1"></div>
+				<div class="photo-row-item"><img src="/assets/images/pizza2.jpg" alt="feature 2"></div>
+				<div class="photo-row-item"><img src="/assets/images/pizza3.png" alt="feature 3"></div>
+				<div class="photo-row-item"><img src="/assets/images/chocochipcookie.jpg" alt="feature 4"></div>
 			</div>
+			<button class="photo-row-prev" aria-label="Previous">‹</button>
+			<button class="photo-row-next" aria-label="Next">›</button>
+		</div>
 
-			<!-- 4 -->
-			<div class="gallery-cell">
-					<img src="/assets/images/pizza2.jpg" alt="pizza2" style="width:100%;height:240px;object-fit:cover;border-radius:8px;background:#fff;" />
-					<h4 class="gallery-caption" style="margin:0.5rem 0 0 0;font-size:1.08rem;color:#111;text-align:center;font-weight:700;">Pizza 2</h4>
-					<p class="gallery-desc" style="margin:0.2rem 0 0.5rem 0;font-size:0.97rem;color:#444;text-align:center;">Spicy salami pizza with roasted peppers and melty cheese.</p>
-			</div>
-			<!-- 5 -->
-			<div class="gallery-cell">
-					<img src="/assets/images/pizza3.png" alt="pizza3" style="width:100%;height:240px;object-fit:cover;border-radius:8px;background:#fff;" />
-					<h4 class="gallery-caption" style="margin:0.5rem 0 0 0;font-size:1.08rem;color:#111;text-align:center;font-weight:700;">Pizza 3</h4>
-					<p class="gallery-desc" style="margin:0.2rem 0 0.5rem 0;font-size:0.97rem;color:#444;text-align:center;">Wood-fired pizza with smoky flavor and house-made dough.</p>
-			</div>
-			<!-- 6 -->
-			<div class="gallery-cell">
-					<img src="/assets/images/chocochipcookie.jpg" alt="cookie" style="width:100%;height:240px;object-fit:cover;border-radius:8px;background:#fff;" />
-					<h4 class="gallery-caption" style="margin:0.5rem 0 0 0;font-size:1.08rem;color:#111;text-align:center;font-weight:700;">Choco Chip Cookie</h4>
-					<p class="gallery-desc" style="margin:0.2rem 0 0.5rem 0;font-size:0.97rem;color:#444;text-align:center;">Handmade cookie with rich chocolate chips, baked daily.</p>
-			</div>
-
-			<!-- placeholders removed per user request -->
+		<!-- mosaic grid below -->
+		<div class="mosaic-grid">
+			<div class="mosaic-item span-2-2"><img src="/assets/images/pizza.jpg" alt="m1"></div>
+			<div class="mosaic-item span-1-1"><img src="/assets/images/pizza2.jpg" alt="m2"></div>
+			<div class="mosaic-item span-1-2"><img src="/assets/images/pizza3.png" alt="m3"></div>
+			<div class="mosaic-item span-2-1"><img src="/assets/images/chocochipcookie.jpg" alt="m4"></div>
+			<div class="mosaic-item span-1-1"><img src="/assets/images/bun.jpg" alt="m5"></div>
+			<div class="mosaic-item span-1-1"><img src="/assets/images/meet.jpg" alt="m6"></div>
 		</div>
 	</div>
 </section>
