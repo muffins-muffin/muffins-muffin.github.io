@@ -1016,3 +1016,18 @@ h1, h2, h3, section, article, .photo-grid-section {
 	.full-width-post { padding: 1.2rem 0; }
 	.full-width-post h2 { font-size: 1.25rem; }
 }
+
+/* 갤러리 간격 */
+.gallery-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.75rem; /* 예: 0.75rem (좁게), 1.5rem은 더 넓게 */
+}
+
+.gallery-3x3 {
+  padding: 1.25rem 0; /* 예: 1.25rem (기본보다 조금 작게) */
+}
+
+
+.gallery-caption { margin: 0.4rem 0 0 0; }   /* 제목 위/아래 간격 */
+.gallery-desc { margin-top: 0.4rem; line-height:1.35; } /* 설명 위쪽 여백 */
