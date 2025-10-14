@@ -394,7 +394,7 @@ h3:before {
 	box-sizing: border-box;
 	padding-left: 0; padding-right: 0;
 	/* place the full-bleed carousel immediately under the fixed navbar */
-	margin-top: calc(-1 * var(--navbar-height));
+	margin-top: calc(-1 * var(--navbar-height) - 0.8rem); /* nudge slightly upward */
 	padding-top: var(--navbar-height); /* create internal top padding so slides start below navbar */
 	z-index: 5; /* keep it behind navbar which should have higher z-index */
 }
@@ -468,6 +468,7 @@ h3:before {
 	opacity: 0;
 	transform: none; /* remove zoom/scale effect - opacity-only transition */
 	transition: opacity 600ms ease;
+	will-change: opacity; /* hint for smoother fade */
 	pointer-events: none;
 }
 .rect-slideshow .rect-item.active {
