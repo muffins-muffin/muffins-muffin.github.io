@@ -16,7 +16,8 @@ html, body {
 body {
 	/* Remove default browser margin; keep bottom space for footer */
 	margin: 0 0 8em 0;
-	padding-top: 3rem; /* reduced from 4.5em to better match simplified header */
+	/* remove top padding so the fixed navbar sits flush with the page (prevents white gap) */
+	padding-top: 0;
 	counter-reset: h1counter;
 }
 
@@ -560,6 +561,30 @@ html, body { overflow-x: hidden; }
 	width: 100%;
 	height: 100%;
 	object-fit: cover;
+}
+
+/* On large screens make the hero slides and full-width banners truly span the viewport
+   while keeping them centered and preventing horizontal scrolling. */
+@media (min-width: 1100px) {
+	.carousel.full-bleed,
+	.carousel.full-bleed .slides,
+	.carousel.full-bleed .slide {
+		width: 100vw; /* take the full viewport width */
+		left: 50%;
+		transform: translateX(-50%);
+		max-width: 100vw;
+	}
+
+	.carousel.full-bleed .slide img,
+	.banner-full img,
+	.banner-full-alt img {
+		width: 100vw; /* force the image to span viewport width */
+		max-width: 100vw;
+		display: block;
+		margin-left: 50%;
+		transform: translateX(-50%);
+		object-fit: cover;
+	}
 }
 .carousel .slides {
 	display: flex;
