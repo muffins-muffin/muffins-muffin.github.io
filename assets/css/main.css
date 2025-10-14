@@ -427,8 +427,8 @@ h3:before {
 	position: absolute;
 	left: 0; /* flush to the left edge of the bar */
 	top: -80px; /* bring waffle closer to the bar (less upward overlap) */
-	width: 220px; /* noticeably smaller waffle */
-	max-width: 28%;
+	width: 260px; /* slightly larger waffle per request */
+	max-width: 32%;
 	z-index: 30;
 	border-radius: 8px; /* rectangular with rounded corners */
 	box-shadow: none !important; /* keep no shadow */
@@ -440,7 +440,7 @@ h3:before {
 
 /* Slight responsive adjustments for waffle */
 @media (max-width: 768px){
- 	.waffle-image { width:88px; top: -48px; left: 8px; }
+ 	.waffle-image { width:100px; top: -56px; left: 8px; }
  	.color-bar-with-waffle { padding: 5.5rem 0 4.5rem 0; max-width: 100%; margin: 64px 1rem 0 1rem; }
  	.slideshow-section { margin-top: 14rem; }
  }
@@ -466,13 +466,13 @@ h3:before {
 	overflow: hidden;
 	position: relative;
 	opacity: 0;
-	transform: scale(0.98);
-	transition: opacity 600ms ease, transform 600ms ease;
+	transform: none; /* remove zoom/scale effect - opacity-only transition */
+	transition: opacity 600ms ease;
 	pointer-events: none;
 }
 .rect-slideshow .rect-item.active {
 	opacity: 1;
-	transform: scale(1.04);
+	transform: none;
 	pointer-events: auto;
 }
 .rect-slideshow .rect-item img { width:100%; height:100%; object-fit:cover; display:block; }
