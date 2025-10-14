@@ -694,6 +694,33 @@ h1, h2, h3, section, article, .photo-grid-section {
 .photo-grid .card .card-body {
 	padding: 0.9rem 1rem;
 }
+.photo-grid .card .card-badge {
+	position: absolute;
+	left: 10px;
+	top: 10px;
+	background: rgba(255,255,255,0.92);
+	color: #333;
+	font-weight: 700;
+	padding: 0.22rem 0.5rem;
+	border-radius: 999px;
+	font-size: 0.75rem;
+	box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+	z-index: 5;
+}
+.photo-grid .card .card-meta {
+	color: #7a6b60;
+	font-size: 0.9rem;
+	margin: 0.2rem 0 0.35rem 0;
+}
+.photo-grid .card .card-excerpt {
+	color: #4a3f37;
+	font-size: 0.95rem;
+	margin-bottom: 0.6rem;
+}
+.photo-grid .card .btn-small {
+	color: #b45b2a; /* warm accent for CTA */
+	font-weight: 700;
+}
 .photo-grid .card .card-title { margin: 0 0 0.25rem 0; font-size: 1.05rem; }
 .photo-grid .card .card-meta { color:#777; font-size:0.85rem; margin-bottom:0.45rem; }
 .photo-grid .card .card-excerpt { margin: 0; color:#333; font-size:0.95rem; line-height:1.3; }
