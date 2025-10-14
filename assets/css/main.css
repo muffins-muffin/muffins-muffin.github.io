@@ -389,6 +389,10 @@ h3:before {
 	width: 100vw;
 	box-sizing: border-box;
 	padding-left: 0; padding-right: 0;
+	/* place the full-bleed carousel immediately under the fixed navbar */
+	margin-top: calc(-1 * var(--navbar-height));
+	padding-top: var(--navbar-height); /* create internal top padding so slides start below navbar */
+	z-index: 5; /* keep it behind navbar which should have higher z-index */
 }
 .carousel.full-bleed .slides { align-items: center; }
 .carousel.full-bleed .slide img { object-position: center center; }
@@ -408,8 +412,20 @@ h3:before {
 .carousel .slide img {
 	width: 100%;
 	height: 100%;
-	object-fit: cover;
+	object-fit: cover; /* ensure the image covers the slide area and crops if necessary */
 	display: block;
+}
+
+/* Make sure the slides occupy the full visible carousel height and center properly */
+.carousel.full-bleed, .carousel.full-bleed .slides, .carousel.full-bleed .slide {
+    height: calc(66vh + var(--navbar-height));
+    min-height: 280px;
+}
+
+@media (max-width: 767px) {
+    .carousel.full-bleed, .carousel.full-bleed .slides, .carousel.full-bleed .slide {
+        height: calc(44vh + var(--navbar-height));
+    }
 }
 
 /* Arrows */
