@@ -395,7 +395,16 @@ h3:before {
 	z-index: 5; /* keep it behind navbar which should have higher z-index */
 }
 .carousel.full-bleed .slides { align-items: center; }
-.carousel.full-bleed .slide img { object-position: center center; }
+.carousel.full-bleed .slides { display: flex; align-items: center; justify-content: center; }
+.carousel.full-bleed .slide { display:flex; align-items:center; justify-content:center; }
+.carousel.full-bleed .slide img { object-position: center center !important; max-width: none; }
+
+/* Prevent images from shrinking too far horizontally which can push the focal point off-screen */
+.carousel.full-bleed .slide img {
+	min-width: 60vw; /* ensure a portion of the image remains visible centered; adjust as needed */
+	width: auto; /* allow natural width so object-position centering works */
+	height: 100%;
+}
 .carousel .slides {
 	display: flex;
  	width: 100%;
