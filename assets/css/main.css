@@ -416,6 +416,8 @@ h3:before {
 	margin: 0 auto;
 	position: relative;
 	padding-left: 2.5rem; /* leave space for the waffle image */
+	background: transparent !important;
+	box-shadow: none !important;
 }
 .waffle-image {
 	position: absolute;
@@ -425,9 +427,14 @@ h3:before {
 	max-width: 22%;
 	z-index: 30;
 	border-radius: 8px;
-	box-shadow: none; /* remove shadow per request */
+	box-shadow: none !important; /* remove shadow per request */
+	background: transparent !important;
+	border: none !important;
 	object-fit: cover;
 	object-position: left bottom; /* show bottom-left (finger) */
+	/* force a clean circular crop to avoid any rectangular background or baked-in frame */
+	border-radius: 50% !important;
+	clip-path: circle(50% at 50% 50%) !important;
 }
 
 /* Slight responsive adjustments for waffle */
@@ -448,7 +455,7 @@ h3:before {
 
 /* Rectangular slideshow (custom) */
 .rect-slideshow { max-width: 1100px; margin: 0 auto; position: relative; overflow: hidden; }
-.rect-slideshow { padding-bottom: 3.2rem; }
+.rect-slideshow { padding-bottom: 12rem; }
 .rect-slideshow .rect-track { display:flex; gap: 18px; align-items: center; transition: transform 0.6s ease; }
 .rect-slideshow .rect-item { flex: 0 0 360px; height: 200px; border-radius: 8px; overflow: hidden; position: relative; opacity: 0.45; transition: opacity 300ms ease, transform 300ms ease; }
 .rect-slideshow .rect-item.active { opacity: 1; transform: scale(1.02); }
