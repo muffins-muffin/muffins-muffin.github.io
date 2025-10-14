@@ -403,12 +403,12 @@ h3:before {
 .gallery-caption { margin-bottom: 0.25rem; }
 .gallery-desc { margin-top: 0.6rem; line-height:1.3; }
 
-/* Color bar with waffle image (full-width) */
+/* 와플 들어간 연분홍색 바 색상 높이 */
 .color-bar-with-waffle {
 	position: relative;
 	background: #ffbfae;
-	min-height: 120px;
-	padding: 48px 0 48px 0; /* doubled height */
+	min-height: 240px; /* doubled height */
+	padding: 96px 0 96px 0; /* doubled vertical padding */
 	margin: 0 auto; /* center the bar */
 	max-width: 1100px; /* fixed centered width */
 	width: 100%;
@@ -440,9 +440,9 @@ h3:before {
 
 /* Slight responsive adjustments for waffle */
 @media (max-width: 768px){
- 	.waffle-image { width:140px; top: -42px; left: 8px; }
- 	.color-bar-with-waffle { padding: 6rem 0 3rem 0; max-width: 100%; margin: 0 1rem; }
-}
+ 	.waffle-image { width:140px; top: -60px; left: 8px; }
+ 	.color-bar-with-waffle { padding: 10rem 0 8rem 0; max-width: 100%; margin: 0 1rem; }
+ }
 
 /* Slideshow section (reuses .carousel behavior) */
 .slideshow-section { margin-top: 1.2rem; }
