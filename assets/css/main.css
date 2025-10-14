@@ -409,7 +409,7 @@ h3:before {
 	background: #ffbfae;
 	min-height: 240px; /* doubled height */
 	padding: 96px 0 96px 0; /* doubled vertical padding */
-	margin: 0 auto; /* center the bar */
+	margin: 40px auto 0 auto; /* push the bar down a bit and center */
 	max-width: 1100px; /* fixed centered width */
 	width: 100%;
 	box-sizing: border-box;
@@ -426,9 +426,9 @@ h3:before {
 .waffle-image {
 	position: absolute;
 	left: 0; /* flush to the left edge of the bar */
-	top: -140px; /* increased overlap: sticks out further above the bar */
-	width: 320px; /* doubled size per request */
-	max-width: 36%;
+	top: -160px; /* increased overlap: sticks out further above the bar */
+	width: 380px; /* slightly larger waffle */
+	max-width: 40%;
 	z-index: 30;
 	border-radius: 8px; /* rectangular with rounded corners */
 	box-shadow: none !important; /* keep no shadow */
@@ -441,7 +441,7 @@ h3:before {
 /* Slight responsive adjustments for waffle */
 @media (max-width: 768px){
  	.waffle-image { width:140px; top: -100px; left: 8px; }
- 	.color-bar-with-waffle { padding: 10rem 0 8rem 0; max-width: 100%; margin: 0 1rem; }
+ 	.color-bar-with-waffle { padding: 10rem 0 8rem 0; max-width: 100%; margin: 24px 1rem 0 1rem; }
  }
 
 /* Slideshow section (reuses .carousel behavior) */
@@ -847,7 +847,7 @@ h1, h2, h3, section, article, .photo-grid-section {
 /* Captions for the 3x3 gallery section */
 .gallery-caption {
 	margin: 0.5rem 0 0 0;
-	font-size: 0.95rem;
+	font-size: 1.02rem;
 	color: #111;
 	text-align: center;
 	font-weight: 600;
