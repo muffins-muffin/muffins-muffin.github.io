@@ -407,9 +407,9 @@ h3:before {
 .color-bar-with-waffle {
 	position: relative;
 	background: #ffbfae;
-	min-height: 240px; /* doubled height */
-	padding: 96px 0 96px 0; /* doubled vertical padding */
-	margin: 80px auto 0 auto; /* push the bar further down and center */
+	min-height: 220px; /* slightly reduced from previous 240 to balance layout */
+	padding: 72px 0 72px 0; /* slightly less vertical padding */
+	margin: 96px auto 0 auto; /* move the bar down a bit more from the gallery */
 	max-width: 1100px; /* fixed centered width */
 	width: 100%;
 	box-sizing: border-box;
@@ -426,9 +426,9 @@ h3:before {
 .waffle-image {
 	position: absolute;
 	left: 0; /* flush to the left edge of the bar */
-	top: -160px; /* increased overlap: sticks out further above the bar */
-	width: 380px; /* slightly larger waffle */
-	max-width: 40%;
+	top: -120px; /* bring waffle down slightly so it overlaps less */
+	width: 320px; /* slightly smaller waffle for better balance */
+	max-width: 36%;
 	z-index: 30;
 	border-radius: 8px; /* rectangular with rounded corners */
 	box-shadow: none !important; /* keep no shadow */
@@ -440,8 +440,8 @@ h3:before {
 
 /* Slight responsive adjustments for waffle */
 @media (max-width: 768px){
- 	.waffle-image { width:140px; top: -100px; left: 8px; }
- 	.color-bar-with-waffle { padding: 10rem 0 8rem 0; max-width: 100%; margin: 48px 1rem 0 1rem; }
+ 	.waffle-image { width:120px; top: -84px; left: 8px; }
+ 	.color-bar-with-waffle { padding: 6.5rem 0 5.5rem 0; max-width: 100%; margin: 48px 1rem 0 1rem; }
  	.slideshow-section { margin-top: 10rem; }
  }
 
@@ -459,8 +459,22 @@ h3:before {
 .rect-slideshow { max-width: 1100px; margin: 0 auto; position: relative; overflow: hidden; }
 .rect-slideshow { padding-bottom: 12rem; }
 .rect-slideshow .rect-track { display:flex; gap: 18px; align-items: center; transition: transform 0.6s ease; }
-.rect-slideshow .rect-item { flex: 0 0 360px; height: 200px; border-radius: 8px; overflow: hidden; position: relative; opacity: 0.45; transition: opacity 300ms ease, transform 300ms ease; }
-.rect-slideshow .rect-item.active { opacity: 1; transform: scale(1.02); }
+.rect-slideshow .rect-item {
+	flex: 0 0 360px;
+	height: 200px;
+	border-radius: 8px;
+	overflow: hidden;
+	position: relative;
+	opacity: 0;
+	transform: scale(0.98);
+	transition: opacity 600ms ease, transform 600ms ease;
+	pointer-events: none;
+}
+.rect-slideshow .rect-item.active {
+	opacity: 1;
+	transform: scale(1.04);
+	pointer-events: auto;
+}
 .rect-slideshow .rect-item img { width:100%; height:100%; object-fit:cover; display:block; }
 .rect-slideshow .rect-arrow { position: absolute; top: 50%; transform: translateY(-50%); z-index: 40; background: rgba(0,0,0,0.45); color: #fff; border-radius: 50%; width:44px; height:44px; display:flex; align-items:center; justify-content:center; cursor:pointer; }
 .rect-slideshow .rect-arrow.left { left: 8px; }
@@ -1027,6 +1041,12 @@ h1, h2, h3, section, article, .photo-grid-section {
 
 .gallery-3x3 {
   padding: 1.25rem 0; /* 예: 1.25rem (기본보다 조금 작게) */
+}
+
+/* Add breathing room between the hero carousel and the 3x3 gallery heading */
+.gallery-3x3 h3 {
+		margin-top: 2.25rem; /* pushes the heading down a bit from the carousel */
+		margin-bottom: 1rem; /* preserve existing bottom spacing */
 }
 
 
