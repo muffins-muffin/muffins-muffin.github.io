@@ -115,26 +115,21 @@ comments: false
 	<section class="color-bar-with-waffle" aria-hidden="false">
 	  <div class="color-bar-inner">
 	    <!-- waffle image positioned to the left and overlapping upward -->
-		<img class="waffle-image" src="/assets/images/chocochipcookie.jpg" alt="waffle" />
+		<img class="waffle-image" src="/assets/images/waffle.png" alt="waffle" />
 	    <!-- optional short text area if you want later (kept empty) -->
 	  </div>
 	</section>
 
 	<!-- Slideshow gallery below the color bar -->
 	<section class="slideshow-section">
-	  <div class="carousel" aria-roledescription="carousel" aria-label="Gallery slideshow">
-	    <div class="slides">
-	      <div class="slide"><img src="/assets/images/pizza.jpg" alt="slide 1" loading="lazy"></div>
-	      <div class="slide"><img src="/assets/images/pizza2.jpg" alt="slide 2" loading="lazy"></div>
-	      <div class="slide"><img src="/assets/images/pizza3.png" alt="slide 3" loading="lazy"></div>
-	    </div>
-	    <button class="arrow left" aria-label="Previous slide">‹</button>
-	    <button class="arrow right" aria-label="Next slide">›</button>
-	    <div class="dots" role="tablist" aria-label="Slide dots">
-	      <button data-index="0" class="active" aria-label="Go to slide 1"></button>
-	      <button data-index="1" aria-label="Go to slide 2"></button>
-	      <button data-index="2" aria-label="Go to slide 3"></button>
-	    </div>
-	  </div>
+		<div id="rect-slideshow" class="rect-slideshow" aria-roledescription="carousel" aria-label="Gallery slideshow">
+			<div class="rect-track">
+				<div class="rect-item active"><img src="/assets/images/pizza.jpg" alt="slide 1" loading="lazy"></div>
+				<div class="rect-item"><img src="/assets/images/pizza2.jpg" alt="slide 2" loading="lazy"></div>
+				<div class="rect-item"><img src="/assets/images/pizza3.png" alt="slide 3" loading="lazy"></div>
+			</div>
+			<button class="rect-arrow left" aria-label="Previous slide">‹</button>
+			<button class="rect-arrow right" aria-label="Next slide">›</button>
+		</div>
 	</section>
 
