@@ -426,7 +426,7 @@ h3:before {
 .waffle-image {
 	position: absolute;
 	left: 0; /* flush to the left edge of the bar */
-	top: -80px; /* overlap upward so it sticks out above the bar */
+	top: -140px; /* increased overlap: sticks out further above the bar */
 	width: 320px; /* doubled size per request */
 	max-width: 36%;
 	z-index: 30;
@@ -440,7 +440,7 @@ h3:before {
 
 /* Slight responsive adjustments for waffle */
 @media (max-width: 768px){
- 	.waffle-image { width:140px; top: -60px; left: 8px; }
+ 	.waffle-image { width:140px; top: -100px; left: 8px; }
  	.color-bar-with-waffle { padding: 10rem 0 8rem 0; max-width: 100%; margin: 0 1rem; }
  }
 
