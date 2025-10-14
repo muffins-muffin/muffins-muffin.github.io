@@ -406,19 +406,18 @@ h3:before {
 /* Color bar with waffle image (full-width) */
 .color-bar-with-waffle {
 	position: relative;
-	width: 100vw;
-	left: 50%;
-	transform: translateX(-50%);
 	background: #ffbfae;
 	min-height: 120px;
 	padding: 48px 0 48px 0; /* doubled height */
-	margin: 0;
-	position: relative; /* ensure relative for absolute child */
+	margin: 0 auto; /* center the bar */
+	max-width: 1100px; /* fixed centered width */
+	width: 100%;
+	box-sizing: border-box;
 	overflow: visible;
 }
 .color-bar-with-waffle .color-bar-inner {
-	max-width: 1100px;
-	margin: 0 auto;
+	max-width: 100%;
+	margin: 0;
 	position: relative;
 	padding-left: 2.5rem; /* leave space for the waffle image */
 	background: transparent !important;
@@ -442,7 +441,7 @@ h3:before {
 /* Slight responsive adjustments for waffle */
 @media (max-width: 768px){
  	.waffle-image { width:140px; top: -42px; left: 8px; }
- 	.color-bar-with-waffle { padding: 6rem 0 3rem 0; width: auto; transform: none; left: auto; }
+ 	.color-bar-with-waffle { padding: 6rem 0 3rem 0; max-width: 100%; margin: 0 1rem; }
 }
 
 /* Slideshow section (reuses .carousel behavior) */
