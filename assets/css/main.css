@@ -409,7 +409,7 @@ h3:before {
 	background: #ffbfae;
 	min-height: 220px; /* slightly reduced from previous 240 to balance layout */
 	padding: 72px 0 72px 0; /* slightly less vertical padding */
-	margin: 96px auto 0 auto; /* move the bar down a bit more from the gallery */
+	margin: 120px auto 0 auto; /* move the bar further down from the gallery */
 	max-width: 1100px; /* fixed centered width */
 	width: 100%;
 	box-sizing: border-box;
@@ -426,9 +426,9 @@ h3:before {
 .waffle-image {
 	position: absolute;
 	left: 0; /* flush to the left edge of the bar */
-	top: -120px; /* bring waffle down slightly so it overlaps less */
-	width: 320px; /* slightly smaller waffle for better balance */
-	max-width: 36%;
+	top: -80px; /* bring waffle closer to the bar (less upward overlap) */
+	width: 220px; /* noticeably smaller waffle */
+	max-width: 28%;
 	z-index: 30;
 	border-radius: 8px; /* rectangular with rounded corners */
 	box-shadow: none !important; /* keep no shadow */
@@ -440,9 +440,9 @@ h3:before {
 
 /* Slight responsive adjustments for waffle */
 @media (max-width: 768px){
- 	.waffle-image { width:120px; top: -84px; left: 8px; }
- 	.color-bar-with-waffle { padding: 6.5rem 0 5.5rem 0; max-width: 100%; margin: 48px 1rem 0 1rem; }
- 	.slideshow-section { margin-top: 10rem; }
+ 	.waffle-image { width:88px; top: -48px; left: 8px; }
+ 	.color-bar-with-waffle { padding: 5.5rem 0 4.5rem 0; max-width: 100%; margin: 64px 1rem 0 1rem; }
+ 	.slideshow-section { margin-top: 14rem; }
  }
 
 /* Slideshow section (reuses .carousel behavior) */
