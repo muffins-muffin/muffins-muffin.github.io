@@ -406,13 +406,15 @@ h3:before {
 /* Color bar with waffle image (full-width) */
 .color-bar-with-waffle {
 	position: relative;
-	/* make full-bleed across viewport */
 	width: 100vw;
 	left: 50%;
 	transform: translateX(-50%);
-	background: #fdebd9; /* soft peach */
-	padding: 14rem 0 8rem 0; /* tall bar */
-	box-sizing: border-box;
+	background: #ffbfae;
+	min-height: 120px;
+	padding: 48px 0 48px 0; /* doubled height */
+	margin: 0;
+	position: relative; /* ensure relative for absolute child */
+	overflow: visible;
 }
 .color-bar-with-waffle .color-bar-inner {
 	max-width: 1100px;
@@ -424,8 +426,8 @@ h3:before {
 }
 .waffle-image {
 	position: absolute;
-	left: 12px; /* near left edge */
-	top: 12px; /* place inside the bar so the full image is visible */
+	left: 0; /* flush to the left edge of the bar */
+	top: -80px; /* overlap upward so it sticks out above the bar */
 	width: 320px; /* doubled size per request */
 	max-width: 36%;
 	z-index: 30;
