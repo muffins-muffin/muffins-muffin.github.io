@@ -3,6 +3,11 @@ html {
 	min-height: 100%;
 }
 
+/* Prevent accidental horizontal scrolling introduced by full-bleed elements */
+html, body {
+    overflow-x: hidden;
+}
+
 :root {
   /* Approximate navbar height; keep in sync with .homepage-hero padding-top */
   --navbar-height: 4.2rem;
@@ -383,10 +388,9 @@ h3:before {
 .carousel.full-bleed {
 	position: relative;
 	left: 50%;
-	right: 50%;
-	margin-left: -50vw;
-	margin-right: -50vw;
+	transform: translateX(-50%); /* safer centering without expanding layout width */
 	width: 100vw;
+	max-width: 100vw;
 	box-sizing: border-box;
 	padding-left: 0; padding-right: 0;
 	/* place the full-bleed carousel immediately under the fixed navbar */
@@ -399,11 +403,12 @@ h3:before {
 .carousel.full-bleed .slide { display:flex; align-items:center; justify-content:center; }
 .carousel.full-bleed .slide img { object-position: center center !important; max-width: none; }
 
-/* Prevent images from shrinking too far horizontally which can push the focal point off-screen */
+/* Prevent images from causing horizontal overflow while keeping focal center visible */
 .carousel.full-bleed .slide img {
-	min-width: 60vw; /* ensure a portion of the image remains visible centered; adjust as needed */
-	width: auto; /* allow natural width so object-position centering works */
+	min-width: 100%; /* ensure image always spans viewport width without creating extra width */
+	width: 100%;
 	height: 100%;
+	object-fit: cover;
 }
 .carousel .slides {
 	display: flex;
@@ -459,15 +464,15 @@ h3:before {
 
 /* When carousel is full-bleed, pin arrows to the viewport edges */
 .carousel.full-bleed .arrow {
-	position: fixed; /* pin to viewport */
-	height: 56px;
-	width: 56px;
-	line-height: 56px;
-	background: rgba(0,0,0,0.45);
-	box-shadow: 0 2px 8px rgba(0,0,0,0.25);
-	top: 50%;
-	transform: translateY(-50%);
-	z-index: 60; /* above the slides */
+		position: absolute; /* positioned inside the carousel so it scrolls away */
+		height: 56px;
+		width: 56px;
+		line-height: 56px;
+		background: rgba(0,0,0,0.45);
+		box-shadow: 0 2px 8px rgba(0,0,0,0.25);
+		top: 50%;
+		transform: translateY(-50%);
+		z-index: 30; /* keep above slides but below navbar */
 }
 .carousel.full-bleed .arrow.left { left: 12px; }
 .carousel.full-bleed .arrow.right { right: 12px; }
