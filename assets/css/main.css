@@ -426,15 +426,12 @@ h3:before {
 	width: 160px; /* smaller, matches second image */
 	max-width: 22%;
 	z-index: 30;
-	border-radius: 8px;
-	box-shadow: none !important; /* remove shadow per request */
+	border-radius: 8px; /* rectangular with rounded corners */
+	box-shadow: none !important; /* keep no shadow */
 	background: transparent !important;
 	border: none !important;
 	object-fit: cover;
 	object-position: left bottom; /* show bottom-left (finger) */
-	/* force a clean circular crop to avoid any rectangular background or baked-in frame */
-	border-radius: 50% !important;
-	clip-path: circle(50% at 50% 50%) !important;
 }
 
 /* Slight responsive adjustments for waffle */
