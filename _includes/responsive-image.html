@@ -1,0 +1,51 @@
+{%- comment -%}
+responsive-image.html
+Include parameters:
+  base  - file base name without extension (e.g. 'pizza')
+  ext   - file extension for fallback jpeg/png (default: 'jpg')
+  dir   - directory (default: '/assets/img/slider')
+  alt   - alt text
+  width - intrinsic width for layout (default: 1024)
+  height- intrinsic height for layout (default: 683)
+  sizes - sizes attribute for srcset (default: '(max-width:600px) 100vw, 33vw')
+  class - optional classes
+  loading - lazy|eager (default: lazy)
+
+This include expects that you have generated resized variants named like:
+  {{ '/assets/img/slider/' }}{{ include.base }}-320.{{ include.ext }}
+  {{ '/assets/img/slider/' }}{{ include.base }}-640.{{ include.ext }}
+  {{ '/assets/img/slider/' }}{{ include.base }}-1024.{{ include.ext }}
+  {{ '/assets/img/slider/' }}{{ include.base }}-2048.{{ include.ext }}
+and equivalent .webp/.avif files if available (e.g. {{ include.base }}-640.webp).
+{%- endcomment -%}
+
+{%- assign dir = include.dir | default: '/assets/img/slider' -%}
+{%- assign img_ext = include.ext | default: 'jpg' -%}
+{%- assign sizes_attr = include.sizes | default: '(max-width:600px) 100vw, 33vw' -%}
+{%- assign width = include.width | default: 1024 -%}
+{%- assign height = include.height | default: 683 -%}
+{%- assign cls = include.class | default: '' -%}
+{%- assign loading = include.loading | default: 'lazy' -%}
+
+<picture>
+  <!-- AVIF (if generated) -->
+  <source type="image/avif"
+    srcset="{{ dir }}/{{ include.base }}-320.avif 320w, {{ dir }}/{{ include.base }}-640.avif 640w, {{ dir }}/{{ include.base }}-1024.avif 1024w, {{ dir }}/{{ include.base }}-2048.avif 2048w"
+    sizes="{{ sizes_attr }}">
+
+  <!-- WebP (if generated) -->
+  <source type="image/webp"
+    srcset="{{ dir }}/{{ include.base }}-320.webp 320w, {{ dir }}/{{ include.base }}-640.webp 640w, {{ dir }}/{{ include.base }}-1024.webp 1024w, {{ dir }}/{{ include.base }}-2048.webp 2048w"
+    sizes="{{ sizes_attr }}">
+
+  <!-- Fallback -->
+  <img
+    src="{{ dir }}/{{ include.base }}-1024.{{ img_ext }}"
+    srcset="{{ dir }}/{{ include.base }}-320.{{ img_ext }} 320w, {{ dir }}/{{ include.base }}-640.{{ img_ext }} 640w, {{ dir }}/{{ include.base }}-1024.{{ img_ext }} 1024w, {{ dir }}/{{ include.base }}-2048.{{ img_ext }} 2048w"
+    sizes="{{ sizes_attr }}"
+    alt="{{ include.alt | default: '' }}"
+    width="{{ width }}" height="{{ height }}"
+    class="{{ cls }}"
+    loading="{{ loading }}"
+    style="display:block;max-width:100%;height:auto;object-fit:cover;" />
+</picture>
