@@ -449,12 +449,7 @@ p.blog-text{
 .services-section .services-desc {
   margin-bottom: 30px;
 }
- .service-img {
-   width: 100%;
-   height: 220px;
-   object-fit: cover;
-   display: block;
- }
+
 @media (max-width: 767px) {
   .services-section {
     padding-top: 40px;
