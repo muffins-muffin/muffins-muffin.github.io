@@ -13,6 +13,24 @@ document.addEventListener('DOMContentLoaded', function () {
       } else {
         if (i % 2 === 0) photo.classList.add('left'); else photo.classList.add('right');
       }
+      // compute an exact off-screen translate so the photo begins outside the viewport
+      try {
+        var rect = photo.getBoundingClientRect();
+        var vw = window.innerWidth || document.documentElement.clientWidth;
+        if (photo.classList.contains('left')) {
+          // distance from left edge to move the photo fully off-screen (negative)
+          var dist = -(rect.left + rect.width + 8); // extra 8px buffer
+          photo.style.setProperty('--initial-transform', 'translateX(' + dist + 'px)');
+        } else if (photo.classList.contains('right')) {
+          // move to right off-screen: remaining distance to right edge plus width
+          var distR = (vw - rect.left) + rect.width + 8;
+          photo.style.setProperty('--initial-transform', 'translateX(' + distR + 'px)');
+        } else if (photo.classList.contains('center')) {
+          photo.style.setProperty('--initial-transform', 'scale(0.86)');
+        }
+      } catch (e) {
+        // ignore if layout not ready; fallback CSS variable will be used
+      }
     });
   });
 
