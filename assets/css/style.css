@@ -495,6 +495,35 @@ p.blog-text{
   .service-photo:hover img { transform: none; opacity: 1; }
 }
 
+/* Overlay for service photos */
+.service-photo { position: relative; }
+.service-overlay {
+  position: absolute;
+  left: 0; right: 0; top: 0; bottom: 0;
+  background: rgba(0,0,0,0); /* start transparent */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 180ms ease, opacity 180ms ease;
+  opacity: 0;
+  border-radius: 6px;
+}
+.service-photo:hover .service-overlay { background: rgba(0,0,0,0.45); opacity: 1; }
+.service-label {
+  color: #fff;
+  font-weight: 700;
+  text-transform: none;
+  letter-spacing: .6px;
+  font-size: 18px;
+  text-align: center;
+}
+
+/* On small screens, show overlay always (no hover) to make labels accessible */
+@media (max-width: 768px) {
+  .service-overlay { background: rgba(0,0,0,0.45); opacity: 1; }
+  .service-label { font-size: 16px; }
+}
+
 
 .services-group{
   padding: 10px;
