@@ -256,7 +256,7 @@ address {
   font-size: 56px; /* doubled from 28px */
   font-weight: 700;
   letter-spacing: 2px;
-  padding-top: 0px;
+  padding-top: 8px; /* nudge down slightly */
 }
 .side-left{
   background:#528C7C;
@@ -333,6 +333,10 @@ address {
 /* Keep navbar brand readable on small screens */
 @media (max-width: 768px) {
   .navbar-brand { font-size: 38px; }
+}
+
+@media (max-width: 480px) {
+  .navbar-brand { padding-top: 6px; }
 }
 
 .paragraph-text{

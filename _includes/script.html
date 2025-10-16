@@ -4,3 +4,48 @@
 <script>
   new WOW().init();
 </script>
+
+<script>
+  (function(){
+    // Respect users who prefer reduced motion
+    var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    if (reduce) return; // don't run animations if user prefers reduced motion
+
+    // helper: force reflow, then re-add classes
+    function replayAnimation(el, cls) {
+      el.classList.remove(cls);
+      // trigger reflow
+      void el.offsetWidth;
+      el.classList.add(cls);
+    }
+
+    // When a slide becomes active, animate its caption(s)
+    $(document).ready(function(){
+      var $carousel = $('#carousel-1');
+      if (!$carousel.length) return;
+
+      // On initial page load animate the active slide caption
+      $carousel.find('.item.active .carousel-caption').each(function(){
+        var cls = 'fadeInUp';
+        this.classList.add('wow', cls);
+      });
+
+      // When a slide finishes sliding into place, re-trigger animation on its caption
+      $carousel.on('slid.bs.carousel', function(e){
+        var $active = $(e.relatedTarget);
+        var $caption = $active.find('.carousel-caption');
+        if ($caption.length) {
+          // ensure animate.css classes are present and replay
+          $caption.each(function(){
+            var el = this;
+            // use 'animated' class name set used by older animate.css versions (WOW adds 'animated')
+            var animClass = 'fadeInUp';
+            el.classList.add('wow');
+            replayAnimation(el, animClass);
+          });
+        }
+      });
+    });
+  })();
+</script>
