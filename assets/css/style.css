@@ -472,6 +472,21 @@ p.blog-text{
 
 /* hover animation removed for service photos */
 
+/* Subtle hover: slight scale + semi-transparent */
+.service-photo img {
+  transition: transform 0.22s ease, opacity 0.22s ease;
+}
+.service-photo:hover img {
+  transform: scale(1.03);
+  opacity: 0.92;
+}
+
+/* Disable hover effect on touch/small screens */
+@media (max-width: 768px) {
+  .service-photo:hover img { transform: none; opacity: 1; }
+}
+
+
 .services-group{
   padding: 10px;
   background:#061F20;
