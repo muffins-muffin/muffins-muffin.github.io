@@ -511,10 +511,10 @@ p.blog-text{
 .services-row.pre-animate .service-photo.left { transform: translateX(-60px); }
 .services-row.pre-animate .service-photo.right { transform: translateX(60px); }
 .services-row.pre-animate .service-photo.center { transform: scale(0.86); }
-.services-row.animate .service-photo { transition: transform 1400ms cubic-bezier(.2,.9,.2,1), opacity 1300ms ease; transform: translateX(0) scale(1); opacity:1; }
+.services-row.animate .service-photo { transition: transform 700ms cubic-bezier(.2,.9,.2,1), opacity 650ms ease; transform: translateX(0) scale(1); opacity:1; }
 .services-row.animate .service-photo.left { transition-delay: 0ms; }
-.services-row.animate .service-photo.center { transition-delay: 80ms; }
-.services-row.animate .service-photo.right { transition-delay: 160ms; }
+.services-row.animate .service-photo.center { transition-delay: 40ms; }
+.services-row.animate .service-photo.right { transition-delay: 80ms; }
 
 
 
