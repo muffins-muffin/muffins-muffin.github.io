@@ -496,6 +496,16 @@ p.blog-text{
   color: white;
 }
 
+/* Entrance animation for service-image boxes */
+.services-row .service-photo { transform: translateX(0); opacity: 1; }
+.services-row.pre-animate .service-photo { opacity: 0; }
+.services-row.pre-animate .service-photo.left { transform: translateX(-60px); }
+.services-row.pre-animate .service-photo.right { transform: translateX(60px); }
+.services-row.animate .service-photo { transition: transform 560ms cubic-bezier(.2,.9,.2,1), opacity 520ms ease; transform: translateX(0); opacity:1; }
+.services-row.animate .service-photo.left { transition-delay: 0ms; }
+.services-row.animate .service-photo.right { transition-delay: 80ms; }
+
+
 
 /* ----- Footer ----- */
 .footer-widget{
