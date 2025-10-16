@@ -510,9 +510,11 @@ p.blog-text{
 .services-row.pre-animate .service-photo { opacity: 0; }
 .services-row.pre-animate .service-photo.left { transform: translateX(-60px); }
 .services-row.pre-animate .service-photo.right { transform: translateX(60px); }
-.services-row.animate .service-photo { transition: transform 4000ms cubic-bezier(.2,.9,.2,1), opacity 3680ms ease; transform: translateX(0); opacity:1; }
+.services-row.pre-animate .service-photo.center { transform: scale(0.86); }
+.services-row.animate .service-photo { transition: transform 4000ms cubic-bezier(.2,.9,.2,1), opacity 3680ms ease; transform: translateX(0) scale(1); opacity:1; }
 .services-row.animate .service-photo.left { transition-delay: 0ms; }
-.services-row.animate .service-photo.right { transition-delay: 640ms; }
+.services-row.animate .service-photo.center { transition-delay: 160ms; }
+.services-row.animate .service-photo.right { transition-delay: 320ms; }
 
 
 
