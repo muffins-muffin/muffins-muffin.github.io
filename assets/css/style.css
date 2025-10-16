@@ -554,8 +554,9 @@ p.blog-text{
 /* SLOWER entrance: doubled durations so animation runs at half the speed */
 .services-row.animate .service-photo { transition: transform 1400ms cubic-bezier(.2,.9,.2,1), opacity 1300ms ease; transform: translateX(0) scale(1); opacity:1; }
 .services-row.animate .service-photo.left { transition-delay: 0ms; }
-.services-row.animate .service-photo.center { transition-delay: 80ms; }
-.services-row.animate .service-photo.right { transition-delay: 160ms; }
+.services-row.animate .service-photo.right { transition-delay: 0ms; }
+/* center comes slightly after the edges to create 'from both ends' effect */
+.services-row.animate .service-photo.center { transition-delay: 220ms; }
 
 
 
