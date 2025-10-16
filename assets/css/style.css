@@ -481,34 +481,40 @@ p.blog-text{
 
 /* hover animation removed for service photos */
 
-/* Subtle hover: slight scale + semi-transparent */
+/* Subtle hover: slight scale + semi-transparent with centered overlay caption */
+.service-photo { position: relative; overflow: hidden; border-radius: 6px; }
 .service-photo img {
-  transition: transform 0.22s ease, opacity 0.22s ease;
+  /* keep hover image zoom smooth; slightly slower for nicer effect */
+  transition: transform 320ms cubic-bezier(.2,.9,.2,1), opacity 320ms ease;
+  position: relative;
+  z-index: 1;
+  display: block;
 }
 .service-photo:hover img {
-  transform: scale(1.03);
+  transform: scale(1.05);
   opacity: 0.75;
 }
 
-/* Disable hover effect on touch/small screens */
+/* Disable hover zoom effect on touch/small screens */
 @media (max-width: 768px) {
   .service-photo:hover img { transform: none; opacity: 1; }
 }
 
-/* Overlay for service photos */
-.service-photo { position: relative; }
+/* Overlay for service photos: centered caption that fades/slides into view */
 .service-overlay {
   position: absolute;
-  left: 0; right: 0; top: 0; bottom: 0;
+  left: 0; top: 0;
+  width: 100%; height: 100%;
   background: rgba(0,0,0,0); /* start transparent */
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: background 180ms ease, opacity 180ms ease;
+  transition: background 260ms ease, opacity 260ms ease;
   opacity: 0;
   border-radius: 6px;
+  z-index: 5;
+  pointer-events: auto; /* allow focus/interaction if needed */
 }
-.service-photo:hover .service-overlay { background: rgba(0,0,0,0.45); opacity: 1; }
 .service-label {
   color: #fff;
   font-weight: 700;
@@ -516,7 +522,12 @@ p.blog-text{
   letter-spacing: .6px;
   font-size: 18px;
   text-align: center;
+  opacity: 0;
+  transform: translateY(6px);
+  transition: opacity 260ms ease, transform 260ms ease;
 }
+.service-photo:hover .service-overlay { background: rgba(0,0,0,0.45); opacity: 1; }
+.service-photo:hover .service-label { opacity: 1; transform: translateY(0); }
 
 /* On small screens, show overlay always (no hover) to make labels accessible */
 @media (max-width: 768px) {
@@ -540,10 +551,11 @@ p.blog-text{
 .services-row.pre-animate .service-photo.left { transform: translateX(-60px); }
 .services-row.pre-animate .service-photo.right { transform: translateX(60px); }
 .services-row.pre-animate .service-photo.center { transform: scale(0.86); }
-.services-row.animate .service-photo { transition: transform 700ms cubic-bezier(.2,.9,.2,1), opacity 650ms ease; transform: translateX(0) scale(1); opacity:1; }
+/* SLOWER entrance: doubled durations so animation runs at half the speed */
+.services-row.animate .service-photo { transition: transform 1400ms cubic-bezier(.2,.9,.2,1), opacity 1300ms ease; transform: translateX(0) scale(1); opacity:1; }
 .services-row.animate .service-photo.left { transition-delay: 0ms; }
-.services-row.animate .service-photo.center { transition-delay: 40ms; }
-.services-row.animate .service-photo.right { transition-delay: 80ms; }
+.services-row.animate .service-photo.center { transition-delay: 80ms; }
+.services-row.animate .service-photo.right { transition-delay: 160ms; }
 
 
 

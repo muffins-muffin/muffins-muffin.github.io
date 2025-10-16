@@ -22,5 +22,5 @@ document.addEventListener('DOMContentLoaded', function () {
       row.classList.remove('pre-animate');
       row.classList.add('animate');
     });
-  }, 80);
+  }, 160);
 });
