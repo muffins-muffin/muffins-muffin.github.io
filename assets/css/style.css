@@ -253,7 +253,7 @@ address {
 .navbar-brand {  
   z-index: 9999px;
   font-family: 'Lato', Arial, Helvetica, sans-serif;
-  font-size: 28px;
+  font-size: 56px; /* doubled from 28px */
   font-weight: 700;
   letter-spacing: 2px;
   padding-top: 0px;
@@ -329,6 +329,11 @@ address {
         font-size: 37px;
      } 
  }  
+
+/* Keep navbar brand readable on small screens */
+@media (max-width: 768px) {
+  .navbar-brand { font-size: 38px; }
+}
 
 .paragraph-text{
     text-align: justify;
@@ -501,9 +506,9 @@ p.blog-text{
 .services-row.pre-animate .service-photo { opacity: 0; }
 .services-row.pre-animate .service-photo.left { transform: translateX(-60px); }
 .services-row.pre-animate .service-photo.right { transform: translateX(60px); }
-.services-row.animate .service-photo { transition: transform 2000ms cubic-bezier(.2,.9,.2,1), opacity 1840ms ease; transform: translateX(0); opacity:1; }
+.services-row.animate .service-photo { transition: transform 4000ms cubic-bezier(.2,.9,.2,1), opacity 3680ms ease; transform: translateX(0); opacity:1; }
 .services-row.animate .service-photo.left { transition-delay: 0ms; }
-.services-row.animate .service-photo.right { transition-delay: 320ms; }
+.services-row.animate .service-photo.right { transition-delay: 640ms; }
 
 
 
