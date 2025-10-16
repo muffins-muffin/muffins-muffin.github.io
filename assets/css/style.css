@@ -537,12 +537,13 @@ p.blog-text{
 /* 6개 이미지 슬라이드 효과 */
 .services-row .service-photo { transform: translateX(0); }
 /* pre-animate uses a CSS variable so JS can set exact off-screen positions */
-.services-row.pre-animate .service-photo { transform: var(--initial-transform, translateX(0)); opacity: 0; }
+/* start faintly visible (very low opacity) so they gather then become clear */
+.services-row.pre-animate .service-photo { transform: var(--initial-transform, translateX(0)); opacity: 0.12; }
 .services-row.pre-animate .service-photo.left { --initial-transform: translateX(-100vw); }
 .services-row.pre-animate .service-photo.right { --initial-transform: translateX(100vw); }
 .services-row.pre-animate .service-photo.center { --initial-transform: scale(0.86); }
 /* Entrance: transform-only so images appear instantly from edges (no fade) */
-.services-row.animate .service-photo { transition: transform 1400ms cubic-bezier(.2,.9,.2,1), opacity 1200ms ease; transform: translateX(0) scale(1); opacity: 1; }
+.services-row.animate .service-photo { transition: transform 1700ms cubic-bezier(.2,.9,.2,1), opacity 1500ms ease; transform: translateX(0) scale(1); opacity: 1; }
 /* decelerate edges so they slow toward the center */
 .services-row.animate .service-photo.left { transition-timing-function: cubic-bezier(0,0,0.2,1); transition-delay: 0ms; }
 .services-row.animate .service-photo.right { transition-timing-function: cubic-bezier(0,0,0.2,1); transition-delay: 80ms; }
