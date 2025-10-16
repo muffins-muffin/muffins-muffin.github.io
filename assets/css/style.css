@@ -537,8 +537,8 @@ p.blog-text{
 /* Entrance animation for service-image boxes */
 .services-row .service-photo { transform: translateX(0); }
 .services-row.pre-animate .service-photo { }
-.services-row.pre-animate .service-photo.left { transform: translateX(-60px); }
-.services-row.pre-animate .service-photo.right { transform: translateX(60px); }
+.services-row.pre-animate .service-photo.left { transform: translateX(-100vw); }
+.services-row.pre-animate .service-photo.right { transform: translateX(100vw); }
 .services-row.pre-animate .service-photo.center { transform: scale(0.86); }
 /* Entrance: transform-only so images appear instantly from edges (no fade) */
 .services-row.animate .service-photo { transition: transform 1400ms cubic-bezier(.2,.9,.2,1); transform: translateX(0) scale(1); }
