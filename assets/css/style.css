@@ -501,9 +501,9 @@ p.blog-text{
 .services-row.pre-animate .service-photo { opacity: 0; }
 .services-row.pre-animate .service-photo.left { transform: translateX(-60px); }
 .services-row.pre-animate .service-photo.right { transform: translateX(60px); }
-.services-row.animate .service-photo { transition: transform 1000ms cubic-bezier(.2,.9,.2,1), opacity 920ms ease; transform: translateX(0); opacity:1; }
+.services-row.animate .service-photo { transition: transform 2000ms cubic-bezier(.2,.9,.2,1), opacity 1840ms ease; transform: translateX(0); opacity:1; }
 .services-row.animate .service-photo.left { transition-delay: 0ms; }
-.services-row.animate .service-photo.right { transition-delay: 160ms; }
+.services-row.animate .service-photo.right { transition-delay: 320ms; }
 
 
 
