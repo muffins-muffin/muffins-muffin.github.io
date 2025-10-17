@@ -14,74 +14,270 @@ permalink: /nuri/
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/5/w3.css">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Karma">
 <style>
+/* 기본 폰트 설정 */
 body,h1,h2,h3,h4,h5,h6 {font-family: "Karma", sans-serif}
 .w3-bar-block .w3-bar-item {padding:20px}
+
+/* ======================================
+   그리드 슬라이더 스타일 시작
+   ====================================== */
+
+/* 그리드 슬라이더 전체 컨테이너 */
+.grid-container {
+  position: relative;        /* 내부 버튼들의 절대 위치 기준점 */
+  margin: 20px 0;           /* 위아래 여백 */
+  overflow: hidden;         /* 넘치는 부분 숨김 (슬라이드 효과를 위해 필수) */
+}
+
+/* 슬라이드되는 그리드들을 감싸는 래퍼 */
+.grid-wrapper {
+  display: flex;                    /* 가로로 나열 */
+  transition: transform 0.5s ease;  /* 부드러운 슬라이드 애니메이션 */
+  width: 200%;                      /* 2개의 그리드를 담기 위해 200% 너비 */
+}
+
+/* 각각의 그리드 세트 (4개 이미지로 구성) */
+.grid-set {
+  min-width: 50%;          /* 전체 너비의 50% (2개 세트이므로) */
+  flex-shrink: 0;          /* 크기 축소 방지 */
+}
+
+/* 좌우 네비게이션 버튼 공통 스타일 */
+.grid-nav-btn {
+  position: absolute;                    /* 절대 위치 */
+  top: 50%;                             /* 세로 중앙 */
+  transform: translateY(-50%);          /* 정확한 세로 중앙 정렬 */
+  background: rgba(0,0,0,0.6);          /* 반투명 검정 배경 */
+  color: white;                         /* 흰색 텍스트 */
+  border: none;                         /* 테두리 없음 */
+  padding: 12px 16px;                   /* 내부 여백 */
+  cursor: pointer;                      /* 마우스 포인터 */
+  border-radius: 50%;                   /* 원형 모양 */
+  font-size: 18px;                      /* 글자 크기 */
+  z-index: 10;                          /* 다른 요소들 위에 표시 */
+  transition: all 0.3s ease;            /* 호버 효과 애니메이션 */
+}
+
+/* 네비게이션 버튼 호버 효과 */
+.grid-nav-btn:hover {
+  background: rgba(0,0,0,0.8);          /* 더 진한 배경 */
+  transform: translateY(-50%) scale(1.1); /* 살짝 확대 */
+}
+
+/* 이전 버튼 위치 */
+.grid-prev {
+  left: 10px;              /* 왼쪽에서 10px */
+}
+
+/* 다음 버튼 위치 */
+.grid-next {
+  right: 10px;             /* 오른쪽에서 10px */
+}
+
+/* 인디케이터 점들을 담는 컨테이너 */
+.grid-indicators {
+  text-align: center;      /* 가운데 정렬 */
+  margin-top: 15px;        /* 위쪽 여백 */
+}
+
+/* 각각의 인디케이터 점 */
+.grid-dot {
+  height: 10px;                         /* 높이 */
+  width: 10px;                          /* 너비 */
+  margin: 0 4px;                        /* 좌우 여백 */
+  background-color: rgba(0,0,0,0.3);    /* 기본 색상 (연한 검정) */
+  border-radius: 50%;                   /* 원형 */
+  display: inline-block;                /* 인라인 블록 (가로 나열) */
+  cursor: pointer;                      /* 마우스 포인터 */
+  transition: all 0.3s ease;            /* 애니메이션 효과 */
+}
+
+/* 활성화된 점과 호버 효과 */
+.grid-dot.active, .grid-dot:hover {
+  background-color: rgba(0,0,0,0.7);    /* 진한 검정 */
+  transform: scale(1.2);                /* 1.2배 확대 */
+}
+
+/* ======================================
+   그리드 슬라이더 스타일 끝
+   ====================================== */
 </style>
 </head>
 <body>
 <!-- Nuri page content: leave header/footer to the layout -->
 <div class="w3-main w3-content w3-padding" style="max-width:1200px;margin-top:100px">
-  <!-- 첫번째 사진 그리드-->
-  <div class="w3-row-padding w3-padding-16 w3-center" id="food">
-    <div class="w3-quarter">
-      <img src="/assets/img/slider/dollhar.jpg" alt="dollhar" style="width:100%">
-      <div class="w3-container w3-white">
-        <p><b>돌하르방</b></p>
-        <p>Praesent tincidunt sed tellus ut rutrum. Sed vitae justo condimentum, porta lectus vitae, ultricies congue gravida diam non fringilla.</p>
+  
+  <!-- ============================================
+       첫번째 사진 그리드 슬라이더 (제주도 여행)
+       - 총 8개 이미지를 4개씩 2세트로 나누어 표시
+       - 좌우 화살표와 하단 인디케이터로 조작 가능
+       ============================================ -->
+  <div class="grid-container" id="grid1">
+    <!-- 좌우 네비게이션 버튼 -->
+    <button class="grid-nav-btn grid-prev" onclick="moveGrid('grid1', -1)">❮</button>
+    <button class="grid-nav-btn grid-next" onclick="moveGrid('grid1', 1)">❯</button>
+    
+    <!-- 슬라이드되는 그리드들을 담는 래퍼 -->
+    <div class="grid-wrapper" id="grid1-wrapper">
+      <!-- 첫번째 세트: 돌하르방, 제주도로, 제주바다, 제주말 -->
+      <div class="grid-set">
+        <div class="w3-row-padding w3-padding-16 w3-center" id="food">
+          <div class="w3-quarter">
+            <img src="/assets/img/slider/dollhar.jpg" alt="dollhar" style="width:100%">
+            <div class="w3-container w3-white">
+              <p><b>돌하르방</b></p>
+              <p>제주도의 상징인 돌하르방을 만나보세요.</p>
+            </div>
+          </div>
+          <div class="w3-quarter">
+            <img src="/assets/img/slider/road.jpg" alt="road" style="width:100%">
+            <div class="w3-container w3-white">
+              <p><b>제주 도로</b></p>
+              <p>아름다운 제주의 길을 따라 여행해보세요.</p>
+            </div>
+          </div>
+          <div class="w3-quarter">
+            <img src="/assets/img/slider/bada.jpg" alt="bada" style="width:100%">
+            <div class="w3-container w3-white">
+              <p><b>제주 바다</b></p>
+              <p>맑고 푸른 제주의 바다를 감상하세요.</p>
+            </div>
+          </div>
+          <div class="w3-quarter">
+            <img src="/assets/img/slider/horse.jpg" alt="horse" style="width:100%">
+            <div class="w3-container w3-white">
+              <p><b>제주 말</b></p>
+              <p>제주도의 자연 속에서 뛰노는 말들.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- 두번째 세트: 휴가, 자연, 자전거, 제주풍경 -->
+      <div class="grid-set">
+        <div class="w3-row-padding w3-padding-16 w3-center">
+          <div class="w3-quarter">
+            <img src="/assets/img/slider/holidays.jpg" alt="holidays" style="width:100%">
+            <div class="w3-container w3-white">
+              <p><b>휴가</b></p>
+              <p>제주에서의 완벽한 휴가를 만끽하세요.</p>
+            </div>
+          </div>
+          <div class="w3-quarter">
+            <img src="/assets/img/slider/Earth.jpg" alt="Earth" style="width:100%">
+            <div class="w3-container w3-white">
+              <p><b>자연</b></p>
+              <p>제주의 아름다운 자연환경을 경험하세요.</p>
+            </div>
+          </div>
+          <div class="w3-quarter">
+            <img src="/assets/img/slider/Bicycle.jpg" alt="Bicycle" style="width:100%">
+            <div class="w3-container w3-white">
+              <p><b>자전거</b></p>
+              <p>제주를 자전거로 둘러보는 특별한 경험.</p>
+            </div>
+          </div>
+          <div class="w3-quarter">
+            <img src="/assets/img/slider/1.jpg" alt="제주풍경" style="width:100%">
+            <div class="w3-container w3-white">
+              <p><b>제주 풍경</b></p>
+              <p>제주만의 독특하고 아름다운 풍경들.</p>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
-    <div class="w3-quarter">
-      <img src="/assets/img/slider/road.jpg" alt="road" style="width:100%">
-      <div class="w3-container w3-white">
-        <p><b>돌하르방</b></p>
-        <p>Praesent tincidunt sed tellus ut rutrum. Sed vitae justo condimentum, porta lectus vitae, ultricies congue gravida diam non fringilla.</p>
-      </div>
-    </div>
-    <div class="w3-quarter">
-      <img src="/assets/img/slider/bada.jpg" alt="bada" style="width:100%">
-      <div class="w3-container w3-white">
-        <p><b>돌하르방</b></p>
-        <p>Praesent tincidunt sed tellus ut rutrum. Sed vitae justo condimentum, porta lectus vitae, ultricies congue gravida diam non fringilla.</p>
-      </div>
-    </div>
-    <div class="w3-quarter">
-      <img src="/assets/img/slider/horse.jpg" alt="horse" style="width:100%">
-      <div class="w3-container w3-white">
-        <p><b>돌하르방</b></p>
-        <p>Praesent tincidunt sed tellus ut rutrum. Sed vitae justo condimentum, porta lectus vitae, ultricies congue gravida diam non fringilla.</p>
-      </div>
+    
+    <!-- 하단 인디케이터 점들 (현재 위치 표시 및 직접 이동) -->
+    <div class="grid-indicators">
+      <span class="grid-dot active" onclick="goToGrid('grid1', 0)"></span>  <!-- 첫번째 세트 -->
+      <span class="grid-dot" onclick="goToGrid('grid1', 1)"></span>         <!-- 두번째 세트 -->
     </div>
   </div>
   
-  <!-- 두번째 사진 그리드-->
-  <div class="w3-row-padding w3-padding-16 w3-center">
-    <div class="w3-quarter">
-      <img src="/assets/img/slider/set.jpg" alt="set" style="width:100%">
-      <div class="w3-container w3-white">
-        <p><b>돌하르방</b></p>
-        <p>Praesent tincidunt sed tellus ut rutrum. Sed vitae justo condimentum, porta lectus vitae, ultricies congue gravida diam non fringilla.</p>
+  <!-- ============================================
+       두번째 사진 그리드 슬라이더 (맛있는 음식)
+       - 총 8개 이미지를 4개씩 2세트로 나누어 표시
+       - 첫번째 그리드와 독립적으로 조작 가능
+       ============================================ -->
+  <div class="grid-container" id="grid2" style="margin-top:40px;">
+    <button class="grid-nav-btn grid-prev" onclick="moveGrid('grid2', -1)">❮</button>
+    <button class="grid-nav-btn grid-next" onclick="moveGrid('grid2', 1)">❯</button>
+    
+    <div class="grid-wrapper" id="grid2-wrapper">
+      <!-- 첫번째 세트: 정식, 국수, 나무, 누리 -->
+      <div class="grid-set">
+        <div class="w3-row-padding w3-padding-16 w3-center">
+          <div class="w3-quarter">
+            <img src="/assets/img/slider/set.jpg" alt="set" style="width:100%">
+            <div class="w3-container w3-white">
+              <p><b>정식</b></p>
+              <p>제주도 특별한 한상 정식을 맛보세요.</p>
+            </div>
+          </div>
+          <div class="w3-quarter">
+            <img src="/assets/img/slider/noodle.jpg" alt="Noodle" style="width:100%">
+            <div class="w3-container w3-white">
+              <p><b>국수</b></p>
+              <p>제주도 전통 국수의 깊은 맛을 경험하세요.</p>
+            </div>
+          </div>
+          <div class="w3-quarter">
+            <img src="/assets/img/slider/tree.jpg" alt="tree" style="width:100%">
+            <div class="w3-container w3-white">
+              <p><b>나무</b></p>
+              <p>제주의 푸른 나무들 사이에서의 힐링.</p>
+            </div>
+          </div>
+          <div class="w3-quarter">
+            <img src="/assets/img/slider/nuri.jpg" alt="nuri" style="width:100%">
+            <div class="w3-container w3-white">
+              <p><b>누리</b></p>
+              <p>제주에서의 특별한 추억들을 만들어보세요.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- 두번째 세트: 피자, 옥수수케이크, 바베큐, 정보 -->
+      <div class="grid-set">
+        <div class="w3-row-padding w3-padding-16 w3-center">
+          <div class="w3-quarter">
+            <img src="/assets/img/slider/pizza.jpg" alt="pizza" style="width:100%">
+            <div class="w3-container w3-white">
+              <p><b>피자</b></p>
+              <p>제주에서 즐기는 맛있는 피자 한 조각.</p>
+            </div>
+          </div>
+          <div class="w3-quarter">
+            <img src="/assets/img/slider/corncake.jpg" alt="corncake" style="width:100%">
+            <div class="w3-container w3-white">
+              <p><b>옥수수 케이크</b></p>
+              <p>제주 특산물로 만든 달콤한 케이크.</p>
+            </div>
+          </div>
+          <div class="w3-quarter">
+            <img src="/assets/img/slider/barbecue.jpg" alt="barbecue" style="width:100%">
+            <div class="w3-container w3-white">
+              <p><b>바베큐</b></p>
+              <p>제주 흑돼지 바베큐의 진짜 맛.</p>
+            </div>
+          </div>
+          <div class="w3-quarter">
+            <img src="/assets/img/slider/info.jpg" alt="info" style="width:100%">
+            <div class="w3-container w3-white">
+              <p><b>정보</b></p>
+              <p>제주 맛집과 여행 정보를 확인하세요.</p>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
-    <div class="w3-quarter">
-      <img src="/assets/img/slider/noodle.jpg" alt="Noodle" style="width:100%">
-      <div class="w3-container w3-white">
-        <p><b>돌하르방</b></p>
-        <p>Praesent tincidunt sed tellus ut rutrum. Sed vitae justo condimentum, porta lectus vitae, ultricies congue gravida diam non fringilla.</p>
-      </div>
-    </div>
-    <div class="w3-quarter">
-      <img src="/assets/img/slider/tree.jpg" alt="tree" style="width:100%">
-      <div class="w3-container w3-white">
-        <p><b>돌하르방</b></p>
-        <p>Praesent tincidunt sed tellus ut rutrum. Sed vitae justo condimentum, porta lectus vitae, ultricies congue gravida diam non fringilla.</p>
-      </div>
-    </div>
-    <div class="w3-quarter">
-      <img src="/assets/img/slider/nuri.jpg" alt="nuri" style="width:100%">
-      <div class="w3-container w3-white">
-        <p><b>돌하르방</b></p>
-        <p>Praesent tincidunt sed tellus ut rutrum. Sed vitae justo condimentum, porta lectus vitae, ultricies congue gravida diam non fringilla.</p>
-      </div>
+    
+    <!-- 하단 인디케이터 점들 (현재 위치 표시 및 직접 이동) -->
+    <div class="grid-indicators">
+      <span class="grid-dot active" onclick="goToGrid('grid2', 0)"></span>  <!-- 첫번째 세트 -->
+      <span class="grid-dot" onclick="goToGrid('grid2', 1)"></span>         <!-- 두번째 세트 -->
     </div>
   </div>
 
@@ -92,6 +288,225 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Karma", sans-serif}
 
   </div>
 
+<script>
+/* =============================================
+   그리드 슬라이더 JavaScript 기능
+   ============================================= */
 
+/**
+ * 각 그리드의 현재 위치를 추적하는 객체
+ * grid1: 첫 번째 그리드 (제주도 여행)
+ * grid2: 두 번째 그리드 (맛있는 음식)
+ * 값: 0 = 첫 번째 세트, 1 = 두 번째 세트
+ */
+let gridPositions = {
+  'grid1': 0,  // 첫 번째 그리드의 현재 위치
+  'grid2': 0   // 두 번째 그리드의 현재 위치
+};
+
+/**
+ * 그리드를 좌우로 이동시키는 메인 함수
+ * @param {string} gridId - 이동할 그리드의 ID ('grid1' 또는 'grid2')
+ * @param {number} direction - 이동 방향 (-1: 이전, 1: 다음)
+ */
+function moveGrid(gridId, direction) {
+  // 해당 그리드의 wrapper 요소를 찾기
+  const wrapper = document.getElementById(gridId + '-wrapper');
+  const totalSets = 2; // 각 그리드당 총 2개의 세트가 있음
+  
+  // 현재 위치에 방향값 더하기 (이전: -1, 다음: +1)
+  gridPositions[gridId] += direction;
+  
+  // 순환 처리: 경계를 벗어나면 반대편으로 이동
+  if (gridPositions[gridId] < 0) {
+    // 첫 번째보다 앞으로 가면 마지막으로
+    gridPositions[gridId] = totalSets - 1;
+  } else if (gridPositions[gridId] >= totalSets) {
+    // 마지막보다 뒤로 가면 첫 번째로
+    gridPositions[gridId] = 0;
+  }
+  
+  // CSS transform을 사용해서 실제로 슬라이드 이동
+  // 각 세트는 50%씩 차지하므로 위치 * 50%만큼 이동
+  const translateX = -gridPositions[gridId] * 50;
+  wrapper.style.transform = `translateX(${translateX}%)`;
+  
+  // 하단 인디케이터 점들도 업데이트
+  updateGridIndicators(gridId);
+}
+
+/**
+ * 인디케이터 점을 클릭했을 때 해당 세트로 바로 이동
+ * @param {string} gridId - 이동할 그리드의 ID
+ * @param {number} setIndex - 이동할 세트 인덱스 (0 또는 1)
+ */
+function goToGrid(gridId, setIndex) {
+  // 유효한 인덱스인지 확인 (0 또는 1만 허용)
+  if (setIndex >= 0 && setIndex < 2) {
+    // 위치 업데이트
+    gridPositions[gridId] = setIndex;
+    
+    // wrapper 요소 찾기
+    const wrapper = document.getElementById(gridId + '-wrapper');
+    
+    // 해당 위치로 즉시 이동
+    const translateX = -setIndex * 50;
+    wrapper.style.transform = `translateX(${translateX}%)`;
+    
+    // 인디케이터 업데이트
+    updateGridIndicators(gridId);
+  }
+}
+
+/**
+ * 하단 인디케이터 점들의 활성화 상태를 업데이트
+ * @param {string} gridId - 업데이트할 그리드의 ID
+ */
+function updateGridIndicators(gridId) {
+  // 해당 그리드 컨테이너 찾기
+  const container = document.getElementById(gridId);
+  
+  // 그 안의 모든 인디케이터 점들 찾기
+  const dots = container.querySelectorAll('.grid-dot');
+  
+  // 현재 활성화된 위치
+  const currentPosition = gridPositions[gridId];
+  
+  // 각 점을 순회하면서 활성화 상태 업데이트
+  dots.forEach((dot, index) => {
+    if (index === currentPosition) {
+      // 현재 위치와 같으면 활성화
+      dot.classList.add('active');
+    } else {
+      // 다르면 비활성화
+      dot.classList.remove('active');
+    }
+  });
+}
+
+/* =============================================
+   터치/스와이프 지원 (모바일 기기용)
+   ============================================= */
+
+// 모든 그리드 컨테이너에 터치 이벤트 추가
+document.querySelectorAll('.grid-container').forEach(container => {
+  // 터치 시작점과 스크롤 상태를 추적하는 변수들
+  let startX = 0;           // 터치 시작 X 좌표
+  let startY = 0;           // 터치 시작 Y 좌표
+  let isScrolling = false;  // 현재 스크롤 중인지 여부
+  
+  /**
+   * 터치 시작 이벤트
+   * 사용자가 화면을 터치했을 때 시작 좌표 기록
+   */
+  container.addEventListener('touchstart', (e) => {
+    startX = e.touches[0].clientX;  // 첫 번째 터치의 X 좌표
+    startY = e.touches[0].clientY;  // 첫 번째 터치의 Y 좌표
+    isScrolling = false;            // 스크롤 상태 초기화
+  });
+  
+  /**
+   * 터치 이동 이벤트
+   * 터치 중에 손가락이 움직일 때 방향 판단
+   */
+  container.addEventListener('touchmove', (e) => {
+    // 시작 좌표가 없으면 무시
+    if (!startX || !startY) return;
+    
+    // 현재 위치와 시작 위치의 차이 계산
+    let diffX = startX - e.touches[0].clientX;  // X축 이동 거리
+    let diffY = startY - e.touches[0].clientY;  // Y축 이동 거리
+    
+    // 가로 이동이 세로 이동보다 크면 슬라이더 조작으로 판단
+    if (Math.abs(diffX) > Math.abs(diffY)) {
+      isScrolling = true;      // 스크롤 상태로 설정
+      e.preventDefault();      // 기본 스크롤 동작 방지
+    }
+  });
+  
+  /**
+   * 터치 종료 이벤트
+   * 손가락을 뗐을 때 스와이프 방향에 따라 슬라이드 이동
+   */
+  container.addEventListener('touchend', (e) => {
+    // 스크롤 상태가 아니거나 시작점이 없으면 무시
+    if (!isScrolling || !startX) return;
+    
+    // 최종 이동 거리 계산
+    let diffX = startX - e.changedTouches[0].clientX;
+    
+    // 50px 이상 이동했을 때만 슬라이드 동작
+    if (Math.abs(diffX) > 50) {
+      const gridId = container.id;  // 현재 그리드 ID 가져오기
+      
+      if (diffX > 0) {
+        // 왼쪽으로 스와이프 = 다음 세트로 이동
+        moveGrid(gridId, 1);
+      } else {
+        // 오른쪽으로 스와이프 = 이전 세트로 이동
+        moveGrid(gridId, -1);
+      }
+    }
+    
+    // 모든 변수 초기화
+    startX = 0;
+    startY = 0;
+    isScrolling = false;
+  });
+});
+
+/* =============================================
+   키보드 지원
+   ============================================= */
+
+/**
+ * 키보드 방향키로 슬라이더 조작
+ * 좌우 방향키를 누르면 두 그리드 모두 동시에 이동
+ */
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'ArrowLeft') {
+    // 왼쪽 방향키: 두 그리드 모두 이전으로
+    moveGrid('grid1', -1);
+    moveGrid('grid2', -1);
+  } else if (e.key === 'ArrowRight') {
+    // 오른쪽 방향키: 두 그리드 모두 다음으로
+    moveGrid('grid1', 1);
+    moveGrid('grid2', 1);
+  }
+});
+
+/* =============================================
+   자동 슬라이드 기능 (선택사항)
+   ============================================= */
+
+/**
+ * 자동으로 슬라이드를 넘기는 함수
+ * 5초마다 첫 번째 그리드가 이동하고,
+ * 2.5초 후에 두 번째 그리드도 이동
+ */
+function startAutoSlide() {
+  setInterval(() => {
+    // 첫 번째 그리드 먼저 이동
+    moveGrid('grid1', 1);
+    
+    // 2.5초 후에 두 번째 그리드 이동 (시차 효과)
+    setTimeout(() => {
+      moveGrid('grid2', 1);
+    }, 2500);
+  }, 5000); // 5초마다 반복
+}
+
+// 자동 슬라이드를 사용하고 싶으면 아래 주석을 해제하세요
+// startAutoSlide();
+
+/* =============================================
+   사용 방법:
+   1. 화살표 버튼 클릭: ❮❯ 버튼으로 이전/다음
+   2. 인디케이터 클릭: 하단 점을 클릭해서 직접 이동
+   3. 터치 스와이프: 모바일에서 좌우로 스와이프
+   4. 키보드: 방향키 ←→로 조작
+   5. 자동 슬라이드: startAutoSlide() 함수 활성화
+   ============================================= */
+</script>
 
 
