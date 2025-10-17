@@ -3,10 +3,18 @@ layout: default_style
 permalink: /blog
 published: true
 ---
+<!--
+  블로그 목록 페이지 (blog.html)
+  - 이 파일은 모든 포스트를 순회하여 게시글 제목, 이미지, 설명 및 태그(라벨)를 출력합니다.
+  - 레이아웃은 `default_style`을 사용하므로 공통 헤더/푸터가 자동 포함됩니다.
+  - 각 포스트의 이미지 파일명은 `_posts/*.md`의 `picture` 필드를 사용합니다.
+  - 퍼머링크는 `/blog`로 설정되어 있으며, 필요 시 변경 가능합니다.
+-->
 <!-- Main Container -->
 <div id="banners"></div>
 <div class="container">
   {% for post in site.posts %}
+  <!-- 반복: site.posts의 각 포스트를 렌더링 -->
   <div class="blog-post">
       <h1 class="blog-title">
         <i class="fa fa-file-text"></i>
@@ -15,6 +23,7 @@ published: true
       <br>
       <img src="assets/img/slider/{{ post.picture }}" alt="Feature-img" align="right" width="100%" class="blog-image">
       <br>
+      <!-- 포스트 요약/설명 -->
       <p>{{ post.description }}</p>
       <span class="badge">{{ post.date | date: '%B %d, %Y' }}</span>
       <div class="pull-right">
