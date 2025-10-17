@@ -17,65 +17,88 @@ permalink: /nuri/
 body,h1,h2,h3,h4,h5,h6 {font-family: "Karma", sans-serif}
 .w3-bar-block .w3-bar-item {padding:20px}
 
-/* 슬라이더 스타일 */
-.slider-container {
+/* 그리드 슬라이더 스타일 */
+.grid-slider-container {
   position: relative;
   margin: 20px 0;
   overflow: hidden;
-  border-radius: 10px;
 }
 
-.slider-wrapper {
+.grid-slider-wrapper {
   display: flex;
-  transition: transform 0.5s ease;
+  transition: transform 0.5s ease-in-out;
 }
 
-.slider-item {
-  min-width: 300px;
-  margin: 0 10px;
-  background: white;
-  border-radius: 8px;
-  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-  overflow: hidden;
+.grid-slide {
+  min-width: 100%;
+  flex-shrink: 0;
 }
 
-.slider-item img {
-  width: 100%;
-  height: 200px;
-  object-fit: cover;
-}
-
-.slider-controls {
+.grid-slider-controls {
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
-  background: rgba(0,0,0,0.5);
+  background: rgba(0,0,0,0.6);
   color: white;
   border: none;
-  padding: 10px 15px;
+  padding: 15px 20px;
   cursor: pointer;
   border-radius: 50%;
-  font-size: 18px;
-  z-index: 10;
+  font-size: 20px;
+  z-index: 100;
+  transition: all 0.3s ease;
 }
 
-.slider-controls:hover {
+.grid-slider-controls:hover {
   background: rgba(0,0,0,0.8);
+  transform: translateY(-50%) scale(1.1);
 }
 
-.prev {
+.grid-slider-controls.prev {
   left: 10px;
 }
 
-.next {
+.grid-slider-controls.next {
   right: 10px;
 }
 
-.slider-title {
+.grid-slider-indicators {
   text-align: center;
-  margin: 20px 0;
-  font-size: 24px;
-  color: #333;
+  margin-top: 20px;
+}
+
+.indicator {
+  display: inline-block;
+  width: 12px;
+  height: 12px;
+  margin: 0 6px;
+  background: rgba(0,0,0,0.3);
+  border-radius: 50%;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.indicator.active,
+.indicator:hover {
+  background: rgba(0,0,0,0.7);
+  transform: scale(1.2);
+}
+
+/* 그리드 아이템 호버 효과 */
+.grid-slide .w3-quarter {
+  transition: transform 0.3s ease;
+}
+
+.grid-slide .w3-quarter:hover {
+  transform: translateY(-5px);
+}
+
+.grid-slide .w3-quarter img {
+  transition: transform 0.3s ease;
+}
+
+.grid-slide .w3-quarter:hover img {
+  transform: scale(1.05);
 }
 </style>
 </head>
@@ -83,112 +106,167 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Karma", sans-serif}
 <!-- Nuri page content: leave header/footer to the layout -->
 <div class="w3-main w3-content w3-padding" style="max-width:1200px;margin-top:100px">
   
-  <!-- 첫번째 사진 슬라이더 -->
-  <div class="slider-title">제주도 여행 🏝️</div>
-  <div class="slider-container" id="slider1">
-    <button class="slider-controls prev" onclick="moveSlider('slider1', -1)">❮</button>
-    <button class="slider-controls next" onclick="moveSlider('slider1', 1)">❯</button>
-    <div class="slider-wrapper" id="slider1-wrapper">
-      <div class="slider-item">
-        <img src="/assets/img/slider/dollhar.jpg" alt="dollhar">
-        <div class="w3-container w3-white">
-          <p><b>돌하르방</b></p>
-          <p>제주도의 상징인 돌하르방을 만나보세요.</p>
+  <!-- 첫번째 사진 그리드 슬라이더 -->
+  <div class="w3-center" style="margin: 20px 0;">
+    <h3>제주도 여행 🏝️</h3>
+  </div>
+  
+  <div class="grid-slider-container" id="gridSlider1">
+    <button class="grid-slider-controls prev" onclick="moveGridSlider('gridSlider1', -1)">❮</button>
+    <button class="grid-slider-controls next" onclick="moveGridSlider('gridSlider1', 1)">❯</button>
+    
+    <div class="grid-slider-wrapper" id="gridSlider1-wrapper">
+      <!-- 첫번째 세트 -->
+      <div class="w3-row-padding w3-padding-16 w3-center grid-slide" id="food">
+        <div class="w3-quarter">
+          <img src="/assets/img/slider/dollhar.jpg" alt="dollhar" style="width:100%">
+          <div class="w3-container w3-white">
+            <p><b>돌하르방</b></p>
+            <p>제주도의 상징인 돌하르방을 만나보세요.</p>
+          </div>
+        </div>
+        <div class="w3-quarter">
+          <img src="/assets/img/slider/road.jpg" alt="road" style="width:100%">
+          <div class="w3-container w3-white">
+            <p><b>제주 도로</b></p>
+            <p>아름다운 제주의 길을 따라 여행해보세요.</p>
+          </div>
+        </div>
+        <div class="w3-quarter">
+          <img src="/assets/img/slider/bada.jpg" alt="bada" style="width:100%">
+          <div class="w3-container w3-white">
+            <p><b>제주 바다</b></p>
+            <p>맑고 푸른 제주의 바다를 감상하세요.</p>
+          </div>
+        </div>
+        <div class="w3-quarter">
+          <img src="/assets/img/slider/horse.jpg" alt="horse" style="width:100%">
+          <div class="w3-container w3-white">
+            <p><b>제주 말</b></p>
+            <p>제주도의 자연 속에서 뛰노는 말들.</p>
+          </div>
         </div>
       </div>
-      <div class="slider-item">
-        <img src="/assets/img/slider/road.jpg" alt="road">
-        <div class="w3-container w3-white">
-          <p><b>제주 도로</b></p>
-          <p>아름다운 제주의 길을 따라 여행해보세요.</p>
+      
+      <!-- 두번째 세트 -->
+      <div class="w3-row-padding w3-padding-16 w3-center grid-slide">
+        <div class="w3-quarter">
+          <img src="/assets/img/slider/holidays.jpg" alt="holidays" style="width:100%">
+          <div class="w3-container w3-white">
+            <p><b>휴가</b></p>
+            <p>제주에서의 완벽한 휴가를 만끽하세요.</p>
+          </div>
         </div>
-      </div>
-      <div class="slider-item">
-        <img src="/assets/img/slider/bada.jpg" alt="bada">
-        <div class="w3-container w3-white">
-          <p><b>제주 바다</b></p>
-          <p>맑고 푸른 제주의 바다를 감상하세요.</p>
+        <div class="w3-quarter">
+          <img src="/assets/img/slider/Earth.jpg" alt="Earth" style="width:100%">
+          <div class="w3-container w3-white">
+            <p><b>자연</b></p>
+            <p>제주의 아름다운 자연환경.</p>
+          </div>
         </div>
-      </div>
-      <div class="slider-item">
-        <img src="/assets/img/slider/horse.jpg" alt="horse">
-        <div class="w3-container w3-white">
-          <p><b>제주 말</b></p>
-          <p>제주도의 자연 속에서 뛰노는 말들.</p>
+        <div class="w3-quarter">
+          <img src="/assets/img/slider/Bicycle.jpg" alt="Bicycle" style="width:100%">
+          <div class="w3-container w3-white">
+            <p><b>자전거</b></p>
+            <p>제주를 자전거로 둘러보는 특별한 경험.</p>
+          </div>
         </div>
-      </div>
-      <div class="slider-item">
-        <img src="/assets/img/slider/holidays.jpg" alt="holidays">
-        <div class="w3-container w3-white">
-          <p><b>휴가</b></p>
-          <p>제주에서의 완벽한 휴가를 만끽하세요.</p>
-        </div>
-      </div>
-      <div class="slider-item">
-        <img src="/assets/img/slider/Earth.jpg" alt="Earth">
-        <div class="w3-container w3-white">
-          <p><b>자연</b></p>
-          <p>제주의 아름다운 자연환경.</p>
+        <div class="w3-quarter">
+          <img src="/assets/img/slider/1.jpg" alt="1" style="width:100%">
+          <div class="w3-container w3-white">
+            <p><b>제주 풍경</b></p>
+            <p>제주만의 독특하고 아름다운 풍경.</p>
+          </div>
         </div>
       </div>
     </div>
+    
+    <!-- 슬라이더 인디케이터 -->
+    <div class="grid-slider-indicators" id="gridSlider1-indicators">
+      <span class="indicator active" onclick="goToGridSlide('gridSlider1', 0)"></span>
+      <span class="indicator" onclick="goToGridSlide('gridSlider1', 1)"></span>
+    </div>
   </div>
   
-  <!-- 두번째 사진 슬라이더 -->
-  <div class="slider-title">맛있는 음식들 🍜</div>
-  <div class="slider-container" id="slider2">
-    <button class="slider-controls prev" onclick="moveSlider('slider2', -1)">❮</button>
-    <button class="slider-controls next" onclick="moveSlider('slider2', 1)">❯</button>
-    <div class="slider-wrapper" id="slider2-wrapper">
-      <div class="slider-item">
-        <img src="/assets/img/slider/set.jpg" alt="set">
-        <div class="w3-container w3-white">
-          <p><b>정식</b></p>
-          <p>제주도 특별한 한상 정식을 맛보세요.</p>
+  <!-- 두번째 사진 그리드 슬라이더 -->
+  <div class="w3-center" style="margin: 40px 0 20px 0;">
+    <h3>맛있는 음식들 🍜</h3>
+  </div>
+  
+  <div class="grid-slider-container" id="gridSlider2">
+    <button class="grid-slider-controls prev" onclick="moveGridSlider('gridSlider2', -1)">❮</button>
+    <button class="grid-slider-controls next" onclick="moveGridSlider('gridSlider2', 1)">❯</button>
+    
+    <div class="grid-slider-wrapper" id="gridSlider2-wrapper">
+      <!-- 첫번째 세트 -->
+      <div class="w3-row-padding w3-padding-16 w3-center grid-slide">
+        <div class="w3-quarter">
+          <img src="/assets/img/slider/set.jpg" alt="set" style="width:100%">
+          <div class="w3-container w3-white">
+            <p><b>정식</b></p>
+            <p>제주도 특별한 한상 정식을 맛보세요.</p>
+          </div>
+        </div>
+        <div class="w3-quarter">
+          <img src="/assets/img/slider/noodle.jpg" alt="Noodle" style="width:100%">
+          <div class="w3-container w3-white">
+            <p><b>국수</b></p>
+            <p>제주도 전통 국수의 깊은 맛.</p>
+          </div>
+        </div>
+        <div class="w3-quarter">
+          <img src="/assets/img/slider/tree.jpg" alt="tree" style="width:100%">
+          <div class="w3-container w3-white">
+            <p><b>자연</b></p>
+            <p>제주의 푸른 나무들 사이에서.</p>
+          </div>
+        </div>
+        <div class="w3-quarter">
+          <img src="/assets/img/slider/nuri.jpg" alt="nuri" style="width:100%">
+          <div class="w3-container w3-white">
+            <p><b>누리</b></p>
+            <p>제주에서의 특별한 추억들.</p>
+          </div>
         </div>
       </div>
-      <div class="slider-item">
-        <img src="/assets/img/slider/noodle.jpg" alt="Noodle">
-        <div class="w3-container w3-white">
-          <p><b>국수</b></p>
-          <p>제주도 전통 국수의 깊은 맛.</p>
+      
+      <!-- 두번째 세트 -->
+      <div class="w3-row-padding w3-padding-16 w3-center grid-slide">
+        <div class="w3-quarter">
+          <img src="/assets/img/slider/pizza.jpg" alt="pizza" style="width:100%">
+          <div class="w3-container w3-white">
+            <p><b>피자</b></p>
+            <p>제주에서 즐기는 맛있는 피자.</p>
+          </div>
+        </div>
+        <div class="w3-quarter">
+          <img src="/assets/img/slider/corncake.jpg" alt="corncake" style="width:100%">
+          <div class="w3-container w3-white">
+            <p><b>옥수수 케이크</b></p>
+            <p>제주 특산물로 만든 달콤한 케이크.</p>
+          </div>
+        </div>
+        <div class="w3-quarter">
+          <img src="/assets/img/slider/barbecue.jpg" alt="barbecue" style="width:100%">
+          <div class="w3-container w3-white">
+            <p><b>바베큐</b></p>
+            <p>제주 흑돼지 바베큐의 풍미.</p>
+          </div>
+        </div>
+        <div class="w3-quarter">
+          <img src="/assets/img/slider/info.jpg" alt="info" style="width:100%">
+          <div class="w3-container w3-white">
+            <p><b>정보</b></p>
+            <p>제주 맛집 정보와 추천 메뉴.</p>
+          </div>
         </div>
       </div>
-      <div class="slider-item">
-        <img src="/assets/img/slider/tree.jpg" alt="tree">
-        <div class="w3-container w3-white">
-          <p><b>자연</b></p>
-          <p>제주의 푸른 나무들 사이에서.</p>
-        </div>
-      </div>
-      <div class="slider-item">
-        <img src="/assets/img/slider/nuri.jpg" alt="nuri">
-        <div class="w3-container w3-white">
-          <p><b>누리</b></p>
-          <p>제주에서의 특별한 추억들.</p>
-        </div>
-      </div>
-      <div class="slider-item">
-        <img src="/assets/img/slider/pizza.jpg" alt="pizza">
-        <div class="w3-container w3-white">
-          <p><b>피자</b></p>
-          <p>제주에서 즐기는 맛있는 피자.</p>
-        </div>
-      </div>
-      <div class="slider-item">
-        <img src="/assets/img/slider/corncake.jpg" alt="corncake">
-        <div class="w3-container w3-white">
-          <p><b>옥수수 케이크</b></p>
-          <p>제주 특산물로 만든 달콤한 케이크.</p>
-        </div>
-      </div>
-      <div class="slider-item">
-        <img src="/assets/img/slider/barbecue.jpg" alt="barbecue">
-        <div class="w3-container w3-white">
-          <p><b>바베큐</b></p>
-          <p>제주 흑돼지 바베큐의 풍미.</p>
-        </div>
-      </div>
+    </div>
+    
+    <!-- 슬라이더 인디케이터 -->
+    <div class="grid-slider-indicators" id="gridSlider2-indicators">
+      <span class="indicator active" onclick="goToGridSlide('gridSlider2', 0)"></span>
+      <span class="indicator" onclick="goToGridSlide('gridSlider2', 1)"></span>
     </div>
   </div>
 
@@ -198,36 +276,60 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Karma", sans-serif}
   </div>
 
 <script>
-// 슬라이더 기능
-let sliderPositions = {
-  'slider1': 0,
-  'slider2': 0
+// 그리드 슬라이더 기능
+let gridSliderPositions = {
+  'gridSlider1': 0,
+  'gridSlider2': 0
 };
 
-function moveSlider(sliderId, direction) {
+function moveGridSlider(sliderId, direction) {
   const wrapper = document.getElementById(sliderId + '-wrapper');
-  const items = wrapper.children;
-  const itemWidth = 320; // item width + margin
-  const maxItems = items.length;
-  const containerWidth = document.getElementById(sliderId).offsetWidth;
-  const visibleItems = Math.floor(containerWidth / itemWidth);
-  const maxPosition = Math.max(0, maxItems - visibleItems);
+  const slides = wrapper.children;
+  const maxPosition = slides.length - 1;
   
-  sliderPositions[sliderId] += direction;
+  gridSliderPositions[sliderId] += direction;
   
-  // 경계 처리
-  if (sliderPositions[sliderId] < 0) {
-    sliderPositions[sliderId] = 0;
-  } else if (sliderPositions[sliderId] > maxPosition) {
-    sliderPositions[sliderId] = maxPosition;
+  // 경계 처리 (순환)
+  if (gridSliderPositions[sliderId] < 0) {
+    gridSliderPositions[sliderId] = maxPosition;
+  } else if (gridSliderPositions[sliderId] > maxPosition) {
+    gridSliderPositions[sliderId] = 0;
   }
   
-  const translateX = -sliderPositions[sliderId] * itemWidth;
-  wrapper.style.transform = `translateX(${translateX}px)`;
+  const translateX = -gridSliderPositions[sliderId] * 100;
+  wrapper.style.transform = `translateX(${translateX}%)`;
+  
+  // 인디케이터 업데이트
+  updateIndicators(sliderId);
+}
+
+function goToGridSlide(sliderId, slideIndex) {
+  const wrapper = document.getElementById(sliderId + '-wrapper');
+  const slides = wrapper.children;
+  
+  if (slideIndex >= 0 && slideIndex < slides.length) {
+    gridSliderPositions[sliderId] = slideIndex;
+    const translateX = -slideIndex * 100;
+    wrapper.style.transform = `translateX(${translateX}%)`;
+    updateIndicators(sliderId);
+  }
+}
+
+function updateIndicators(sliderId) {
+  const indicators = document.querySelectorAll(`#${sliderId}-indicators .indicator`);
+  const currentIndex = gridSliderPositions[sliderId];
+  
+  indicators.forEach((indicator, index) => {
+    if (index === currentIndex) {
+      indicator.classList.add('active');
+    } else {
+      indicator.classList.remove('active');
+    }
+  });
 }
 
 // 터치/스와이프 지원
-document.querySelectorAll('.slider-container').forEach(container => {
+document.querySelectorAll('.grid-slider-container').forEach(container => {
   let startX = 0;
   let startY = 0;
   let isScrolling = false;
@@ -255,12 +357,12 @@ document.querySelectorAll('.slider-container').forEach(container => {
     
     let diffX = startX - e.changedTouches[0].clientX;
     
-    if (Math.abs(diffX) > 50) { // 50px 이상 스와이프 시
+    if (Math.abs(diffX) > 80) { // 80px 이상 스와이프 시
       const sliderId = container.id;
       if (diffX > 0) {
-        moveSlider(sliderId, 1); // 왼쪽으로 스와이프 = 다음
+        moveGridSlider(sliderId, 1); // 왼쪽으로 스와이프 = 다음
       } else {
-        moveSlider(sliderId, -1); // 오른쪽으로 스와이프 = 이전
+        moveGridSlider(sliderId, -1); // 오른쪽으로 스와이프 = 이전
       }
     }
     
@@ -273,12 +375,23 @@ document.querySelectorAll('.slider-container').forEach(container => {
 // 키보드 지원
 document.addEventListener('keydown', (e) => {
   if (e.key === 'ArrowLeft') {
-    moveSlider('slider1', -1);
-    moveSlider('slider2', -1);
+    moveGridSlider('gridSlider1', -1);
+    moveGridSlider('gridSlider2', -1);
   } else if (e.key === 'ArrowRight') {
-    moveSlider('slider1', 1);
-    moveSlider('slider2', 1);
+    moveGridSlider('gridSlider1', 1);
+    moveGridSlider('gridSlider2', 1);
   }
 });
+
+// 자동 슬라이드 (선택사항)
+function startAutoSlide() {
+  setInterval(() => {
+    moveGridSlider('gridSlider1', 1);
+    moveGridSlider('gridSlider2', 1);
+  }, 5000); // 5초마다 자동 슬라이드
+}
+
+// 페이지 로드 후 자동 슬라이드 시작 (원한다면 주석 해제)
+// window.addEventListener('load', startAutoSlide);
 </script>
 
