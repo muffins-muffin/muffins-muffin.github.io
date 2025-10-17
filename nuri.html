@@ -17,11 +17,20 @@ permalink: /nuri/
 body,h1,h2,h3,h4,h5,h6 {font-family: "Karma", sans-serif}
 .w3-bar-block .w3-bar-item {padding:20px}
 
-/* Transparent text overlay styles */
+/* Enhanced interactive image styles */
 .image-container {
   position: relative;
   overflow: hidden;
-  border-radius: 8px;
+  border-radius: 12px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+  cursor: pointer;
+}
+
+/* Hover effects for container */
+.image-container:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
 }
 
 .image-overlay {
@@ -30,37 +39,95 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Karma", sans-serif}
   left: 0;
   right: 0;
   bottom: 0;
-  background: rgba(0, 0, 0, 0.4);
+  background: linear-gradient(135deg, rgba(64, 224, 208, 0.8), rgba(255, 140, 0, 0.8));
   display: flex;
   align-items: center;
   justify-content: center;
   opacity: 0;
-  transition: opacity 0.3s ease;
+  transition: all 0.4s ease;
+  transform: scale(1.1);
 }
 
 .image-container:hover .image-overlay {
   opacity: 1;
+  transform: scale(1);
 }
 
 .overlay-text {
   color: white;
-  font-size: 18px;
+  font-size: 20px;
   font-weight: bold;
   text-align: center;
-  text-shadow: 2px 2px 4px rgba(0,0,0,0.8);
-  padding: 10px;
-  background: rgba(255, 255, 255, 0.1);
-  border-radius: 5px;
-  backdrop-filter: blur(5px);
-  border: 1px solid rgba(255, 255, 255, 0.2);
+  text-shadow: 2px 2px 8px rgba(0,0,0,0.5);
+  padding: 15px 20px;
+  background: rgba(255, 255, 255, 0.15);
+  border-radius: 8px;
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  transform: translateY(20px);
+  transition: transform 0.4s ease;
+}
+
+.image-container:hover .overlay-text {
+  transform: translateY(0);
 }
 
 .image-container img {
-  transition: transform 0.3s ease;
+  transition: all 0.4s ease;
+  width: 100%;
+  height: auto;
+  display: block;
 }
 
 .image-container:hover img {
-  transform: scale(1.05);
+  transform: scale(1.08);
+  filter: brightness(1.1) contrast(1.1);
+}
+
+/* Card container enhancements */
+.w3-quarter {
+  transition: transform 0.3s ease;
+}
+
+.w3-quarter:hover {
+  z-index: 5;
+}
+
+/* Text container hover effects */
+.w3-container.w3-white {
+  transition: all 0.3s ease;
+  border-radius: 0 0 12px 12px;
+  margin-top: -5px;
+  position: relative;
+  z-index: 1;
+}
+
+.image-container:hover + .w3-container.w3-white {
+  background: linear-gradient(135deg, #f8f9fa, #e9ecef) !important;
+  transform: translateY(-3px);
+}
+
+/* Pulse effect on hover */
+@keyframes pulse {
+  0% { box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1); }
+  50% { box-shadow: 0 8px 25px rgba(64, 224, 208, 0.3); }
+  100% { box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1); }
+}
+
+.image-container:hover {
+  animation: pulse 2s infinite;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .image-container:hover {
+    transform: translateY(-4px);
+  }
+  
+  .overlay-text {
+    font-size: 16px;
+    padding: 10px 15px;
+  }
 }
 </style>
 </head>
