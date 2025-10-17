@@ -16,6 +16,52 @@ permalink: /nuri/
 <style>
 body,h1,h2,h3,h4,h5,h6 {font-family: "Karma", sans-serif}
 .w3-bar-block .w3-bar-item {padding:20px}
+
+/* Transparent text overlay styles */
+.image-container {
+  position: relative;
+  overflow: hidden;
+  border-radius: 8px;
+}
+
+.image-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.image-container:hover .image-overlay {
+  opacity: 1;
+}
+
+.overlay-text {
+  color: white;
+  font-size: 18px;
+  font-weight: bold;
+  text-align: center;
+  text-shadow: 2px 2px 4px rgba(0,0,0,0.8);
+  padding: 10px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 5px;
+  backdrop-filter: blur(5px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.image-container img {
+  transition: transform 0.3s ease;
+}
+
+.image-container:hover img {
+  transform: scale(1.05);
+}
 </style>
 </head>
 <body>
@@ -24,30 +70,50 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Karma", sans-serif}
   <!-- 첫번째 사진 그리드-->
   <div class="w3-row-padding w3-padding-16 w3-center" id="food">
     <div class="w3-quarter">
-      <img src="/assets/img/slider/dollhar.jpg" alt="dollhar" style="width:100%">
+      <div class="image-container">
+        <img src="/assets/img/slider/dollhar.jpg" alt="dollhar" style="width:100%">
+        <div class="image-overlay">
+          <div class="overlay-text">돌하르방<br><small>Jeju Guardian</small></div>
+        </div>
+      </div>
       <div class="w3-container w3-white">
         <p><b>돌하르방</b></p>
         <p>Praesent tincidunt sed tellus ut rutrum. Sed vitae justo condimentum, porta lectus vitae, ultricies congue gravida diam non fringilla.</p>
       </div>
     </div>
     <div class="w3-quarter">
-      <img src="/assets/img/slider/road.jpg" alt="road" style="width:100%">
+      <div class="image-container">
+        <img src="/assets/img/slider/road.jpg" alt="road" style="width:100%">
+        <div class="image-overlay">
+          <div class="overlay-text">제주 도로<br><small>Jeju Roads</small></div>
+        </div>
+      </div>
       <div class="w3-container w3-white">
-        <p><b>돌하르방</b></p>
+        <p><b>제주 도로</b></p>
         <p>Praesent tincidunt sed tellus ut rutrum. Sed vitae justo condimentum, porta lectus vitae, ultricies congue gravida diam non fringilla.</p>
       </div>
     </div>
     <div class="w3-quarter">
-      <img src="/assets/img/slider/bada.jpg" alt="bada" style="width:100%">
+      <div class="image-container">
+        <img src="/assets/img/slider/bada.jpg" alt="bada" style="width:100%">
+        <div class="image-overlay">
+          <div class="overlay-text">제주 바다<br><small>Jeju Ocean</small></div>
+        </div>
+      </div>
       <div class="w3-container w3-white">
-        <p><b>돌하르방</b></p>
+        <p><b>제주 바다</b></p>
         <p>Praesent tincidunt sed tellus ut rutrum. Sed vitae justo condimentum, porta lectus vitae, ultricies congue gravida diam non fringilla.</p>
       </div>
     </div>
     <div class="w3-quarter">
-      <img src="/assets/img/slider/horse.jpg" alt="horse" style="width:100%">
+      <div class="image-container">
+        <img src="/assets/img/slider/horse.jpg" alt="horse" style="width:100%">
+        <div class="image-overlay">
+          <div class="overlay-text">제주 말<br><small>Jeju Horses</small></div>
+        </div>
+      </div>
       <div class="w3-container w3-white">
-        <p><b>돌하르방</b></p>
+        <p><b>제주 말</b></p>
         <p>Praesent tincidunt sed tellus ut rutrum. Sed vitae justo condimentum, porta lectus vitae, ultricies congue gravida diam non fringilla.</p>
       </div>
     </div>
@@ -56,30 +122,50 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Karma", sans-serif}
   <!-- 두번째 사진 그리드-->
   <div class="w3-row-padding w3-padding-16 w3-center">
     <div class="w3-quarter">
-      <img src="/assets/img/slider/set.jpg" alt="set" style="width:100%">
+      <div class="image-container">
+        <img src="/assets/img/slider/set.jpg" alt="set" style="width:100%">
+        <div class="image-overlay">
+          <div class="overlay-text">정식<br><small>Korean Set Meal</small></div>
+        </div>
+      </div>
       <div class="w3-container w3-white">
-        <p><b>돌하르방</b></p>
+        <p><b>정식</b></p>
         <p>Praesent tincidunt sed tellus ut rutrum. Sed vitae justo condimentum, porta lectus vitae, ultricies congue gravida diam non fringilla.</p>
       </div>
     </div>
     <div class="w3-quarter">
-      <img src="/assets/img/slider/noodle.jpg" alt="Noodle" style="width:100%">
+      <div class="image-container">
+        <img src="/assets/img/slider/noodle.jpg" alt="Noodle" style="width:100%">
+        <div class="image-overlay">
+          <div class="overlay-text">국수<br><small>Korean Noodles</small></div>
+        </div>
+      </div>
       <div class="w3-container w3-white">
-        <p><b>돌하르방</b></p>
+        <p><b>국수</b></p>
         <p>Praesent tincidunt sed tellus ut rutrum. Sed vitae justo condimentum, porta lectus vitae, ultricies congue gravida diam non fringilla.</p>
       </div>
     </div>
     <div class="w3-quarter">
-      <img src="/assets/img/slider/tree.jpg" alt="tree" style="width:100%">
+      <div class="image-container">
+        <img src="/assets/img/slider/tree.jpg" alt="tree" style="width:100%">
+        <div class="image-overlay">
+          <div class="overlay-text">자연<br><small>Nature</small></div>
+        </div>
+      </div>
       <div class="w3-container w3-white">
-        <p><b>돌하르방</b></p>
+        <p><b>자연</b></p>
         <p>Praesent tincidunt sed tellus ut rutrum. Sed vitae justo condimentum, porta lectus vitae, ultricies congue gravida diam non fringilla.</p>
       </div>
     </div>
     <div class="w3-quarter">
-      <img src="/assets/img/slider/nuri.jpg" alt="nuri" style="width:100%">
+      <div class="image-container">
+        <img src="/assets/img/slider/nuri.jpg" alt="nuri" style="width:100%">
+        <div class="image-overlay">
+          <div class="overlay-text">누리<br><small>Nuri</small></div>
+        </div>
+      </div>
       <div class="w3-container w3-white">
-        <p><b>돌하르방</b></p>
+        <p><b>누리</b></p>
         <p>Praesent tincidunt sed tellus ut rutrum. Sed vitae justo condimentum, porta lectus vitae, ultricies congue gravida diam non fringilla.</p>
       </div>
     </div>
