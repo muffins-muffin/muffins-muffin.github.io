@@ -66,7 +66,7 @@ body {
   gap: 20px;
   padding: 40px 20px;
   max-width: 1200px;
-  margin: 0 auto;
+  margin: 0 auto 80px auto;
 }
 
 .pizza-card {
@@ -171,6 +171,152 @@ body {
     grid-template-columns: 1fr;
   }
 }
+
+/* Ton Section Styles */
+.ton-section {
+  background: linear-gradient(135deg, rgba(139, 69, 19, 0.8) 0%, rgba(160, 82, 45, 0.8) 100%), 
+              url('/assets/img/slider/ton4.jpg');
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+  padding: 80px 0;
+  margin: 0 calc(-50vw + 50%);
+  width: 100vw;
+  position: relative;
+}
+
+.ton-section::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.4);
+  z-index: 1;
+}
+
+.ton-hero {
+  text-align: center;
+  color: white;
+  margin-bottom: 40px;
+  position: relative;
+  z-index: 2;
+}
+
+.ton-title {
+  font-size: 48px;
+  font-weight: bold;
+  margin-bottom: 15px;
+  text-shadow: 3px 3px 6px rgba(0,0,0,0.8);
+  letter-spacing: 1px;
+}
+
+.ton-subtitle {
+  font-size: 22px;
+  opacity: 0.95;
+  text-shadow: 2px 2px 4px rgba(0,0,0,0.7);
+  font-weight: 300;
+}
+
+.ton-gallery {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 25px;
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 0 20px;
+  position: relative;
+  z-index: 2;
+}
+
+.ton-card {
+  position: relative;
+  border-radius: 18px;
+  overflow: hidden;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+  transition: all 0.4s ease;
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(15px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.ton-card:hover {
+  transform: translateY(-12px) scale(1.02);
+  box-shadow: 0 25px 50px rgba(0,0,0,0.6);
+}
+
+.ton-card img {
+  width: 100%;
+  height: 220px;
+  object-fit: cover;
+  transition: transform 0.4s ease;
+}
+
+.ton-card:hover img {
+  transform: scale(1.15);
+}
+
+.ton-info {
+  padding: 22px;
+  text-align: center;
+}
+
+.ton-name {
+  font-size: 1.4em;
+  font-weight: bold;
+  color: #8B4513;
+  margin-bottom: 12px;
+  text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+}
+
+.ton-description {
+  font-size: 0.95em;
+  color: #555;
+  line-height: 1.5;
+}
+
+/* Ton cards animation */
+.ton-card {
+  animation: tonFadeIn 0.8s ease-out forwards;
+  opacity: 0;
+  transform: translateY(40px);
+}
+
+.ton-card:nth-child(1) { animation-delay: 0.2s; }
+.ton-card:nth-child(2) { animation-delay: 0.4s; }
+.ton-card:nth-child(3) { animation-delay: 0.6s; }
+.ton-card:nth-child(4) { animation-delay: 0.8s; }
+.ton-card:nth-child(5) { animation-delay: 1.0s; }
+
+@keyframes tonFadeIn {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Responsive for ton section */
+@media (max-width: 768px) {
+  .ton-gallery {
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+  }
+  
+  .ton-title {
+    font-size: 2.5em;
+  }
+  
+  .ton-subtitle {
+    font-size: 1.1em;
+  }
+}
+
+@media (max-width: 480px) {
+  .ton-gallery {
+    grid-template-columns: 1fr;
+  }
+}
 </style>
 
 <!-- Hero Section - Full Width -->
@@ -263,4 +409,61 @@ body {
     </div>
   </div>
 
+</div>
+
+<!-- Ton Section -->
+<div class="ton-section">
+  <div class="ton-hero">
+    <div class="ton-title">🍖 Ton Collection</div>
+    <div class="ton-subtitle">프리미엄 돈까스와 특별한 육류 요리의 세계</div>
+  </div>
+
+  <div class="ton-gallery">
+    
+    <!-- Ton 1 -->
+    <div class="ton-card">
+      <img src="/assets/img/slider/ton1.jpg" alt="Ton 1">
+      <div class="ton-info">
+        <div class="ton-name">클래식 돈까스</div>
+        <div class="ton-description">바삭한 겉면과 부드러운 속살이 일품인 전통 돈까스</div>
+      </div>
+    </div>
+
+    <!-- Ton 2 -->
+    <div class="ton-card">
+      <img src="/assets/img/slider/ton2.jpg" alt="Ton 2">
+      <div class="ton-info">
+        <div class="ton-name">치즈 돈까스</div>
+        <div class="ton-description">진한 치즈가 가득 들어간 특별한 돈까스</div>
+      </div>
+    </div>
+
+    <!-- Ton 3 -->
+    <div class="ton-card">
+      <img src="/assets/img/slider/ton3.jpg" alt="Ton 3">
+      <div class="ton-info">
+        <div class="ton-name">등심 스테이크</div>
+        <div class="ton-description">최고급 등심으로 만든 프리미엄 스테이크</div>
+      </div>
+    </div>
+
+    <!-- Ton 4 -->
+    <div class="ton-card">
+      <img src="/assets/img/slider/ton4.jpg" alt="Ton 4">
+      <div class="ton-info">
+        <div class="ton-name">갈비 구이</div>
+        <div class="ton-description">특제 소스에 재운 부드러운 갈비 구이</div>
+      </div>
+    </div>
+
+    <!-- Ton 5 -->
+    <div class="ton-card">
+      <img src="/assets/img/slider/ton5.jpg" alt="Ton 5">
+      <div class="ton-info">
+        <div class="ton-name">삼겹살 정식</div>
+        <div class="ton-description">고급 삼겹살과 다양한 밑반찬이 함께하는 정식</div>
+      </div>
+    </div>
+
+  </div>
 </div>
