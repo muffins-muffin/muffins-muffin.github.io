@@ -17,6 +17,52 @@ permalink: /nuri/
 body,h1,h2,h3,h4,h5,h6 {font-family: "Karma", sans-serif}
 .w3-bar-block .w3-bar-item {padding:20px}
 
+/* Jeju themed styles */
+.jeju-hero {
+  background: linear-gradient(135deg, rgba(64, 224, 208, 0.7) 0%, rgba(255, 140, 0, 0.7) 100%), 
+              url('/assets/img/slider/horse.jpg');
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+  color: white;
+  padding: 80px 20px;
+  text-align: center;
+  margin-bottom: 40px;
+  position: relative;
+  overflow: hidden;
+}
+
+.jeju-hero::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.3);
+  z-index: 1;
+}
+
+.jeju-title, .jeju-subtitle {
+  position: relative;
+  z-index: 2;
+}
+
+.jeju-title {
+  font-size: 52px;
+  font-weight: bold;
+  margin-bottom: 20px;
+  text-shadow: 3px 3px 6px rgba(0,0,0,0.7);
+  letter-spacing: 2px;
+}
+
+.jeju-subtitle {
+  font-size: 26px;
+  opacity: 0.95;
+  text-shadow: 2px 2px 4px rgba(0,0,0,0.6);
+  font-weight: 300;
+}
+
 /* Enhanced interactive image styles */
 .image-container {
   position: relative;
@@ -132,13 +178,17 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Karma", sans-serif}
 </style>
 </head>
 <body>
-<!-- Nuri page content: leave header/footer to the layout -->
-<div class="w3-main w3-content w3-padding" style="width:100%;max-width:none;margin:100px 0 0;min-height:calc(100vh - 100px);"></div>
+
+<!-- Nuri page content -->
+<div class="w3-main w3-content w3-padding" style="max-width:1200px;margin-top:100px">
+
   <!-- Hero Section -->
-  <div class="hk-hero">
-    <div class="hk-title"> Jeju Vibe</div>
-    
-    <!-- 첫번째 사진 그리드-->
+  <div class="jeju-hero">
+    <div class="jeju-title">🌺 Jeju Vibe</div>
+    <div class="jeju-subtitle">제주의 자연과 문화가 만나는 특별한 여행</div>
+  </div>
+
+  <!-- 첫번째 사진 그리드-->
   <div class="w3-row-padding w3-padding-16 w3-center" id="food">
     <div class="w3-quarter">
       <div class="image-container">
@@ -242,13 +292,10 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Karma", sans-serif}
     </div>
   </div>
 
+</div>
 
-
-
-
-    </div>
-
-  </div>
+</body>
+</html>
 
 
 
