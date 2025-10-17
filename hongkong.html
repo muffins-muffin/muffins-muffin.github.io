@@ -16,13 +16,19 @@ permalink: /hongkong/
 body,h1,h2,h3,h4,h5,h6 {font-family: "Karma", sans-serif}
 .w3-bar-block .w3-bar-item {padding:20px}
 
-/* Hong Kong themed styles */
-.hk-hero {
+/* Full page background */
+body {
   background: linear-gradient(135deg, rgba(102, 126, 234, 0.7) 0%, rgba(118, 75, 162, 0.7) 100%), 
               url('/assets/img/slider/nighthk.jpg');
   background-size: cover;
   background-position: center;
   background-attachment: fixed;
+  min-height: 100vh;
+}
+
+/* Hong Kong themed styles */
+.hk-hero {
+  background: transparent;
   color: white;
   padding: 150px 0 80px;
   text-align: center;
@@ -109,14 +115,16 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Karma", sans-serif}
 
 /* Enhanced description card styles */
 .description-card {
-  background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.9) 0%, rgba(248, 249, 250, 0.9) 100%);
   border-radius: 0 0 15px 15px;
   padding: 25px 20px;
   margin-top: -5px;
-  box-shadow: 0 8px 25px rgba(0,0,0,0.08);
+  box-shadow: 0 8px 25px rgba(0,0,0,0.2);
   transition: all 0.4s ease;
   position: relative;
   overflow: hidden;
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
 }
 
 .description-card::before {
@@ -213,12 +221,12 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Karma", sans-serif}
 
 <!-- Hero Section - Full Width -->
 <div class="hk-hero">
-  <div class="hk-title">🏙️ Hong Kong Vibe</div>
-  <div class="hk-subtitle">동양의 진주, 홍콩의 매력을 만나보세요</div>
+  <div class="hk-title">Hong Kong Vibe</div>
+  
 </div>
 
 <!-- Hong Kong page content -->
-<div class="w3-main w3-content w3-padding" style="max-width:1200px;margin-top:40px">
+<div class="w3-main w3-content w3-padding" style="max-width:1200px;margin-top:40px;background:rgba(255,255,255,0.05);border-radius:20px;backdrop-filter:blur(5px)">
 
   <!-- 첫번째 홍콩 그리드 -->
   <div class="w3-row-padding w3-padding-16 w3-center">
