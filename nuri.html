@@ -70,3 +70,26 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Karma", sans-serif}
     </div>
   </div>
 
+  <!-- Small script: make header 'Blog' links go to main page -->
+  <script>
+    (function(){
+      try {
+        // Find brand link(s) and any nav links that have exact text 'Blog'
+        var doc = document;
+        var anchors = doc.querySelectorAll('a');
+        anchors.forEach(function(a){
+          var txt = (a.textContent || '').trim();
+          if(txt === 'Blog'){
+            a.setAttribute('href','/');
+            // If someone clicks, ensure middle-of-page navigation goes home instead of anchor refresh
+            a.addEventListener('click', function(e){
+              // allow normal navigation to root
+            });
+          }
+        });
+      } catch(err) {
+        console && console.warn && console.warn('nuri.js: failed to remap Blog links', err);
+      }
+    })();
+  </script>
+
