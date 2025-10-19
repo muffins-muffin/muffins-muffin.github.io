@@ -401,3 +401,188 @@ body {
 
   </div>
 </div>
+
+<!-- Comments Section -->
+<div class="container" style="margin-top: 50px; margin-bottom: 100px;">
+  <div class="row">
+    <div class="col-md-8 col-md-offset-2">
+      <div class="comment-section">
+        <h3 style="color: #ff6b35; margin-bottom: 30px; text-align: center; font-weight: bold;">
+          <i class="fa fa-comments"></i> 댓글 남기기
+        </h3>
+        
+        <!-- Comment Form -->
+        <div class="comment-form" style="background: rgba(255, 255, 255, 0.95); padding: 25px; border-radius: 10px; margin-bottom: 30px; box-shadow: 0 2px 10px rgba(0,0,0,0.1);">
+          <form id="commentForm">
+            <div class="row">
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label for="commentName" style="color: #333; font-weight: bold;">이름</label>
+                  <input type="text" class="form-control" id="commentName" placeholder="이름을 입력해주세요" required style="border-radius: 5px;">
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label for="commentEmail" style="color: #333; font-weight: bold;">이메일 (선택)</label>
+                  <input type="email" class="form-control" id="commentEmail" placeholder="이메일을 입력해주세요" style="border-radius: 5px;">
+                </div>
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="commentText" style="color: #333; font-weight: bold;">댓글</label>
+              <textarea class="form-control" id="commentText" rows="4" placeholder="피자에 대한 생각을 자유롭게 남겨주세요!" required style="border-radius: 5px; resize: vertical;"></textarea>
+            </div>
+            <div class="text-center">
+              <button type="submit" class="btn" style="background: linear-gradient(135deg, #ff6b35, #f7931e); color: white; border: none; padding: 12px 30px; border-radius: 25px; font-weight: bold; box-shadow: 0 4px 15px rgba(255, 107, 53, 0.3);">
+                <i class="fa fa-paper-plane"></i> 댓글 등록
+              </button>
+            </div>
+          </form>
+        </div>
+
+        <!-- Comments Display -->
+        <div class="comments-display">
+          <h4 style="color: #ff6b35; margin-bottom: 20px;">
+            <i class="fa fa-comment-o"></i> 댓글 목록 <span id="commentCount" style="color: #999;">(0)</span>
+          </h4>
+          <div id="commentsList">
+            <!-- Comments will be loaded here by JavaScript -->
+          </div>
+          
+          <!-- Empty State -->
+          <div id="emptyComments" style="display: none; text-align: center; padding: 40px; color: #999;">
+            <i class="fa fa-comment-o" style="font-size: 3em; margin-bottom: 15px; opacity: 0.5;"></i>
+            <p>아직 댓글이 없습니다. 첫 번째 댓글을 남겨보세요!</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Load existing comments from localStorage
+    let comments = JSON.parse(localStorage.getItem('pizzaComments')) || [];
+    
+    // Update comment count
+    function updateCommentCount() {
+        document.getElementById('commentCount').textContent = `(${comments.length})`;
+        
+        // Show/hide empty state
+        if (comments.length === 0) {
+            document.getElementById('emptyComments').style.display = 'block';
+            document.getElementById('commentsList').style.display = 'none';
+        } else {
+            document.getElementById('emptyComments').style.display = 'none';
+            document.getElementById('commentsList').style.display = 'block';
+        }
+    }
+    
+    // Format date
+    function formatDate(date) {
+        return new Intl.DateTimeFormat('ko-KR', {
+            year: 'numeric',
+            month: 'long',
+            day: 'numeric',
+            hour: '2-digit',
+            minute: '2-digit'
+        }).format(date);
+    }
+    
+    // Render comments
+    function renderComments() {
+        const commentsList = document.getElementById('commentsList');
+        
+        if (comments.length === 0) {
+            updateCommentCount();
+            return;
+        }
+        
+        commentsList.innerHTML = comments.map(comment => `
+            <div class="comment-item" style="background: rgba(255, 255, 255, 0.9); padding: 20px; border-radius: 8px; margin-bottom: 15px; border-left: 4px solid #ff6b35;">
+                <div class="comment-header" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
+                    <div>
+                        <strong style="color: #ff6b35;">${comment.name}</strong>
+                        <span style="color: #999; font-size: 0.9em; margin-left: 10px;">
+                            <i class="fa fa-clock-o"></i> ${comment.date}
+                        </span>
+                    </div>
+                    <button onclick="deleteComment(${comment.id})" class="btn btn-sm" style="background: none; border: none; color: #999; padding: 5px;" title="댓글 삭제">
+                        <i class="fa fa-trash-o"></i>
+                    </button>
+                </div>
+                <div class="comment-text" style="color: #555; line-height: 1.6;">
+                    ${comment.text.replace(/\n/g, '<br>')}
+                </div>
+            </div>
+        `).join('');
+        
+        updateCommentCount();
+    }
+    
+    // Delete comment function
+    window.deleteComment = function(commentId) {
+        if (confirm('정말로 이 댓글을 삭제하시겠습니까?')) {
+            comments = comments.filter(comment => comment.id !== commentId);
+            localStorage.setItem('pizzaComments', JSON.stringify(comments));
+            renderComments();
+        }
+    };
+    
+    // Handle form submission
+    document.getElementById('commentForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+        
+        const name = document.getElementById('commentName').value.trim();
+        const email = document.getElementById('commentEmail').value.trim();
+        const text = document.getElementById('commentText').value.trim();
+        
+        if (!name || !text) {
+            alert('이름과 댓글 내용을 입력해주세요.');
+            return;
+        }
+        
+        // Create new comment
+        const newComment = {
+            id: Date.now(),
+            name: name,
+            email: email,
+            text: text,
+            date: formatDate(new Date())
+        };
+        
+        // Add to comments array
+        comments.unshift(newComment); // Add to beginning
+        
+        // Save to localStorage
+        localStorage.setItem('pizzaComments', JSON.stringify(comments));
+        
+        // Clear form
+        document.getElementById('commentForm').reset();
+        
+        // Re-render comments
+        renderComments();
+        
+        // Show success message
+        const submitBtn = document.querySelector('#commentForm button[type="submit"]');
+        const originalText = submitBtn.innerHTML;
+        submitBtn.innerHTML = '<i class="fa fa-check"></i> 등록 완료!';
+        submitBtn.style.background = 'linear-gradient(135deg, #28a745, #20c997)';
+        
+        setTimeout(() => {
+            submitBtn.innerHTML = originalText;
+            submitBtn.style.background = 'linear-gradient(135deg, #ff6b35, #f7931e)';
+        }, 2000);
+    });
+    
+    // Initial render
+    renderComments();
+    
+    // Add smooth scrolling for comment form
+    const commentSection = document.querySelector('.comment-section');
+    if (commentSection) {
+        commentSection.style.scrollMarginTop = '100px';
+    }
+});
+</script>
